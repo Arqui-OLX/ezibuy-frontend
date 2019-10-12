@@ -1,0 +1,37 @@
+
+
+  .footerBtn{
+    -webkit-filter: grayscale(100%);
+    filter: (100%);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    margin: 1% 1%;
+  }
+  
+  .footerBtn:hover{
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+    transform: scale(1.1)
+  }
+  
+
+  footer {
+    /*
+    left: 0;
+    */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 1%;
+    margin-top: 1%;
+    
+  
+    
+    
+    font-size: 100%;
+    
+    color: white;
+    background: #5a8596;  
+     
+  }
+  

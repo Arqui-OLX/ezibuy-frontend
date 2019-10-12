@@ -1,9 +1,21 @@
+/*pallete: https://coolors.co/111d44-e0dfd0-71a9b7-5a8596-5c6f70*/
+/* logo: https://secure.logomaker.com/es/step3/parent/526283782?force_font=127.ttf&lastsave=5b3d2b401cb17ed25c2f2301d987276f
+
+/* Fonts
+  font-family: 'Anton', cursive;
+  font-family: 'Source Sans Pro', sans-serif;
+*/
+
 .App {
   text-align: center;
+
 }
 
-.App-logo {
-  height: 40vmin;
+
+body{
+ /* gradient background*/
+  background: #e0dfd0;
+  
 }
 
 .App-header {
@@ -17,6 +29,7 @@
   color: white;
 }
 
+
 .App-link {
-  color: #09d3ac;
+  color: #61dafb;
 }
