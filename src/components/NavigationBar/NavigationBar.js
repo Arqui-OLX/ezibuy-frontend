@@ -19,13 +19,13 @@ class NavigationBar extends Component {
             <Navbar.Brand href="/home" className = "navLogo" >
               < img 
                 src= "./logo.png"
-                width="70"
+                width="140"
                 height="70"
                 alt="EZiBuy logo"
               />
           </Navbar.Brand>
               <Nav className="mr-auto">
-                <li><Link className="NavLink" to="/home">EzIBuy</Link></li>
+                
                 <li><Link className="NavLink" to="/">Categorias</Link></li>
                 <li><Link className="NavLink" to="/login">Ingresar</Link></li>
                 <li><Link className="NavLink" to="/">Registrarse</Link></li>
