@@ -11,6 +11,7 @@ class PopularCategories extends Component {
             <React.Fragment>
               
             <div className="container">
+                <h3>Categorias más populares</h3>
                 <div className="card-deck mb-3 text-center ">
 
                         <div className="card mb-4 box-shadow">

@@ -14,7 +14,7 @@ class LandingPage extends Component {
     render() {
         return (
             <React.Fragment>
-                
+          
               <PopularCategories/>
               <Posts/>       
               <Categories/>

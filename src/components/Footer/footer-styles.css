@@ -16,20 +16,13 @@
   
 
   footer {
-    /*
-    left: 0;
-    */
-    position: fixed;
+  
+    position: none;
     bottom: 0;
     width: 100%;
     padding-bottom: 1%;
     margin-top: 1%;
-    
-  
-    
-    
     font-size: 100%;
-    
     color: white;
     background: #5a8596;  
      
