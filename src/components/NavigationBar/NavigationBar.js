@@ -28,8 +28,9 @@ class NavigationBar extends Component {
                 
                 <li><Link className="NavLink" to="/">Categorias</Link></li>
                 <li><Link className="NavLink" to="/login">Ingresar</Link></li>
+                <li><Link className="NavLink" to="/profile">Profile</Link></li>
                 <li><Link className="NavLink" to="/">Registrarse</Link></li>
-                <li><Link className="NavLink" to="/invoice">...</Link></li>
+                
               </Nav>
 
               <Form inline>

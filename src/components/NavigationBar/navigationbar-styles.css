@@ -8,14 +8,15 @@
   
   .NavLink{
     margin: 14px;
-    transition: .5s ease-in-out;
+ 
     color: white;
   }
 
   .NavLink:hover{
     margin: 14px;
-    transition: .5s ease-in-out;
+    transition: .6s ease;
     color: #111d44;
+    
   }
   
   .navLogo{
