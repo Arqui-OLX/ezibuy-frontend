@@ -15,7 +15,8 @@ class PopularCategories extends Component {
                 <div className="card-deck mb-3 text-center ">
 
                         <div className="card mb-4 box-shadow">
-                            <div className="card-header">
+                           <a href="http://google.com">
+                                <div className="card-header">
                                 <h4>Carros</h4>
                             </div>
                             <img className="card-img-top"  src="/ferrari-portofino.jpg" alt="fotoPerfil"/>                  
@@ -27,36 +28,41 @@ class PopularCategories extends Component {
                                     Aceptar
                                 </button>
                             </div>
+                           </a>
                         </div>
 
                         <div className="card mb-4 box-shadow">
+                           <a href="http://google.com">
                             <div className="card-header">
-                                <h4>Carros</h4>
-                            </div>
-                            <img className="card-img-top" src="/ferrari-portofino.jpg" alt="fotoPerfil"  />                  
+                                    <h4>Carros</h4>
+                                </div>
+                                <img className="card-img-top" src="/ferrari-portofino.jpg" alt="fotoPerfil"  />                  
 
-                            <div className="card-body">
-                                 <button 
-                                    type="button" 
-                                    className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
-                                    Aceptar
-                                </button>
-                            </div>
+                                <div className="card-body">
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
+                                        Aceptar
+                                    </button>
+                                </div>
+                           </a>
                         </div>
 
                         <div className="card mb-4 box-shadow">
+                           <a href="http://google.com">
                             <div className="card-header">
-                                <h4>Carros</h4>
-                            </div>
-                            <img className="card-img-top"   src="/ferrari-portofino.jpg" alt="fotoPerfil"  />                  
+                                    <h4>Carros</h4>
+                                </div>
+                                <img className="card-img-top"   src="/ferrari-portofino.jpg" alt="fotoPerfil"  />                  
 
-                            <div className="card-body">
-                                 <button 
-                                    type="button" 
-                                    className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
-                                    Aceptar
-                                </button>
-                            </div>
+                                <div className="card-body">
+                                    <button 
+                                        type="button" 
+                                        className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
+                                        Aceptar
+                                    </button>
+                                </div>
+                           </a>
                         </div>
                 </div>
             </div>
