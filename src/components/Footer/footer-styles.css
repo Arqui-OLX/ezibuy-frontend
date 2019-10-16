@@ -1,4 +1,10 @@
+ .lista a {
+  color: white;
+  }
 
+  .lista a:hover {
+    color: #E0DFD0;
+    }
 
   .footerBtn{
     -webkit-filter: grayscale(100%);
@@ -21,10 +27,21 @@
     bottom: 0;
     width: 100%;
     padding-bottom: 1%;
-    margin-top: 1%;
     font-size: 100%;
     color: white;
     background: #5a8596;  
-     
+    margin-top:auto; 
+
+
   }
+ 
+.lista{
+  display: inline-block;
+}
+
+ 
   
+ 
+.logoFooter{
+  width: 30%;
+}

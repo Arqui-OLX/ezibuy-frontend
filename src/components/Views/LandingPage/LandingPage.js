@@ -18,14 +18,14 @@ class LandingPage extends Component {
                 <div className="container  ">
                     <div className="row ">
 
-                        <div className = "col-md-8  "> 
+                        <div className = "col-lg-8  "> 
                             <PopularCategories/>
                             <Posts/>       
                             <Categories/>
 
                         </div>
 
-                        <div className = "divpublicidad col-md-4">    
+                        <div className = "divpublicidad col-lg-4">    
                             <div className="publicidad container ">
                                 <img className="card-img-top" src="/materialPublicitario.jpg" alt="fotoPerfil"  />                  
                             </div>
