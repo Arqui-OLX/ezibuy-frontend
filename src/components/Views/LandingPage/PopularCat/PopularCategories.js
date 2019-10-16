@@ -24,7 +24,7 @@ class PopularCategories extends Component {
                             <div className="card-body">
                                  <button 
                                     type="button" 
-                                    className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
+                                    className="btn btn-lg btn-block bg-primary btn-outline-primary text-white  ">
                                     Aceptar
                                 </button>
                             </div>

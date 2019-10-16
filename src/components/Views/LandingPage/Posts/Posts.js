@@ -14,7 +14,7 @@ class Posts extends Component {
                     <div className="row">
                         <div className="card-deck col-lg-12  mb-3 " >
 
-                            <div className="card border-info mb-4 box-shadow ">
+                            <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
                                      <img className="card-img-top"   src="/phone.jpg" alt="fotoPerfil"/>                  
                                     <div className="card-body">
