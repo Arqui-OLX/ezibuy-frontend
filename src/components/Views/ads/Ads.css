@@ -1,0 +1,18 @@
+.adProductButton{
+    margin-top: 2%;
+}
+.profile-navbar{
+    margin-right: 10%;
+    margin-left: 10%;
+    background-color:#d6d5c7;
+}
+.ad-frame{
+    margin-top: 1%;
+}
+
+.ad-frame-figure{
+    margin: 10px 10px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-width: 1px;
+}

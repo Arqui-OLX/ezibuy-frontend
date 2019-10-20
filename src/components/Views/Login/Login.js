@@ -16,7 +16,7 @@ class Invoice extends Component{
                 <h2 className="main-title">Ingresar</h2>
                 <br></br>
 
-                <Form className= "loginFormContainer">
+                <Form className= "loginFormContainer mb-5 mt-4">
                     <br></br>
                     <Form.Group controlId="formGroupEmail">
                         <Form.Label>E-mail</Form.Label>

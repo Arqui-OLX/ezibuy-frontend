@@ -1,0 +1,5 @@
+.publicidad  {
+    position: absolute;
+    top: 30%;
+    margin-top: -(half your image height)px;
+}

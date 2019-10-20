@@ -16,10 +16,10 @@ class NavigationBar extends Component {
 
           <div>
             <Navbar variant="dark" >
-            <Navbar.Brand href="/home" className = "navLogo" >
+            <Navbar.Brand href="/" className = "navLogo" >
               < img 
                 src= "./logo.png"
-                width="70"
+                width="130"
                 height="70"
                 alt="EZiBuy logo"
               />
@@ -28,8 +28,10 @@ class NavigationBar extends Component {
                 <li><Link className="NavLink" to="/home">EzIBuy</Link></li>
                 <li><Link className="NavLink" to="/">Categorias</Link></li>
                 <li><Link className="NavLink" to="/login">Ingresar</Link></li>
-                <li><Link className="NavLink" to="/">Registrarse</Link></li>
-                <li><Link className="NavLink" to="/invoice">...</Link></li>
+                <li><Link className="NavLink" to="/post">Post</Link></li>
+                <li><Link className="NavLink" to="/sale">Vender</Link></li>
+                <li><Link className="NavLink" to="/myprofile/profile">Profile</Link></li>
+
               </Nav>
 
               <Form inline>
