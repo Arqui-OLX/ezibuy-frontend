@@ -6,11 +6,12 @@ import Login from "../Views/Login/Login"
 import Profile from "../Views/Profile/Profile"
 import Register from "../Views/Register/Register"
 import Favorites from "../Views/Favorites/Favorites"
+import Ads from "../Views/Ads/Ads"
 
 const Main = () => (
 
     <Switch>
-      <Route exact path="/myprofile/ads" component={Profile} /> 
+      <Route exact path="/myprofile/ads" component={Ads} /> 
       <Route exact path="/myprofile/favorites" component={Favorites} /> 
       <Route exact path="/myprofile/profile" component={Profile} />  
       <Route exact path="/login" component={Login} />

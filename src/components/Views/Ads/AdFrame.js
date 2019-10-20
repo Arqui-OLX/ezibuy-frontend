@@ -4,9 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import './Favorites-styles.css';
+import './Ads-styles.css';
 
-class FavoriteFrame extends Component{
+class AdFrame extends Component{
     constructor(props){
         super(props);
         this.handleOnMouseOver = this.handleOnMouseOver.bind(this);
@@ -20,7 +20,7 @@ class FavoriteFrame extends Component{
 
     render(){
         return(
-            <div className="favorite-frame">
+            <div >
                 <Container>
                     <Row>
                         <Col md="auto">    
@@ -29,7 +29,7 @@ class FavoriteFrame extends Component{
                                     onMouseOver={this.handleOnMouseOver}
                                     src={this.props.imgSrc}
                                     alt={this.props.productName}
-                                    className = "favorite-frame-figure"
+                                    className = "ad-frame-figure"
                                     rounded
                                     fluid
                                 />
@@ -43,10 +43,10 @@ class FavoriteFrame extends Component{
                                 <p>{this.props.productLocation}</p>
                             </Row>
                             <Row>
-                                <Button className="favoriteProductButton" variant="outline-success">Contacta con el vendedor</Button>
+                                <Button className="adProductButton" variant="outline-success">Destacar anuncio</Button>
                             </Row>
                             <Row>
-                                <Button className="favoriteProductButton" variant="outline-danger">Eliminar de favoritos</Button>
+                                <Button className="adProductButton" variant="outline-secondary">Marcar como vendido</Button>
                             
                             </Row>
                         </Col>
@@ -64,4 +64,4 @@ class FavoriteFrame extends Component{
 
 }
 
-export default FavoriteFrame;
+export default AdFrame;

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import FavoriteFrame from "./FavoriteFrame";
+import AdFrame from "./AdFrame";
 import ProfileNavBar from "../Profile/ProfileNavBar";
 //import * as utils from "../../../utility/utils.js";
 
 
-import './Favorites-styles.css';
+import './Ads-styles.css';
 
-class Favorites extends Component {
+class Ads extends Component {
     
 
     render(){
@@ -17,7 +17,7 @@ class Favorites extends Component {
             <ProfileNavBar/>                
                 {   
                     dataProducts.products.map((product)=>{
-                        return <FavoriteFrame 
+                        return <AdFrame 
                                     key={product.id}
                                     productName= {product.name} 
                                     productPrice= {product.price} 
@@ -33,4 +33,4 @@ class Favorites extends Component {
 
 }
 
-export default Favorites;
+export default Ads;
