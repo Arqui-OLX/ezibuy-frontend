@@ -1,0 +1,19 @@
+{
+    "products": [
+      {
+        "id": "1",
+        "name": "Mazda 2 Automatico 2013 Full Equipo",
+        "price": 29800000,
+        "location": "Medellín",
+        "imgurl": "https://apollo-virginia.akamaized.net/v1/files/ldvhmg4qhmls-CO/image;p=thumb"
+      },
+      {
+        "id": "2",
+        "name": "Mouse Trust Gtx 180",
+        "price": 200000,
+        "location": "Bogotá",
+        "imgurl": "https://apollo-virginia.akamaized.net/v1/files/wiuttl9zjwzr-CO/image;p=thumb"
+      }
+      
+    ]
+  }
