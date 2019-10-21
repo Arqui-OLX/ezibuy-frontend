@@ -4,6 +4,22 @@ import "./PublicationPost.css"
 import $ from 'jquery';
 
 class PublicationPost extends Component {
+
+    constructor(){
+        super()
+        this.state={
+            showMe: false
+        }
+    }
+
+    operation(){
+       
+        this.setState({
+            showMe: !false
+        })
+      
+    }
+
     
     componentDidMount() {
        
@@ -79,10 +95,23 @@ class PublicationPost extends Component {
                                     <textarea type="password" className="form-control" id="exampleInputPassword1" placeholder="Mensaje" rows="6"/>
                                 </div>                         
                          
-                                 <input className="mt-5" type="file" name="file" onChange={this.onChangeHandler}/>
-                                 <button type="submit" className="btn btn-primary btn-block  mt-5" >Publicar</button>
+                                 <input className="mt-5" type="file" name="file"/>
                             </form>
+                            <button  className="btn btn-primary btn-block  mt-5" onClick={()=>this.operation()} >Publicar</button>
+
                         </div> 
+
+                        <h1>
+                            Hide and  Show  in React js
+                        </h1>
+                        {
+                            this.state.showMe?
+
+                            <div>
+                                Please hide me
+                            </div>
+                            :null
+                        }
                          
                     </div>   
                  </div>
