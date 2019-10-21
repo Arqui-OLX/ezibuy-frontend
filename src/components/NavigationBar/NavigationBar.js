@@ -29,6 +29,7 @@ class NavigationBar extends Component {
                 <li><Link className="NavLink" to="/">Categorias</Link></li>
                 <li><Link className="NavLink" to="/login">Ingresar</Link></li>
                 <li><Link className="NavLink" to="/post">Post</Link></li>
+                <li><Link className="NavLink" to="/postlist">Lista de post</Link></li>
                 <li><Link className="NavLink" to="/sale">Vender</Link></li>
                 <li><Link className="NavLink" to="/myprofile/profile">Profile</Link></li>
 
