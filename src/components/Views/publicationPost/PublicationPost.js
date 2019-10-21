@@ -13,10 +13,13 @@ class PublicationPost extends Component {
     }
 
     operation(){
-       
+
+        const isVisible = this.state.showMe;
+
         this.setState({
-            showMe: !false
-        })
+            
+            showMe: !isVisible
+        });
       
     }
 
@@ -96,8 +99,10 @@ class PublicationPost extends Component {
                                 </div>                         
                          
                                  <input className="mt-5" type="file" name="file"/>
+                                 <button  className="btn btn-primary btn-block  mt-5" onClick={()=>this.operation()} >Publicar</button>
+
                             </form>
-                            <button  className="btn btn-primary btn-block  mt-5" onClick={()=>this.operation()} >Publicar</button>
+                            <button  className="btn btn-primary btn-block  bg-success mt-5" onClick={()=>this.operation()} >Publicar</button>
 
                         </div> 
 
