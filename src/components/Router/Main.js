@@ -14,7 +14,7 @@ import PostList from "../Views/postList/PostList";
 const Main = () => (
 
     <Switch>
-  
+      <Route exact path="/" component={LandingPage} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/home" component={LandingPage} />
       <Route exact path="/post" component={Post} />

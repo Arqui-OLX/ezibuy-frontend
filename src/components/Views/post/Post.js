@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import axios from 'axios';
 
 class Post extends Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            idImage: 0
+            idImage: 0,
+            price: 0
         };
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
@@ -15,6 +17,17 @@ class Post extends Component {
     
     handleClick(e) {
         this.setState({idImage: e.target.id});
+    }
+
+    componentDidMount() {
+        const url ='http://35.208.241.159:5000/graphql?';
+
+        const getProduct = {"query":"query {\n  catalogById(id: \"5dae83ffc22f297e5f0e2b8c\"){\n    \n    catalog{\n    vehiculos{\n      motos {\n        marca\n        anio\n        kilometraje\n        color\n        cilindrada\n        tipoVendedor\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      carros{\n        marca\n        year\n        kilometraje\n        combustible\n        color\n        transmision\n        placa\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    telefonosTablets{\n      telefonos{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      tablets{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    computadores{\n      computadorEscritorio{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      portatiles{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    electrodomesticos{\n      cocinas{\n        tipo\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      neveras{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    empleos{\n      buscarTrabajo{\n        tipo\n        enEsteAnuncio\n        nombreCompania\n        experienciaMin\n        experienciaMax\n        salarioMin\n        salarioMax\n      }\n    }\n    servicios{\n      clasesCursos{\n        tipo\n      }\n      reparaciones{\n        tipo\n      }\n      transporteMudanza{\n        tipo\n      }\n    }\n  }\n}\n}\n\n","variables":null};
+
+        axios.post(url, getProduct)
+        .then(res => {
+            this.setState({ price: res.data.data.catalogById.catalog.telefonosTablets.telefonos.precio.valorPrecio });
+        })
     }
 
     render() {
@@ -34,91 +47,61 @@ class Post extends Component {
         var listItems = arregloURL.map((url, i) =>
         
             <div key={i} >
-                <img className="img-fluid" src={url} id={i} onClick={this.handleClick} alt =""></img>  
+                <img className="img-fluid" src={url} id={i} onClick={this.handleClick}></img>  
             </div>
 
         );
 
         return (
-
-
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8">
+                <div className="">
+                    <div className="col-md-12">
                         <header>
                             <div className="title">
-                                    <h1 className ="mb-3">Titulo del post</h1>
+                                <h2>Titulo del post</h2>
                             </div>
-                        <div className="detalles">
-                            <p className="date icons-material icon-material-time text-left"> Fecha publicacion </p>
-                        </div>
-                        <div className="price">
-                            <h3 className="date icons-material icon-material-time text-left"> PRECIO</h3>
-                        </div>
+                            
+                            <div className="detalles">
+                                <p className="date icons-material icon-material-time text-left"> Fecha publicacion </p>
+                            </div>
+                            <div className="price">
+                                <h3 className="date icons-material icon-material-time text-left"> PRECIO: {this.state.price} </h3>
+                            </div>
 
                         </header>
 
 
                         <div className="">
-                            <img  src={arregloURL[this.state.idImage]} className="w-100 h-auto" alt =""></img>
+                            <img src={arregloURL[this.state.idImage]} className="w-100 h-auto"></img>
                         </div>
         
                         <div className="d-flex">
- 
-                            {listItems}
-                                        
+                            {listItems}          
                         </div>
-
-                        <p className ="mt-2 text-left">
-                        AUTOS CURIBA VENDE:RENAULT DUSTER EXPRESSION 
-                            Modelo: 2013
-                            Motor: 1.6
-                            Transmisión: Mecánica 
-                            Kilometraje: 107.000
-                            Placa: Barranquilla 
-                            Precio: 27’000.000
-                            SOAT Vigente hasta Junio 2020, TECNO Vigente hasta Julio 2020
-                            Única Dueña 
-                            •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••• 
-                            Recibimos tu Usado 
-                            Ven a verlo: Carrera 44 # 82 - 133Barranquilla 
-                            Contacto: 3164055672 - 3015127289
-                            Síguenos en Instagram y mira nuestros vehículos @autoscuriba 
-                            GESTIONAMOS TU CRÉDITO
-                            
-                        </p>
 
                     </div>
 
-                    <div className="col-md-4">
-                        <div className="mb-3">
-                        <img className="rounded-circle" src= "https://dummyimage.com/300x200/000/fff" alt="fotoPerfil" style={{width:'230px',height:'230px'}}/>                  
+                    <div className="col-md-12">
+
                         <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">Nombre usuario</strong></h4>
                         <h4 className="font-roboto-light font-size-20px-2c text-dark line-height-15 letter-spacing-2px"><strong className="font-size-22px">Telefono</strong></h4>
 
-                        </div>
-
-
-                    <form>
-                            <div className="form-group">
-                                <input type="phone" className="form-control" id="numberUser" aria-describedby="emailHelp" placeholder="Numero de telefono" />
-                            </div>
-                            <div className="form-group">
-                                <textarea type="password" className="form-control" id="exampleInputPassword1" placeholder="Mensaje" rows="6"/>
-                            </div>
-                        
-                            <button type="submit" className="btn btn-primary btn-block" >Enviar</button>
-                    </form>
+                        <form>
+                                <div className="form-group">
+                                    <input type="phone" className="form-control" id="numberUser" aria-describedby="emailHelp" placeholder="Numero de telefono" />
+                                </div>
+                                <div className="form-group">
+                                    <textarea type="message" className="form-control" id="exampleInputPassword1" placeholder="Mensaje" rows="6"/>
+                                </div>
+                            
+                                <button type="submit" className="btn btn-primary btn-block" >Enviar</button>
+                        </form>
                     
-                    </div>
-                    
-                    
+                    </div>                     
                 </div>
-            </div>    
         );
 
     }
 }
 
- 
+
 export default Post;

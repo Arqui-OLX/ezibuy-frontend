@@ -20,8 +20,7 @@ class Footer extends Component{
                                     <li><a href="http://google.com">Contactos y ayuda</a></li>
                                     <li><a href="http://google.com">Consejos y seguridad</a></li>
                                     <li><a href="http://google.com">Terminos y condiciones</a></li>
-                                    <li><a href="http://google.com">Acerca de ezibuy</a></li>
-                                    <li><a href="http://google.com">Trabaja con nosotros</a></li>
+                                  
                                 </ul>
                             </div>
                             <div className="col-lg-4">

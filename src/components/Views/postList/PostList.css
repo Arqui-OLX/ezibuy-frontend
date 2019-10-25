@@ -1,3 +1,15 @@
 .select:hover {
     background-color: gray;
 }
+
+#overlay {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}

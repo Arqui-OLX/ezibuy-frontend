@@ -18,7 +18,7 @@ class NavigationBar extends Component {
             <Navbar variant="dark" >
             <Navbar.Brand href="/" className = "navLogo" >
               < img 
-                src= "./logo.png"
+                src= "/logo.png"
                 width="130"
                 height="70"
                 alt="EZiBuy logo"
@@ -26,9 +26,7 @@ class NavigationBar extends Component {
           </Navbar.Brand>
               <Nav className="mr-auto">
                 <li><Link className="NavLink" to="/home">EzIBuy</Link></li>
-                <li><Link className="NavLink" to="/">Categorias</Link></li>
                 <li><Link className="NavLink" to="/login">Ingresar</Link></li>
-                <li><Link className="NavLink" to="/post">Post</Link></li>
                 <li><Link className="NavLink" to="/postlist">Lista de post</Link></li>
                 <li><Link className="NavLink" to="/sale">Vender</Link></li>
                 <li><Link className="NavLink" to="/myprofile/profile">Profile</Link></li>
