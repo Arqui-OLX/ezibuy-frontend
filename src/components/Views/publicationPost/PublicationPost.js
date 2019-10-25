@@ -1,17 +1,45 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./PublicationPost.css"
-  
+import "./PublicationPost.css";
+import axios from 'axios';
 
 
 class PublicationPost extends Component {
 
-      state = { 
-        post : {
+      
+    state = {
+        
+         post : {
             title : '',
             description : '',
-        }
-      }
+         }
+          
+    
+    };
+    
+
+    submitData = e => {
+         
+        const url ='http://35.208.241.159:5000/graphql?';
+
+       // const publication = {"query":`mutation {\n  createPost(post: {  title: \"${this.state.post.title}\", description: \"${this.state.post.description}\", date_publication: \"2008\" , date_expiration: \"2020\", fk_product: 1234}) {\n    id\n  }\n}\n`};
+       const publication = {"query":"mutation {\n  createPost(post:{\n    title: \"`${this.state.post.title}`\",\n    description:\`this.state.post.description`,\n    date_publication: \"3/10/18\",\n    date_expiration:\"4/11/18\",\n    fk_product: 123334\n  }) {\n    id\n  }\n  \n  \n}","variables":null}
+         
+        axios.post(url, publication)
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
+    }
+
+
+
+
+
+
     
     handleChange = e => {
         // colocar lo que el usuario escribe en el state
@@ -43,7 +71,7 @@ class PublicationPost extends Component {
                                     <textarea type="text" className="form-control" id="exampleInputPassword1" placeholder="descripcion" rows="6" name="description" value={this.state.post.description}  onChange={this.handleChange}/>
                                 </div>                         
                          
-                                  <button  className="btn btn-primary btn-block  mt-5" >Publicar</button>
+                                  <button  className="btn btn-primary btn-block  mt-5" onClick={this.submitData} >Publicar</button>
 
                             </form>
  
