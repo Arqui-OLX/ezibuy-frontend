@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-
+ 
 class ProfileNavBar extends Component{
     render(){
         return(
@@ -18,5 +16,4 @@ class ProfileNavBar extends Component{
         );
     }
 }
-
 export default ProfileNavBar;

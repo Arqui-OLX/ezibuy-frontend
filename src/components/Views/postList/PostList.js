@@ -30,6 +30,8 @@ class PostList extends Component {
 
     render() {
 
+
+
         const data = this.state.posts;
 
         const result = data.map((post, index) => 
@@ -55,7 +57,7 @@ class PostList extends Component {
 
         return (
 
-
+ 
                 <div className="row justify-content-md-center" style={{backgroundColor: "#eceff1"}}>
                     <div className="h-100 col-md-3 col-ms-10 m-4 p-2 shadow bg-white rounded" style={{backgroundColor: "white"}}>
 

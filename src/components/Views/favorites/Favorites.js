@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import FavoriteFrame from "./FavoriteFrame";
 import ProfileNavBar from "../profile/ProfileNavBar";
-//import * as utils from "../../../utility/utils.js";
-
+ 
 
 import './Favorites.css';
 

@@ -47,7 +47,7 @@ class Post extends Component {
         var listItems = arregloURL.map((url, i) =>
         
             <div key={i} >
-                <img className="img-fluid" src={url} id={i} onClick={this.handleClick}></img>  
+                <img className="img-fluid" src={url} id={i} onClick={this.handleClick} alt=""></img>  
             </div>
 
         );
@@ -71,7 +71,7 @@ class Post extends Component {
 
 
                         <div className="">
-                            <img src={arregloURL[this.state.idImage]} className="w-100 h-auto"></img>
+                            <img src={arregloURL[this.state.idImage]} className="w-100 h-auto" alt=""></img>
                         </div>
         
                         <div className="d-flex">

@@ -5,13 +5,20 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios'
 import ProfileNavBar from './ProfileNavBar'
-
+import store from  "../../Redux/store"
 class Profile extends Component{
 
+    state = {
 
-
-    state = {user: {}};
+        user: {}
     
+    };
+
+     
+    
+changeName(name){
+    store.dispatch({type:"cambio", name:name});
+}
 
 componentDidMount() {
 
@@ -31,14 +38,26 @@ componentDidMount() {
 
     render(){
 
+
+        console.log(store.getState());
+
         const data = this.state.user;
+
+        
+        //this.changeName("EL perri!!!!")
 
         return(
             <div className="profile-navbar d-flex flex-column">
+             
                 
                 <ProfileNavBar/>
                 <Container>
 
+
+                    <form>
+                    <button  className="btn btn-primary btn-block  mt-5" onClick={this.holamundof} >HACER</button>
+
+                    </form>
                     <Row>
                         <Col>
                             <br></br>
@@ -55,7 +74,7 @@ componentDidMount() {
                         </Col>
                         <Col>
                             <br></br>
-                            <p><b>Datos de la Cuenta</b></p>
+                            <p><b>Datos de la Cuenta2</b></p>
                             <hr></hr>
                             <h3>{data.nick}</h3>
                             <p>Email: {data.email}</p>

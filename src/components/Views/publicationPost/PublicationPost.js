@@ -11,11 +11,16 @@ const stateInicial = {
         title : '',
         description : '',
      },
-    showMe: false,
-    showMe2: false,
-    showMe3: false, 
-    showMe4: false,
-    showMe5: false
+     show:[
+        {
+            showMe: false,
+            showMe2: false,
+            showMe3: false, 
+            showMe4: false,
+            showMe5: false
+        }
+     ]
+   
  }
 
 
@@ -32,7 +37,7 @@ class PublicationPost extends Component {
         const url ='http://35.208.241.159:5000/graphql?';
 
 
-        const publication = {"query":`mutation {\n  createPost(post:{\n title: \"${this.state.post.title}\",\n    description: \"${this.state.post.description}\",\n    date_publication: \"3/10/18\",\n    date_expiration:\"4/11/18\",\n    fk_product: 123334\n  }) {\n    id\n  }\n  \n  \n}`,"variables":null}
+        const publication = {"query":`mutation {\n  createPost(post:{\n title: "${this.state.post.title}",\n    description: "${this.state.post.description}",\n    date_publication: "3/10/18",\n    date_expiration:"4/11/18",\n    fk_product: 123334\n  }) {\n    id\n  }\n  \n  \n}`,"variables":null}
         
         console.log(publication);
         
@@ -49,6 +54,7 @@ class PublicationPost extends Component {
 
 
     componentDidMount() {
+        //console.log(this.state.show.showMe)
        
         $(".ddList>a").click(function(){
             var thisUl = $(this).siblings('ul');
@@ -74,17 +80,20 @@ class PublicationPost extends Component {
 
 
 
-      operation(){
+      operation(e){
+
 
         this.setState({
             ...stateInicial
         })
 
-        const isVisible = this.state.showMe;
- 
+        const isVisible = this.state.show[1];
+        
+        console.log(this.state.show[1]);
+
         this.setState({
             
-            showMe: !isVisible,
+            e: !isVisible,
  
         });
       
@@ -187,32 +196,32 @@ class PublicationPost extends Component {
                     <div id="menu" className="w-75 mx-auto mb-2">
                                 <ul className="topUl">
                                     <li className="ddList ">
-                                        <a href="#" title="Link2">Vehiculos</a>
+                                        <a href="/#" title="Link2">Vehiculos</a>
                                         <ul>
                                         <li className="ddList2">
-                                            <a href="#" title="SubLink2-1"  onClick={()=>this.operation()}>carros</a>
-                                            <a href="#" title="SubLink2-1" onClick={()=>this.operation2()}>motos</a>
+                                            <a  href="/#" title="SubLink2-1"  onClick={()=>this.operation(1)}>carros</a>
+                                            <a href="/#" title="SubLink2-1" onClick={()=>this.operation2()}>motos</a>
                                         </li>                               
                                         </ul>
                                     </li>
 
                                     <li className="ddList">
-                                        <a href="#" title="Link2">Celulares</a>
+                                        <a href="/#" title="Link2">Celulares</a>
                                         <ul>
                                         <li className="ddList2">
-                                            <a href="#" title="SubLink2-1" onClick={()=>this.operation3()}>Celulares</a>
-                                            <a href="#" title="SubLink2-1" onClick={()=>this.operation4()}>Tablets</a>
+                                            <a href="/#" title="SubLink2-1" onClick={()=>this.operation3()}>Celulares</a>
+                                            <a href="/#" title="SubLink2-1" onClick={()=>this.operation4()}>Tablets</a>
                                         </li>                               
                                         </ul>
                                     </li>
 
                                     <li className="ddList">
-                                        <a href="#" title="Link2">Servicios</a>
+                                        <a href="/#" title="Link2">Servicios</a>
                                         <ul>
                                         <li className="ddList2">
-                                            <a href="#" title="SubLink2-1"onClick={()=>this.operation5()}>Clases-Cursos</a>
-                                            <a href="#" title="SubLink2-1"onClick={()=>this.operation5()}>Seguridad</a>
-                                            <a href="#" title="SubLink2-1"onClick={()=>this.operation5()}> Mudanza</a>
+                                            <a href="/#" title="SubLink2-1"onClick={()=>this.operation5()}>Clases-Cursos</a>
+                                            <a href="/#" title="SubLink2-1"onClick={()=>this.operation5()}>Seguridad</a>
+                                            <a href="/#" title="SubLink2-1"onClick={()=>this.operation5()}> Mudanza</a>
                                         </li>                               
                                         </ul>
                                     </li>            
