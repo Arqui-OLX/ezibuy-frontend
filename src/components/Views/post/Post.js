@@ -46,11 +46,13 @@ class Post extends Component {
 
         var listItems = arregloURL.map((url, i) =>
         
+
             <div key={i} >
                 <img className="img-fluid" src={url} id={i} onClick={this.handleClick} alt=""></img>  
             </div>
 
         );
+        
 
         return (
                 <div className="">

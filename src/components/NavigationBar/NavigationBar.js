@@ -25,12 +25,13 @@ class NavigationBar extends Component {
               />
           </Navbar.Brand>
               <Nav className="mr-auto">
+                
                 <li><Link className="NavLink" to="/home">EzIBuy</Link></li>
                 <li><Link className="NavLink" to="/login">Ingresar</Link></li>
                 <li><Link className="NavLink" to="/postlist">Lista de post</Link></li>
                 <li><Link className="NavLink" to="/sale">Vender</Link></li>
                 <li><Link className="NavLink" to="/myprofile/profile">Profile</Link></li>
-
+ 
               </Nav>
 
               <Form inline>
