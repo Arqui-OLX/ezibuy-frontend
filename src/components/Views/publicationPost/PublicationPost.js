@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./PublicationPost.css";
 import axios from 'axios';
-  
+
+import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+ 
+registerPlugin( FilePondPluginImagePreview);
+
 
 class PublicationPost extends Component {
+
 
       
     constructor(props){
@@ -17,15 +25,32 @@ class PublicationPost extends Component {
                 pricetype: ''
              },
              fields:[
-                ["marca", "año", "kilometraje", "combustible", "color", "transmision", "placa"],
-                ["marca", "año", "kilometraje"]
+                 //vehiculos
+                ["marca", "año", "kilometraje", "combustible", "color", "transmision", "placa"],//carros
+                ["marca", "año", "kilometraje", "color", "cilindraje"],//motos
+                //telefonosTablets
+                ["marca"]//telefono
+                ["marca"]//tablet
+                //computadores
+                ["marca"]//desktop
+                ["marca"]// portatil
+                //Electrodomesticosl
+                ["marca","tipo"]//cocina
+                ["marca"]//nevera
+                //Empleo
+                ["tipo","nombreCompañia","experiencia máxima","experiencia minima","salario mínima", "salario máximo", "salario mínimo"]//Buscar Empleo
+                //Servicios
+                ["tipo"]//clases
+                ["tipo"]//reparaciones
+                ["tipo"]//transporte
              ],
              features:[
                
              ],
              show: new Array(2).fill(false),
              showFeatures: false,
-             subcategory: -1
+             subcategory: -1,
+             files: []
  
            
          }
@@ -115,9 +140,7 @@ class PublicationPost extends Component {
         })
  
     }
-
-
-   
+ 
     render() {
 
        var listItems = <div></div>;
@@ -144,6 +167,7 @@ class PublicationPost extends Component {
             
        }
         
+        console.log(this.state.files[0]);
         
         
  
@@ -190,6 +214,13 @@ class PublicationPost extends Component {
                   
                         <div className=" mb-2 ">
                             <h4>Publicar un producto</h4>
+
+                            <FilePond  
+                                onupdatefiles={(fileItems) => {
+                                this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
+                                onDrop={this.handleUploadImages}
+                                allowMultiple={true}
+                            />
 
                             <form >
 
