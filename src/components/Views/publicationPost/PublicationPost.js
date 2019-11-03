@@ -21,10 +21,7 @@ class PublicationPost extends Component {
                 ["marca", "año", "kilometraje"]
              ],
              features:[
-                 {
-                     featureName: '',
-                     featureValue: ''
-                 }
+               
              ],
              show: new Array(2).fill(false),
              showFeatures: false,
@@ -49,16 +46,24 @@ class PublicationPost extends Component {
     }
 
 
-    showForm = (index) => { //showFeatures
+    showForm = (index, features) => { //showFeatures
 
-    
+       
+        this.state.fields[index].forEach((element, i) => {
+            features[i] = {
+               featureName : element,
+               featureValue : ""
+            }
+        });
+       
         this.setState({ 
             
             showFeatures: !this.state.showFeatures,
-            subcategory: index
-        
-        
+            subcategory: index,
+            features :features
+
         });
+ 
     }
   
 
@@ -101,15 +106,12 @@ class PublicationPost extends Component {
 
     handleChange2 = e => {
 
+        var buffer = [...this.state.features];
+        console.log(e.target.id);
+        buffer[e.target.id].featureValue = e.target.value;
+        
         this.setState({
-           features : [
-               {
-                ...this.state.features,
-                [e.target.name] : e.target.value
-               }
-       
-           ]
- 
+            features: buffer
         })
  
     }
@@ -120,23 +122,28 @@ class PublicationPost extends Component {
 
        var listItems = <div></div>;
 
+       var features = [];
        if(this.state.subcategory !=-1){
            
-            listItems = this.state.fields[this.state.subcategory].map((i) =>
-            
+            listItems = this.state.fields[this.state.subcategory].map((i, index) =>
+               
                 <div key={i} className="form-group">
-                    <input 
+                     <input 
+                        id ={index} 
                         type="text" 
                         className="form-control" 
                         placeholder={i} 
-                        name= "featureName" 
-                        value={this.state.post.title} 
-                        onChange={this.handleChange}
+                        name= "featureValue"
+                        value={this.state.features[index].featureValue} 
+                        onChange={this.handleChange2}                   
                     />
+                    
                 </div>     
 
              );
+            
        }
+        
         
         
  
@@ -156,9 +163,9 @@ class PublicationPost extends Component {
                             {
                                 this.state.show[0]?
                                 <ul>
-                                    <li  onClick={(e) => this.showForm(0)}>carros</li>
+                                    <li  onClick={(e) => this.showForm(0,features)}>carros</li>
                                     
-                                    <li  onClick={(e) => this.showForm(1)}>motos</li>
+                                    <li onClick={(e) => this.showForm(1,features)}>motos</li>
                                 </ul>                                
                                 :null
                             }
