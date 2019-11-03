@@ -13,12 +13,12 @@ class PublicationPost extends Component {
             post : {
                 title : '',
                 description : '',
-                price: 'precio',
+                price: 0,
                 pricetype: ''
              },
              fields:[
                 ["marca", "año", "kilometraje", "combustible", "color", "transmision", "placa"],
-                ["marca", "año", "kilometraje", "combustible", "color", "cilindrada", "placa"]
+                ["marca", "año", "kilometraje"]
              ],
              features:[
                  {
@@ -26,8 +26,10 @@ class PublicationPost extends Component {
                      featureValue: ''
                  }
              ],
-             form: '',
-             show: new Array(2).fill(false)
+             show: new Array(2).fill(false),
+             showFeatures: false,
+             subcategory: -1
+ 
            
          }
         
@@ -36,15 +38,30 @@ class PublicationPost extends Component {
     showSubCategory = (index) => {
         var clone = Object.assign( {}, this.state.show ); //ES6 Clones Object
         switch(clone[index]){
-        case false:
-        clone[index] = true
-            break;
-        case true:
-            clone[index] = false
-            break;
+            case false:
+            clone[index] = true
+                break;
+            case true:
+                clone[index] = false
+                break;
         }
         this.setState({ show: clone });
     }
+
+
+    showForm = (index) => { //showFeatures
+
+    
+        this.setState({ 
+            
+            showFeatures: !this.state.showFeatures,
+            subcategory: index
+        
+        
+        });
+    }
+  
+
 
 
  
@@ -68,8 +85,6 @@ class PublicationPost extends Component {
     
     }
  
- 
- 
     handleChange = e => {
 
         this.setState({
@@ -81,8 +96,49 @@ class PublicationPost extends Component {
         })
  
     }
+
+
+
+    handleChange2 = e => {
+
+        this.setState({
+           features : [
+               {
+                ...this.state.features,
+                [e.target.name] : e.target.value
+               }
+       
+           ]
+ 
+        })
+ 
+    }
+
+
    
     render() {
+
+       var listItems = <div></div>;
+
+       if(this.state.subcategory !=-1){
+           
+            listItems = this.state.fields[this.state.subcategory].map((i) =>
+            
+                <div key={i} className="form-group">
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        placeholder={i} 
+                        name= "featureName" 
+                        value={this.state.post.title} 
+                        onChange={this.handleChange}
+                    />
+                </div>     
+
+             );
+       }
+        
+        
  
         return (
  
@@ -100,8 +156,9 @@ class PublicationPost extends Component {
                             {
                                 this.state.show[0]?
                                 <ul>
-                                    <li id={1}>carros</li>
-                                    <li id={2}>motos</li>
+                                    <li  onClick={(e) => this.showForm(0)}>carros</li>
+                                    
+                                    <li  onClick={(e) => this.showForm(1)}>motos</li>
                                 </ul>                                
                                 :null
                             }
@@ -128,6 +185,14 @@ class PublicationPost extends Component {
                             <h4>Publicar un producto</h4>
 
                             <form >
+
+                            {
+                                this.state.showFeatures?
+                                    listItems                         
+                                :null
+                            }
+      
+                                
 
                                 <div className="form-group ">
                                     <input 
@@ -156,7 +221,7 @@ class PublicationPost extends Component {
                                 <div className="form-group row ">
                                    
                                     <input 
-                                        type="text" 
+                                        type="number" 
                                         className="form-control w-25 mr-5 ml-3" 
                                         id="price" 
                                         placeholder="precio" 
@@ -168,19 +233,17 @@ class PublicationPost extends Component {
 
                                     
 
-                                    <select id="field-priceType" name="priceType" className="custom-select w-50">
+                                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.pricetype}>
                                         
-                                        <option value="negociable">Negociable</option>
+                                        <option name= "typePrice">Negociable</option>
                                     
-                                        <option value="fijo">Precio Fijo</option>
+                                        <option name= "typePrice">Precio Fijo</option>
                                     
-                                        <option value="consultar">A consultar</option>
+                                        <option name= "typePrice">A consultar</option>
                                         
                                     </select>
                                 </div>
-
-                              
-                               
+                     
 
                                 <button  className="btn btn-primary btn-block  mt-5" onClick={this.submitData} >Publicar</button>
                          
