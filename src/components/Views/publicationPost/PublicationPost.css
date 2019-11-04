@@ -1,6 +1,10 @@
 #menu{
     width: 100%;
 }
+
+li:hover {
+    background-color: #E0DFD0;
+}
 .topUl {
     list-style-type: none;
 }
@@ -62,6 +66,7 @@
 .topUl li.ddList2 li>a:hover {
     background: #D68533;
 }
+
 
 
 .listaProductos{

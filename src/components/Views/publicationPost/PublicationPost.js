@@ -18,36 +18,43 @@ class PublicationPost extends Component {
     constructor(props){
         super(props);
         this.state = { 
+            // categories=["vehiculos","telefonos y tablets","computadores","inmuebles","empleo","servicios"],
+            category: "",
+            arraySubcategory: ["carros","motos","telefonos","tablets", "desktops", "portatiles","ventas de inmuebles","arriendo de inmuebles", "buscar empleos", "clases"], 
             post : {
                 title : '',
                 description : '',
                 price: 0,
                 pricetype: ''
              },
+
              fields:[
                  //vehiculos
-                ["marca", "año", "kilometraje", "combustible", "color", "transmision", "placa"],//carros
+                ["marca", "año", "kilometraje", "combustible", "color", "transmisión", "placa"],//carros
                 ["marca", "año", "kilometraje", "color", "cilindraje"],//motos
-                //telefonosTablets
-                ["marca"]//telefono
-                ["marca"]//tablet
+               
+                 //telefonosTablets
+                ["marca"],//telefonos
+                ["marca"],//tablets
+              
                 //computadores
-                ["marca"]//desktop
-                ["marca"]// portatil
-                //Electrodomesticosl
-                ["marca","tipo"]//cocina
-                ["marca"]//nevera
+                ["marca"],//desktop
+                ["marca"],// portatil
+               
+                //inmuebles
+                ["tipo","cuartos","metros cuadrados","antigüedad","estrato", "tipo de vendedor","parqueadero"],//ventas
+                ["tipo","amueblado","metros cuadrados","antigüedad","estrato", "tipo de vendedor","parqueadero"],// arriendo
+
                 //Empleo
-                ["tipo","nombreCompañia","experiencia máxima","experiencia minima","salario mínima", "salario máximo", "salario mínimo"]//Buscar Empleo
+                ["tipo","nombre de la compañia","experiencia mín","experiencia máx","salario mín", "salario máx"],//Buscar Empleo
+               
                 //Servicios
                 ["tipo"]//clases
-                ["tipo"]//reparaciones
-                ["tipo"]//transporte
              ],
              features:[
                
              ],
-             show: new Array(2).fill(false),
+             show: new Array(6).fill(false),
              showFeatures: false,
              subcategory: -1,
              files: []
@@ -57,7 +64,7 @@ class PublicationPost extends Component {
         
      }
 
-    showSubCategory = (index) => {
+    showSubCategory = (index,category) => {
         var clone = Object.assign( {}, this.state.show ); //ES6 Clones Object
         switch(clone[index]){
             case false:
@@ -67,7 +74,10 @@ class PublicationPost extends Component {
                 clone[index] = false
                 break;
         }
-        this.setState({ show: clone });
+        this.setState({ 
+            show: clone,
+            category: category 
+        });
     }
 
 
@@ -80,10 +90,11 @@ class PublicationPost extends Component {
                featureValue : ""
             }
         });
-       
+        
+        
         this.setState({ 
             
-            showFeatures: !this.state.showFeatures,
+            showFeatures: this.state.subcategory == index ?  !this.state.showFeatures : this.state.showFeatures,
             subcategory: index,
             features :features
 
@@ -92,21 +103,25 @@ class PublicationPost extends Component {
     }
   
 
-
-
- 
-
     submitData = e => {
          
-        const url ='http://35.208.241.159:5000/graphql?';
+        const url ='https://cold-grasshopper-83.localtunnel.me/product';
 
-
-        const publication = {"query":`mutation {\n  createPost(post:{\n title: "${this.state.post.title}",\n    description: "${this.state.post.description}",\n    date_publication: "3/10/18",\n    date_expiration:"4/11/18",\n    fk_product: 123334\n  }) {\n    id\n  }\n  \n  \n}`,"variables":null}
+        var data ={
+            title: this.state.post.title,
+            description: this.state.post.description,
+            price: this.state.post.price,
+            typePrice: this.state.post.typePrice,
+            features: this.state.features,
+            category : this.state.category,
+            subcategory : this.state.arraySubcategory[this.state.subcategory]
+            
+        }
         
-        console.log(publication);
-        
-        axios.post(url, publication)
+         console.log("afuera del axios");
+        axios.post(url, data)
         .then(function (response) {
+            console.log("hola")
             console.log(response);
         })
         .catch(function (error) {
@@ -182,7 +197,7 @@ class PublicationPost extends Component {
                    
                    <ul className="listaProductos">
 
-                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0)} >vehiculos</li>
+                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} >vehiculos</li>
  
                             {
                                 this.state.show[0]?
@@ -194,13 +209,60 @@ class PublicationPost extends Component {
                                 :null
                             }
  
-                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(1)}  >Servicios </li>
+                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(1, "telefonos y tablets" )}  >Telefonos y tablets </li>
  
                             {
                                 this.state.show[1]?
                                 <ul>
-                                    <li id={1}>Lavado</li>
-                                    <li id={2}>Pintura</li>
+                                    <li onClick={(e) => this.showForm(2,features)}>telefono</li>
+                                    <li onClick={(e) => this.showForm(3,features)}>tablet</li>
+                                </ul>                                
+                                :null
+                            }
+
+
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(2, "computadores")} >computadores</li>
+                        
+                            {
+                                this.state.show[2]?
+                                <ul>
+                                    <li  onClick={(e) => this.showForm(4,features)}>computadores de escritorio</li>
+                                    
+                                    <li onClick={(e) => this.showForm(5,features)}>computadores portatiles</li>
+                                </ul>                                
+                                :null
+                            }
+
+
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3,"inmuebles")} >inmuebles</li>
+                        
+                            {
+                                this.state.show[3]?
+                                <ul>
+                                    <li  onClick={(e) => this.showForm(6,features)}>venta de inmuebles</li>
+                                    <li onClick={(e) => this.showForm(7,features)}>arriendo de inmuebles</li>
+                                </ul>                                
+                                :null
+                            }
+
+
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"empĺeo")} >empleo</li>
+                        
+                            {
+                                this.state.show[4]?
+                                <ul>
+                                    <li  onClick={(e) => this.showForm(8,features)}>buscar empleo</li>
+                                 </ul>                                
+                                :null
+                            }
+
+      
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"servicios")} >Servicios</li>
+                        
+                            {
+                                this.state.show[5]?
+                                <ul>
+                                    <li  onClick={(e) => this.showForm(9,features)}>clases</li>
                                 </ul>                                
                                 :null
                             }
@@ -215,14 +277,17 @@ class PublicationPost extends Component {
                         <div className=" mb-2 ">
                             <h4>Publicar un producto</h4>
 
+
+                            <form onSubmit={this.submitData}>
+
+
                             <FilePond  
                                 onupdatefiles={(fileItems) => {
                                 this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
                                 onDrop={this.handleUploadImages}
                                 allowMultiple={true}
-                            />
-
-                            <form >
+                                //required ={true}
+                             />
 
                             {
                                 this.state.showFeatures?
@@ -283,7 +348,7 @@ class PublicationPost extends Component {
                                 </div>
                      
 
-                                <button  className="btn btn-primary btn-block  mt-5" onClick={this.submitData} >Publicar</button>
+                                <button type="submit" className="btn btn-primary btn-block  mt-5">Publicar</button>
                          
                             </form>
 
