@@ -25,7 +25,7 @@ class PublicationPost extends Component {
                 title : '',
                 description : '',
                 price: 0,
-                pricetype: ''
+                priceType: ''
              },
 
              fields:[
@@ -104,8 +104,12 @@ class PublicationPost extends Component {
   
 
     submitData = e => {
+
+        axios.defaults.baseURL = 'https://clever-turtle-23.localtunnel.me';
+        axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
          
-        const url ='https://cold-grasshopper-83.localtunnel.me/product';
+        const url ='https://clever-turtle-23.localtunnel.me/product';
 
         var data ={
             title: this.state.post.title,
@@ -147,7 +151,6 @@ class PublicationPost extends Component {
     handleChange2 = e => {
 
         var buffer = [...this.state.features];
-        console.log(e.target.id);
         buffer[e.target.id].featureValue = e.target.value;
         
         this.setState({
@@ -182,8 +185,7 @@ class PublicationPost extends Component {
             
        }
         
-        console.log(this.state.files[0]);
-        
+         
         
  
         return (
@@ -278,7 +280,7 @@ class PublicationPost extends Component {
                             <h4>Publicar un producto</h4>
 
 
-                            <form onSubmit={this.submitData}>
+                            <div>
 
 
                             <FilePond  
@@ -335,8 +337,8 @@ class PublicationPost extends Component {
                                     />
 
                                     
-
-                                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.pricetype}>
+ 
+                                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.priceType}>
                                         
                                         <option name= "typePrice">Negociable</option>
                                     
@@ -348,9 +350,9 @@ class PublicationPost extends Component {
                                 </div>
                      
 
-                                <button type="submit" className="btn btn-primary btn-block  mt-5">Publicar</button>
+                                <button type="submit" className="btn btn-primary btn-block  mt-5" onClick={this.submitData}>Publicar</button>
                          
-                            </form>
+                            </div>
 
  
                         </div> 
