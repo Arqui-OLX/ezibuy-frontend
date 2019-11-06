@@ -16,6 +16,7 @@ class Profile extends Component{
 
      
     
+    
 changeName(name){
     store.dispatch({type:"cambio", name:name});
 }

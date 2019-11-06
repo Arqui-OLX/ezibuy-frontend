@@ -10,6 +10,8 @@ import Profile from "../Views/profile/Profile";
 import Favorites from "../Views/favorites/Favorites"
 import Ads from "../Views/ads/Ads"
 import PostList from "../Views/postList/PostList";
+import Register from "../Views/Register/Register"
+
 
 const Main = () => (
 
@@ -23,7 +25,7 @@ const Main = () => (
       <Route exact path="/myprofile/profile" component={Profile} /> 
       <Route exact path="/myprofile/favorites" component={Favorites} /> 
       <Route exact path="/myprofile/ads" component={Ads} /> 
-
+      <Route exact path="/register" component={Register}/> 
 
     </Switch>
 

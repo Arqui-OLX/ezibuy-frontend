@@ -105,12 +105,31 @@ class PublicationPost extends Component {
 
     submitData = e => {
 
-        axios.defaults.baseURL = 'https://clever-turtle-23.localtunnel.me';
-        axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
-        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-         
-        const url ='https://clever-turtle-23.localtunnel.me/product';
+            
+        const url ='http://localhost:3005/ads-images';
 
+      
+
+        this.state.files.forEach((element) => {
+            
+            var bodyFormData = new FormData();
+            bodyFormData.set('ad_id', 43433);
+
+            bodyFormData.append('adImage',element); 
+
+            axios.post(url, bodyFormData).then(function (response){
+
+                console.log(response);
+                
+            }) .catch(function (error) {
+                console.log(error);
+            });
+            
+        });
+
+     
+            /* 
+        
         var data ={
             title: this.state.post.title,
             description: this.state.post.description,
@@ -118,7 +137,9 @@ class PublicationPost extends Component {
             typePrice: this.state.post.typePrice,
             features: this.state.features,
             category : this.state.category,
-            subcategory : this.state.arraySubcategory[this.state.subcategory]
+            subcategory : this.state.arraySubcategory[this.state.subcategory],
+            files,
+
             
         }
         
@@ -131,7 +152,9 @@ class PublicationPost extends Component {
         .catch(function (error) {
             console.log(error);
         });
-    
+
+        */
+
     }
  
     handleChange = e => {

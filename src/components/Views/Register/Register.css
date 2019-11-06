@@ -1,0 +1,15 @@
+body{
+    color:#5c6f70;
+
+}
+
+.signupFormContainer{
+    border-radius: 3%;
+    border-style: solid;
+    border-color: gray;
+    border-width: 1%;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding-inline: 3%;
+    background: #d6d5c7;
+}
