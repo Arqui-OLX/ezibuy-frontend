@@ -3,6 +3,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./PublicationPost.css";
 import  axios from 'axios';
 import hash from 'object-hash';
+import { Redirect } from 'react-router-dom'
+
 
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -57,9 +59,8 @@ const  stateInicial = {
      loading: false,
      buffer: false,
      countPost: 0,
-     countPhotos: 0
-
-   
+     countPhotos: 0,
+     redirect: 0
  }
 
 
@@ -67,8 +68,15 @@ class PublicationPost extends Component {
 
     state = { ...stateInicial  }
 
+    componentDidMount() {
+        this.id = setTimeout(() => this.setState({ redirect: 2 }), 3000)
+      }
+    
+      componentWillUnmount() {
+        clearTimeout(this.id)
+      }
 
-
+    
     showSubCategory = (index,category) => {
         var clone = Object.assign( {}, this.state.show ); //ES6 Clones Object
         switch(clone[index]){
@@ -141,7 +149,8 @@ class PublicationPost extends Component {
             console.log(response.status);
             if(response.status == 200){
                 this.setState({
-                    countPost: 200
+                    countPost: 200,
+                    redirect: this.redirect 
                 })
             }
             console.log(response);
@@ -415,7 +424,9 @@ class PublicationPost extends Component {
                                     <div className="alert alert-success mt-4" role="alert">
                                         <h4 className="alert-heading">Listo!</h4>
                                         <p>Su producto se ha registrado</p>
+                                      
                                     </div>
+
                                     :this.state.countPhotos ==-1 || this.state.countPost == -1?
                                     <div className="alert alert-danger mt-4" role="alert">
                                         <h4 className="alert-heading">Error!</h4>

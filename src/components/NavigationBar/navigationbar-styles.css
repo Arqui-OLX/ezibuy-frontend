@@ -5,18 +5,7 @@
     font-size: 150%;
     margin-bottom: 1%;
   }
-  
-  .NavLink{
-    margin: 14px;
-    transition: .5s ease-in-out;
-    color: white;
-  }
 
-  .NavLink:hover{
-    margin: 14px;
-    transition: .5s ease-in-out;
-    color: #111d44;
-  }
   
   .navLogo{
 
