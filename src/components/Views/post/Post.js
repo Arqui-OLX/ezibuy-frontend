@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from 'axios';
 
+
 class Post extends Component {
     
     constructor(props) {
+        
         super(props);
         this.state = {
             idImage: 0,

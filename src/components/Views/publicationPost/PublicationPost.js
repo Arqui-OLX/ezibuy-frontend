@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./PublicationPost.css";
-import axios from 'axios';
+import  axios from 'axios';
+import hash from 'object-hash';
 
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -10,59 +11,63 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
  
 registerPlugin( FilePondPluginImagePreview);
 
+const  stateInicial = { 
+    // categories=["vehiculos","telefonos y tablets","computadores","inmuebles","empleo","servicios"],
+    category: "ninguna",
+    arraySubcategory: ["carros","motos","telefonos","tablets", "desktops", "portatiles","ventas de inmuebles","arriendo de inmuebles", "buscar empleos", "clases"], 
+    post : {
+        title : '',
+        description : '',
+        price: 0,
+        priceType: ''
+     },
+
+     fields:[
+         // ninguna
+         [],
+         //vehiculos
+        ["marca", "año", "kilometraje", "combustible", "color", "transmisión", "placa"],//carros
+        ["marca", "año", "kilometraje", "color", "cilindraje"],//motos
+       
+         //telefonosTablets
+        ["marca"],//telefonos
+        ["marca"],//tablets
+      
+        //computadores
+        ["marca"],//desktop
+        ["marca"],// portatil
+       
+        //inmuebles
+        ["tipo","cuartos","metros cuadrados","antigüedad","estrato", "tipo de vendedor","parqueadero"],//ventas
+        ["tipo","amueblado","metros cuadrados","antigüedad","estrato", "tipo de vendedor","parqueadero"],// arriendo
+
+        //Empleo
+        ["tipo","nombre de la compañia","experiencia mín","experiencia máx","salario mín", "salario máx"],//Buscar Empleo
+       
+        //Servicios
+        ["tipo"]//clases
+     ],
+     features:[
+       
+     ],
+     show: new Array(6).fill(false),
+     showFeatures: false,
+     subcategory: 0,
+     files: [], 
+     loading: false,
+     buffer: false,
+     countPost: 0,
+     countPhotos: 0
+
+   
+ }
+
 
 class PublicationPost extends Component {
 
+    state = { ...stateInicial  }
 
-      
-    constructor(props){
-        super(props);
-        this.state = { 
-            // categories=["vehiculos","telefonos y tablets","computadores","inmuebles","empleo","servicios"],
-            category: "",
-            arraySubcategory: ["carros","motos","telefonos","tablets", "desktops", "portatiles","ventas de inmuebles","arriendo de inmuebles", "buscar empleos", "clases"], 
-            post : {
-                title : '',
-                description : '',
-                price: 0,
-                priceType: ''
-             },
 
-             fields:[
-                 //vehiculos
-                ["marca", "año", "kilometraje", "combustible", "color", "transmisión", "placa"],//carros
-                ["marca", "año", "kilometraje", "color", "cilindraje"],//motos
-               
-                 //telefonosTablets
-                ["marca"],//telefonos
-                ["marca"],//tablets
-              
-                //computadores
-                ["marca"],//desktop
-                ["marca"],// portatil
-               
-                //inmuebles
-                ["tipo","cuartos","metros cuadrados","antigüedad","estrato", "tipo de vendedor","parqueadero"],//ventas
-                ["tipo","amueblado","metros cuadrados","antigüedad","estrato", "tipo de vendedor","parqueadero"],// arriendo
-
-                //Empleo
-                ["tipo","nombre de la compañia","experiencia mín","experiencia máx","salario mín", "salario máx"],//Buscar Empleo
-               
-                //Servicios
-                ["tipo"]//clases
-             ],
-             features:[
-               
-             ],
-             show: new Array(6).fill(false),
-             showFeatures: false,
-             subcategory: -1,
-             files: []
- 
-           
-         }
-        
-     }
 
     showSubCategory = (index,category) => {
         var clone = Object.assign( {}, this.state.show ); //ES6 Clones Object
@@ -105,31 +110,16 @@ class PublicationPost extends Component {
 
     submitData = e => {
 
-            
-        const url ='http://localhost:3005/ads-images';
-
+        this.setState({
+            showInfo: 100
+        })
       
 
-        this.state.files.forEach((element) => {
-            
-            var bodyFormData = new FormData();
-            bodyFormData.set('ad_id', 43433);
+        e.preventDefault();  // recarga el formulario
 
-            bodyFormData.append('adImage',element); 
+        var uniqueId = hash(Buffer.from(JSON.stringify(this.state)));
 
-            axios.post(url, bodyFormData).then(function (response){
 
-                console.log(response);
-                
-            }) .catch(function (error) {
-                console.log(error);
-            });
-            
-        });
-
-     
-            /* 
-        
         var data ={
             title: this.state.post.title,
             description: this.state.post.description,
@@ -138,26 +128,65 @@ class PublicationPost extends Component {
             features: this.state.features,
             category : this.state.category,
             subcategory : this.state.arraySubcategory[this.state.subcategory],
-            files,
+            _id: uniqueId
 
-            
-        }
+        };
         
-         console.log("afuera del axios");
-        axios.post(url, data)
-        .then(function (response) {
-            console.log("hola")
+        const urlPost ="http://localhost:3002/product";
+        const urlImage ='http://localhost:3001/ads-images';
+        var idPost = "";       
+        var containerPhotos =0;
+        axios.post(urlPost, data)
+        .then( (response) => {
+            console.log(response.status);
+            if(response.status == 200){
+                this.setState({
+                    countPost: 200
+                })
+            }
             console.log(response);
-        })
-        .catch(function (error) {
+            idPost = response.data._id
+         })
+        .catch( (error) =>{
+            this.setState({
+                countPost: -1
+            })
             console.log(error);
         });
 
-        */
+       
+    
+        this.state.files.forEach((element) => {
+        
+            var bodyFormData = new FormData();
 
-    }
+            bodyFormData.set('ad_id', uniqueId);
+
+            bodyFormData.append('adImage',element); 
+
+            axios.post(urlImage, bodyFormData)
+
+            .then( (response)=>{
+                if(response.status =200){
+                    this.setState({
+                        countPhotos:200
+                    })
+                }
+                console.log(response);
+                
+            }) .catch((error) =>{
+                this.setState({
+                    countPhotos: -1
+                })
+                console.log(error);
+            });
+            
+        }); 
+ 
+     }
  
     handleChange = e => {
+
 
         this.setState({
            post : {
@@ -181,7 +210,8 @@ class PublicationPost extends Component {
         })
  
     }
- 
+
+
     render() {
 
        var listItems = <div></div>;
@@ -222,7 +252,7 @@ class PublicationPost extends Component {
                    
                    <ul className="listaProductos">
 
-                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} >vehiculos</li>
+                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(1,"vehiculos")} >vehiculos</li>
  
                             {
                                 this.state.show[0]?
@@ -234,7 +264,7 @@ class PublicationPost extends Component {
                                 :null
                             }
  
-                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(1, "telefonos y tablets" )}  >Telefonos y tablets </li>
+                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(2, "telefonos y tablets" )}  >Telefonos y tablets </li>
  
                             {
                                 this.state.show[1]?
@@ -246,7 +276,7 @@ class PublicationPost extends Component {
                             }
 
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(2, "computadores")} >computadores</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3, "computadores")} >computadores</li>
                         
                             {
                                 this.state.show[2]?
@@ -259,7 +289,7 @@ class PublicationPost extends Component {
                             }
 
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3,"inmuebles")} >inmuebles</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"inmuebles")} >inmuebles</li>
                         
                             {
                                 this.state.show[3]?
@@ -271,7 +301,7 @@ class PublicationPost extends Component {
                             }
 
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"empĺeo")} >empleo</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"empĺeo")} >empleo</li>
                         
                             {
                                 this.state.show[4]?
@@ -282,7 +312,7 @@ class PublicationPost extends Component {
                             }
 
       
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"servicios")} >Servicios</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(6,"servicios")} >Servicios</li>
                         
                             {
                                 this.state.show[5]?
@@ -293,6 +323,8 @@ class PublicationPost extends Component {
                             }
       
                    </ul>
+
+                            
                        
               </div>
 
@@ -305,6 +337,7 @@ class PublicationPost extends Component {
 
                             <div>
 
+                         <form onSubmit={this.submitData}>
 
                             <FilePond  
                                 onupdatefiles={(fileItems) => {
@@ -356,12 +389,13 @@ class PublicationPost extends Component {
                                         name="price"    
                                         onChange={this.handleChange}
                                         value={this.state.post.price}  
+                                        required
 
                                     />
 
                                     
  
-                                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.priceType}>
+                                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.priceType} required>
                                         
                                         <option name= "typePrice">Negociable</option>
                                     
@@ -372,8 +406,27 @@ class PublicationPost extends Component {
                                     </select>
                                 </div>
                      
-
+                               
                                 <button type="submit" className="btn btn-primary btn-block  mt-5" onClick={this.submitData}>Publicar</button>
+                                </form>
+
+                                {
+                                    this.state.countPhotos==200 && this.state.countPost==200?
+                                    <div className="alert alert-success mt-4" role="alert">
+                                        <h4 className="alert-heading">Listo!</h4>
+                                        <p>Su producto se ha registrado</p>
+                                    </div>
+                                    :this.state.countPhotos ==-1 || this.state.countPost == -1?
+                                    <div className="alert alert-danger mt-4" role="alert">
+                                        <h4 className="alert-heading">Error!</h4>
+                                        <p>Ha ocurrido un problema al registrar su producto</p>
+                                    </div>
+                                    :null
+
+                                }
+
+                                    
+                                
                          
                             </div>
 
