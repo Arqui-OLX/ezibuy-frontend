@@ -7,18 +7,34 @@ class PostList extends Component {
 
     
 
-    state = {posts: [], current_fk: 0};
+    state = {
+        JsonPosts: [],
+        JsonImages: [],
+        current_fk: 0
+    };
     
 
     componentDidMount() {
-        const url ='http://35.208.241.159:5000/graphql?';
 
-        const getPosts = {"query":"query {\n  allPosts {\n    title\n    description\n fk_product\n  }\n}"};
+        const urlPosts ='https://orange-yak-43.localtunnel.me/product';
+        const urlImages ='https://rotten-mole-65.localtunnel.me/ads-images';
 
-        axios.post(url, getPosts)
-        .then(res => {
-            this.setState({ posts: res.data.data.allPosts});
-        })
+        axios.get(urlPosts)
+        .then(result=>{
+            console.log(result.data)
+            this.setState({
+                JsonPosts: result.data
+            })
+        }).catch(console.log)
+
+        axios.get(urlImages)
+        .then(result2=>{
+            console.log(result2.data)
+            this.setState({
+                JsonImages: result2.data
+            })
+        }).catch(console.log)
+
     }
 
     handleClick(e) {
@@ -32,8 +48,9 @@ class PostList extends Component {
 
 
 
-        const data = this.state.posts;
+        const data = this.state.JsonPosts;
 
+        
         const result = data.map((post, index) => 
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
@@ -44,8 +61,8 @@ class PostList extends Component {
                     <h5 className="text-md-left text-ms-center mb-2 text-muted">{post.description}</h5>
                 </div>
                 <div className="d-inline col-md-4 align-self-center">
-                    <h4 className="text-center">Precio</h4>
-                    <h5 className="text-center mb-2 text-muted">Tipo Precio</h5>
+                    <h4 className="text-center">{post.price}</h4>
+                    <h5 className="text-center mb-2 text-muted">{post.priceType}</h5>
                     <button id={index} onClick={this.handleClick} type="button" className="btn btn-secondary px-4 mt-4 float-right" data-toggle="modal" data-target="#exampleModal">
                         <h4 className="m-0">Ver mas</h4>
                     </button>
@@ -53,6 +70,9 @@ class PostList extends Component {
             </div>
         );
 
+       
+
+        
 
 
         return (

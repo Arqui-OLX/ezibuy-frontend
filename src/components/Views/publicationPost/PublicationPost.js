@@ -132,7 +132,7 @@ class PublicationPost extends Component {
             title: this.state.post.title,
             description: this.state.post.description,
             price: this.state.post.price,
-            typePrice: this.state.post.typePrice,
+            priceType: this.state.post.typePrice,
             features: this.state.features,
             category : this.state.category,
             subcategory : this.state.arraySubcategory[this.state.subcategory],
@@ -140,11 +140,10 @@ class PublicationPost extends Component {
 
         };
         
-        const urlPost ="http://localhost:3002/product";
-        const urlImage ='http://localhost:3001/ads-images';
+        const urlPosts = 'https://orange-yak-43.localtunnel.me/product';
+        const urlImages ='https://rotten-mole-65.localtunnel.me/ads-images';
         var idPost = "";       
-        var containerPhotos =0;
-        axios.post(urlPost, data)
+        axios.post(urlPosts, data)
         .then( (response) => {
             console.log(response.status);
             if(response.status == 200){
@@ -173,7 +172,7 @@ class PublicationPost extends Component {
 
             bodyFormData.append('adImage',element); 
 
-            axios.post(urlImage, bodyFormData)
+            axios.post(urlImages, bodyFormData)
 
             .then( (response)=>{
                 if(response.status =200){
