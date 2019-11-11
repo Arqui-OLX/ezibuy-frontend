@@ -136,12 +136,13 @@ class PublicationPost extends Component {
             features: this.state.features,
             category : this.state.category,
             subcategory : this.state.arraySubcategory[this.state.subcategory],
-            _id: uniqueId
+            _id: uniqueId,
+            fistImage: this.state.files[0]
 
         };
         
-        const urlPosts = 'https://orange-yak-43.localtunnel.me/product';
-        const urlImages ='https://rotten-mole-65.localtunnel.me/ads-images';
+        const urlPosts  ='http://localhost:3002/product';
+        const urlImages ='http://localhost:3001/ads-images';
         var idPost = "";       
         axios.post(urlPosts, data)
         .then( (response) => {

@@ -11,29 +11,55 @@ class PostList extends Component {
         JsonPosts: [],
         JsonImages: [],
         current_fk: 0
-    };
+     };
     
 
     componentDidMount() {
 
-        const urlPosts ='https://orange-yak-43.localtunnel.me/product';
-        const urlImages ='https://rotten-mole-65.localtunnel.me/ads-images';
-
+        const urlPosts  ='http://localhost:3002/product';
+        const urlImages ='http://localhost:3001/ads-images';    
+        
+       
         axios.get(urlPosts)
         .then(result=>{
-            console.log(result.data)
-            this.setState({
-                JsonPosts: result.data
-            })
-        }).catch(console.log)
+            let ids = [];
 
-        axios.get(urlImages)
-        .then(result2=>{
-            console.log(result2.data)
             this.setState({
-                JsonImages: result2.data
-            })
-        }).catch(console.log)
+                JsonPosts: result.data 
+            });
+            
+            result.data.forEach(post => {
+                console.log(result.data);
+                console.log(post._id);                
+                
+                axios.get(urlImages+"/byid/"+post._id)
+                .then(element=>{
+
+                     
+                    
+                    this.setState({ 
+                        JsonImages: [...this.state.JsonImages, element.data[0].ad_image]
+                      })
+                    
+                }).catch( (error) =>{
+                if(error.status = 404)
+                    console.log("error 404, no encontrada la imagen");
+                });
+    
+                    
+
+            });
+        }).catch(console.log);
+
+        
+ 
+        // setTimeout(function(){
+
+        //     console.log(images);
+
+        // }, 5000); 
+        
+ 
 
     }
 
@@ -52,9 +78,13 @@ class PostList extends Component {
 
         
         const result = data.map((post, index) => 
+
+             
+
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
-                    <img src="https://dummyimage.com/200x200/000/fff" className="" alt="..."/>
+                      
+                    <img src={'http://localhost:3001/'+this.state.JsonImages[index]} className="" alt="..."/>
                 </div>
                 <div className="d-inline col-md-4">
                     <h4 className="text-md-left text-ms-center">{post.title}</h4>
