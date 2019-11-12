@@ -10,7 +10,8 @@ class Post extends Component {
         super(props);
         this.state = {
             post : {},
-            images: []
+            images: [],
+            idImage: 0
         };
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
@@ -24,7 +25,7 @@ class Post extends Component {
     componentDidMount() {
         
         const urlPosts  ='http://35.209.82.198:3002/product/';
-        //const urlImages ='http://35.209.82.198:3001/ads-images';
+        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         //const getProduct = {"query":"query {\n  catalogById(id: \"5dae83ffc22f297e5f0e2b8c\"){\n    \n    catalog{\n    vehiculos{\n      motos {\n        marca\n        anio\n        kilometraje\n        color\n        cilindrada\n        tipoVendedor\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      carros{\n        marca\n        year\n        kilometraje\n        combustible\n        color\n        transmision\n        placa\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    telefonosTablets{\n      telefonos{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      tablets{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    computadores{\n      computadorEscritorio{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      portatiles{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    electrodomesticos{\n      cocinas{\n        tipo\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      neveras{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    empleos{\n      buscarTrabajo{\n        tipo\n        enEsteAnuncio\n        nombreCompania\n        experienciaMin\n        experienciaMax\n        salarioMin\n        salarioMax\n      }\n    }\n    servicios{\n      clasesCursos{\n        tipo\n      }\n      reparaciones{\n        tipo\n      }\n      transporteMudanza{\n        tipo\n      }\n    }\n  }\n}\n}\n\n","variables":null};
 
         console.log(this.props.fk_post);
@@ -37,31 +38,32 @@ class Post extends Component {
                 post: res.data
             });
 
-            console.log(res);
+            axios.get(urlImages+ this.props.fk_post)
+            .then(res => {
+    
+                
+                this.setState({ 
+                    images: res.data
+                });
+    
+                //console.log(res);
+    
+            })
 
         })
+
+     
     }
 
     render() {
 
-        var arregloURL =[
-            "http://placehold.it/600x400?text=Product+01",
-            "http://placehold.it/600x400?text=Product+02",
-            "http://placehold.it/600x400?text=Product+03",
-            "http://placehold.it/600x400?text=Product+04",
-            "http://placehold.it/600x400?text=Product+05",
-            "http://placehold.it/600x400?text=Product+06",
-            "http://placehold.it/600x400?text=Product+07",
-            "http://placehold.it/600x400?text=Product+08",
-            "http://placehold.it/600x400?text=Product+09",
-        ]
+ 
+        var listItems = this.state.images.map((url, i) =>
 
-        
-        var listItems = arregloURL.map((url, i) =>
-        
+
 
             <div key={i} >
-                <img className="img-fluid" src={url} id={i} onClick={this.handleClick} alt=""></img>  
+                <img className="img-fluid" src={'http://35.209.82.198:3001/'+url.ad_image} id={i} onClick={this.handleClick} alt=""></img>  
             </div>
 
         );
@@ -101,7 +103,7 @@ class Post extends Component {
 
                       
                         <div className="">
-                            <img src={arregloURL[this.state.idImage]} className="w-100 h-auto" alt=""></img>
+                            <img src={Image[this.state.idImage]} className="w-100 h-auto" alt=""></img>
                         </div>
         
                         <div className="d-flex">

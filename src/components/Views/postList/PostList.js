@@ -8,7 +8,7 @@ class PostList extends Component {
     state = {
         JsonPosts: [],
         JsonImages: [],
-        current_fk: 0,
+        current_fk: 0
       };
     
 
@@ -69,8 +69,7 @@ class PostList extends Component {
   
     handleClick = (e, data) => {
 
-        console.log(data);
-        this.setState({
+         this.setState({
 
             current_fk: data
 
