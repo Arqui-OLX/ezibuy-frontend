@@ -3,13 +3,13 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./PublicationPost.css";
 import  axios from 'axios';
 import hash from 'object-hash';
-import { Redirect } from 'react-router-dom'
-
+ 
 
 import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+import PostList from '../postList/PostList';
  
 registerPlugin( FilePondPluginImagePreview);
 
@@ -86,6 +86,8 @@ class PublicationPost extends Component {
             case true:
                 clone[index] = false
                 break;
+            default:
+                console.log("error al  cambiar estado de categoria")
         }
         this.setState({ 
             show: clone,
@@ -107,7 +109,7 @@ class PublicationPost extends Component {
         
         this.setState({ 
             
-            showFeatures: this.state.subcategory == index ?  !this.state.showFeatures : this.state.showFeatures,
+            showFeatures: this.state.subcategory === index ?  !this.state.showFeatures : this.state.showFeatures,
             subcategory: index,
             features :features
 
@@ -141,13 +143,14 @@ class PublicationPost extends Component {
 
         };
         
-        const urlPosts  ='http://localhost:3002/product';
-        const urlImages ='http://localhost:3001/ads-images';
+        const urlPosts  ='http://35.209.82.198:3002/product';
+        const urlImages ='http://35.209.82.198:3001/ads-images';
+
         var idPost = "";       
         axios.post(urlPosts, data)
         .then( (response) => {
             console.log(response.status);
-            if(response.status == 200){
+            if(response.status === 200){
                 this.setState({
                     countPost: 200,
                     redirect: this.redirect 
@@ -176,14 +179,14 @@ class PublicationPost extends Component {
             axios.post(urlImages, bodyFormData)
 
             .then( (response)=>{
-                if(response.status =200){
+                if(response.status === 200){
                     this.setState({
                         countPhotos:200
                     })
                 }
                 console.log(response);
                 
-            }) .catch((error) =>{
+            }).catch((error) =>{
                 this.setState({
                     countPhotos: -1
                 })
@@ -226,7 +229,7 @@ class PublicationPost extends Component {
        var listItems = <div></div>;
 
        var features = [];
-       if(this.state.subcategory !=-1){
+       if(this.state.subcategory !==-1){
            
             listItems = this.state.fields[this.state.subcategory].map((i, index) =>
                
@@ -261,67 +264,67 @@ class PublicationPost extends Component {
                    
                    <ul className="listaProductos">
 
-                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(1,"vehiculos")} >vehiculos</li>
+                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} ></li>
  
                             {
                                 this.state.show[0]?
                                 <ul>
-                                    <li  onClick={(e) => this.showForm(0,features)}>carros</li>
+                                    <li  onClick={(e) => this.showForm(1,features)}>carros</li>
                                     
-                                    <li onClick={(e) => this.showForm(1,features)}>motos</li>
+                                    <li onClick={(e) => this.showForm(2,features)}>motos</li>
                                 </ul>                                
                                 :null
                             }
  
-                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(2, "telefonos y tablets" )}  >Telefonos y tablets </li>
+                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(1, "telefonos y tablets" )}  >Telefonos y tablets </li>
  
                             {
                                 this.state.show[1]?
                                 <ul>
-                                    <li onClick={(e) => this.showForm(2,features)}>telefono</li>
-                                    <li onClick={(e) => this.showForm(3,features)}>tablet</li>
+                                    <li onClick={(e) => this.showForm(3,features)}>telefono</li>
+                                    <li onClick={(e) => this.showForm(4,features)}>tablet</li>
                                 </ul>                                
                                 :null
                             }
 
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3, "computadores")} >computadores</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(2, "computadores")} >computadores</li>
                         
                             {
                                 this.state.show[2]?
                                 <ul>
-                                    <li  onClick={(e) => this.showForm(4,features)}>computadores de escritorio</li>
+                                    <li  onClick={(e) => this.showForm(5,features)}>computadores de escritorio</li>
                                     
-                                    <li onClick={(e) => this.showForm(5,features)}>computadores portatiles</li>
+                                    <li onClick={(e) => this.showForm(6,features)}>computadores portatiles</li>
                                 </ul>                                
                                 :null
                             }
 
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"inmuebles")} >inmuebles</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3,"inmuebles")} >inmuebles</li>
                         
                             {
                                 this.state.show[3]?
                                 <ul>
-                                    <li  onClick={(e) => this.showForm(6,features)}>venta de inmuebles</li>
-                                    <li onClick={(e) => this.showForm(7,features)}>arriendo de inmuebles</li>
+                                    <li  onClick={(e) => this.showForm(7,features)}>venta de inmuebles</li>
+                                    <li onClick={(e) => this.showForm(8,features)}>arriendo de inmuebles</li>
                                 </ul>                                
                                 :null
                             }
 
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"empĺeo")} >empleo</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"empĺeo")} >empleo</li>
                         
                             {
                                 this.state.show[4]?
                                 <ul>
-                                    <li  onClick={(e) => this.showForm(8,features)}>buscar empleo</li>
+                                    <li  onClick={(e) => this.showForm(9,features)}>buscar empleo</li>
                                  </ul>                                
                                 :null
                             }
 
       
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(6,"servicios")} >Servicios</li>
+                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"servicios")} >Servicios</li>
                         
                             {
                                 this.state.show[5]?
@@ -346,6 +349,8 @@ class PublicationPost extends Component {
 
                             <div>
 
+                       
+
                          <form onSubmit={this.submitData}>
 
                             <FilePond  
@@ -353,8 +358,8 @@ class PublicationPost extends Component {
                                 this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
                                 onDrop={this.handleUploadImages}
                                 allowMultiple={true}
-                                //required ={true}
-                             />
+                                required ={true}
+                            />
 
                             {
                                 this.state.showFeatures?
@@ -373,7 +378,7 @@ class PublicationPost extends Component {
                                         name="title" 
                                         value={this.state.post.title} 
                                         onChange={this.handleChange}
-                                     />
+                                     required/>
                                 </div>
 
                                 <div className="form-group">
@@ -385,7 +390,7 @@ class PublicationPost extends Component {
                                         name="description" 
                                         value={this.state.post.description}  
                                         onChange={this.handleChange}
-                                    />
+                                        required/>
                                 </div>     
 
                                 <div className="form-group row ">
@@ -416,18 +421,19 @@ class PublicationPost extends Component {
                                 </div>
                      
                                
-                                <button type="submit" className="btn btn-primary btn-block  mt-5" onClick={this.submitData}>Publicar</button>
-                                </form>
+                                <button type="submit" className="btn btn-primary btn-block  mt-5">Publicar</button>
+                            </form>
 
                                 {
-                                    this.state.countPhotos==200 && this.state.countPost==200?
+                                    this.state.countPhotos === 200 && this.state.countPost === 200?
+
                                     <div className="alert alert-success mt-4" role="alert">
                                         <h4 className="alert-heading">Listo!</h4>
                                         <p>Su producto se ha registrado</p>
                                       
-                                    </div>
+                                    </div>           
 
-                                    :this.state.countPhotos ==-1 || this.state.countPost == -1?
+                                    :this.state.countPhotos === -1 || this.state.countPost === -1?
                                     <div className="alert alert-danger mt-4" role="alert">
                                         <h4 className="alert-heading">Error!</h4>
                                         <p>Ha ocurrido un problema al registrar su producto</p>
@@ -436,7 +442,7 @@ class PublicationPost extends Component {
 
                                 }
 
-                                    
+                                                        
                                 
                          
                             </div>

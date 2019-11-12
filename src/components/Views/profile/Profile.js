@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios'
 import ProfileNavBar from './ProfileNavBar'
-import store from  "../../Redux/store"
+//import store from  "../../Redux/store"
 class Profile extends Component{
 
     state = {
@@ -17,9 +17,9 @@ class Profile extends Component{
      
     
     
-changeName(name){
-    store.dispatch({type:"cambio", name:name});
-}
+// changeName(name){
+//     store.dispatch({type:"cambio", name:name});
+// }
 
 componentDidMount() {
 
@@ -40,7 +40,7 @@ componentDidMount() {
     render(){
 
 
-        console.log(store.getState());
+        // console.log(store.getState());
 
         const data = this.state.user;
 

@@ -1,36 +1,38 @@
 import React, { Component } from 'react';
 import './PostList.css';
 import axios from 'axios';
-import Post from  '../post/Post'
-
+import Post from '../post/Post'
 class PostList extends Component {
-
-    
+ 
 
     state = {
         JsonPosts: [],
         JsonImages: [],
-        current_fk: 0
-     };
+        current_fk: 0,
+      };
     
+
+     togglePopup() {
+        this.setState({
+          showPopup: !this.state.showPopup
+        });
+      }
+      
 
     componentDidMount() {
 
-        const urlPosts  ='http://localhost:3002/product';
-        const urlImages ='http://localhost:3001/ads-images';    
+        const urlPosts  ='http://35.209.82.198:3002/product';
+        const urlImages ='http://35.209.82.198:3001/ads-images';
         
        
         axios.get(urlPosts)
         .then(result=>{
-            let ids = [];
 
             this.setState({
                 JsonPosts: result.data 
             });
             
-            result.data.forEach(post => {
-                console.log(result.data);
-                console.log(post._id);                
+            result.data.forEach(post => {         
                 
                 axios.get(urlImages+"/byid/"+post._id)
                 .then(element=>{
@@ -42,8 +44,9 @@ class PostList extends Component {
                       })
                     
                 }).catch( (error) =>{
-                if(error.status = 404)
+                if(error.status === 404){
                     console.log("error 404, no encontrada la imagen");
+                }
                 });
     
                     
@@ -63,12 +66,17 @@ class PostList extends Component {
 
     }
 
-    handleClick(e) {
-        console.log(e.target.id);
-        //this.setState({current_fk: e.target.value});
+  
+    handleClick = (e, data) => {
 
+        console.log(data);
+        this.setState({
+
+            current_fk: data
+
+        })
     }
-
+    
 
     render() {
 
@@ -83,8 +91,8 @@ class PostList extends Component {
 
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
-                      
-                    <img src={'http://localhost:3001/'+this.state.JsonImages[index]} className="" alt="..."/>
+                     {console.log(this.state.JsonImages[index])} 
+                    <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]} className="" alt="..."/>
                 </div>
                 <div className="d-inline col-md-4">
                     <h4 className="text-md-left text-ms-center">{post.title}</h4>
@@ -93,10 +101,15 @@ class PostList extends Component {
                 <div className="d-inline col-md-4 align-self-center">
                     <h4 className="text-center">{post.price}</h4>
                     <h5 className="text-center mb-2 text-muted">{post.priceType}</h5>
-                    <button id={index} onClick={this.handleClick} type="button" className="btn btn-secondary px-4 mt-4 float-right" data-toggle="modal" data-target="#exampleModal">
+                    <button id={index}   onClick={((e) => this.handleClick(e, post._id))}
+                        value={post._id}  
+                        type="button"
+                        className="btn btn-secondary px-4 mt-4 float-right"
+                        data-toggle="modal" 
+                        data-target="#exampleModal">
                         <h4 className="m-0">Ver mas</h4>
                     </button>
-                </div>
+                 </div>
             </div>
         );
 
@@ -107,9 +120,12 @@ class PostList extends Component {
 
         return (
 
+            
+
  
                 <div className="row justify-content-md-center" style={{backgroundColor: "#eceff1"}}>
-                    <div className="h-100 col-md-3 col-ms-10 m-4 p-2 shadow bg-white rounded" style={{backgroundColor: "white"}}>
+
+                     <div className="h-100 col-md-3 col-ms-10 m-4 p-2 shadow bg-white rounded" style={{backgroundColor: "white"}}>
 
                         <div>
                             
@@ -150,9 +166,12 @@ class PostList extends Component {
                         {result}
                     </div>
 
+
+                    <div>
+ 
                     
                     
-                    <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                         <div className="modal-header">
@@ -161,17 +180,26 @@ class PostList extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <Post/>
+                            {
+                                this.state.current_fk!==0?
+                                <Post 
+                                fk_post = {this.state.current_fk}
+                                />
+                                :null
+                            }
+                           
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                         </div>
                     </div>
-                    </div>
-
+                    </div> 
 
                 </div>
+                </div>
+
+                
 
 
 
