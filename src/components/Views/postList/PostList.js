@@ -91,20 +91,20 @@ class PostList extends Component {
 
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
-                     {console.log(this.state.JsonImages[index])} 
-                    <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]} className="" alt="..."/>
+                    <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]} className="" alt="..." className="img-fluid"/>
                 </div>
                 <div className="d-inline col-md-4">
                     <h4 className="text-md-left text-ms-center">{post.title}</h4>
                     <h5 className="text-md-left text-ms-center mb-2 text-muted">{post.description}</h5>
                 </div>
-                <div className="d-inline col-md-4 align-self-center">
+                <div className="d-inline col-md-4 mx-center">
+                    <h4 className="text-center">Precio:</h4>
                     <h4 className="text-center">{post.price}</h4>
                     <h5 className="text-center mb-2 text-muted">{post.priceType}</h5>
-                    <button id={index}   onClick={((e) => this.handleClick(e, post._id))}
+                    <button   id={index}   onClick={((e) => this.handleClick(e, post._id))}
                         value={post._id}  
                         type="button"
-                        className="btn btn-secondary px-4 mt-4 float-right"
+                        className="btn btn-secondary px-4 mt-4"
                         data-toggle="modal" 
                         data-target="#exampleModal">
                         <h4 className="m-0">Ver mas</h4>

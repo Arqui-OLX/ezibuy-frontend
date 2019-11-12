@@ -28,10 +28,10 @@ class NavigationBar extends Component {
                     <Nav.Link className="texto" href="/home" >EzIBuy</Nav.Link>
                     <Nav.Link href="/login">Ingresar</Nav.Link>
                     <Nav.Link href="/register" >Registrarse</Nav.Link>
-                    <Nav.Link href="/postlist">Lista de post</Nav.Link> 
+                    <Nav.Link href="/postlist">catalogo</Nav.Link> 
                     <Nav.Link href="/sale" >Vender</Nav.Link>
                     <Nav.Link href="/myprofile/profile">Perfil</Nav.Link>
-                    <NavDropdown title="Más información" id="basic-nav-dropdown">
+                    <NavDropdown title="Ver más" id="basic-nav-dropdown">
                       <NavDropdown.Item href="#action1">categorias</NavDropdown.Item>
                       <NavDropdown.Item href="#action2">sobre nosotros</NavDropdown.Item>
                       <NavDropdown.Item href="#action3">Contactenos</NavDropdown.Item>

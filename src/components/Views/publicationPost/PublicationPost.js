@@ -264,7 +264,7 @@ class PublicationPost extends Component {
                    
                    <ul className="listaProductos">
 
-                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} ></li>
+                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} >vehiculos</li>
  
                             {
                                 this.state.show[0]?
