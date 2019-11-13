@@ -22,6 +22,7 @@ class Post extends Component {
         this.setState({idImage: e.target.id});
     }
 
+
     componentDidMount() {
         
         const urlPosts  ='http://35.209.82.198:3002/product/';
@@ -55,9 +56,46 @@ class Post extends Component {
      
     }
 
+    componentDidUpdate(prevProps){   
+        
+        if (this.props.fk_post !== prevProps.fk_post) {
+        const urlPosts  ='http://35.209.82.198:3002/product/';
+        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+        //const getProduct = {"query":"query {\n  catalogById(id: \"5dae83ffc22f297e5f0e2b8c\"){\n    \n    catalog{\n    vehiculos{\n      motos {\n        marca\n        anio\n        kilometraje\n        color\n        cilindrada\n        tipoVendedor\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      carros{\n        marca\n        year\n        kilometraje\n        combustible\n        color\n        transmision\n        placa\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    telefonosTablets{\n      telefonos{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      tablets{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    computadores{\n      computadorEscritorio{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      portatiles{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    electrodomesticos{\n      cocinas{\n        tipo\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      neveras{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    empleos{\n      buscarTrabajo{\n        tipo\n        enEsteAnuncio\n        nombreCompania\n        experienciaMin\n        experienciaMax\n        salarioMin\n        salarioMax\n      }\n    }\n    servicios{\n      clasesCursos{\n        tipo\n      }\n      reparaciones{\n        tipo\n      }\n      transporteMudanza{\n        tipo\n      }\n    }\n  }\n}\n}\n\n","variables":null};
+
+    
+        axios.get(urlPosts+ this.props.fk_post)
+        .then(res => {
+            
+            console.log(res);
+
+    
+            this.setState({ 
+                post: res.data
+            });
+
+        })
+
+        axios.get(urlImages+ this.props.fk_post)
+        .then(res => {
+
+
+            console.log(res);
+
+            
+            this.setState({ 
+                images: res.data
+            });
+
+
+        })
+    }
+     
+    }
+
     render() {
 
- 
+   
         var listItems = this.state.images.map((url, i) =>
 
 
@@ -84,11 +122,13 @@ class Post extends Component {
         
 
         return (
+            
                 <div className="">
                     <div className="col-md-12">
                         <header>
                             <div className="title">
                                 <h2>{this.state.post.title}</h2>
+                                
                             </div>
                             
                             <div className="detalles">

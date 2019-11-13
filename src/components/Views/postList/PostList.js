@@ -3,6 +3,7 @@ import './PostList.css';
 import axios from 'axios';
 import Post from '../post/Post'
 class PostList extends Component {
+    
  
 
     state = {
@@ -18,7 +19,7 @@ class PostList extends Component {
         });
       }
       
-
+      
     componentDidMount() {
 
         const urlPosts  ='http://35.209.82.198:3002/product';
@@ -76,6 +77,7 @@ class PostList extends Component {
         })
     }
     
+    
 
     render() {
 
@@ -112,14 +114,8 @@ class PostList extends Component {
             </div>
         );
 
-       
-
-        
-
 
         return (
-
-            
 
  
                 <div className="row justify-content-md-center" style={{backgroundColor: "#eceff1"}}>
