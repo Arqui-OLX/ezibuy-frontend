@@ -20,34 +20,33 @@ class PostList extends Component {
       }
       
       
-    componentDidMount() {
+      componentDidMount() {
 
         const urlPosts  ='http://35.209.82.198:3002/product';
-        const urlImages ='http://35.209.82.198:3001/ads-images';
+        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         
        
         axios.get(urlPosts)
         .then(result=>{
 
             this.setState({
-                JsonPosts: result.data 
+                JsonPosts: result.data ,
+                JsonImages: new Array(result.data.length)
             });
             
-            result.data.forEach(post => {         
+            result.data.forEach((post, i) => {         
                 
-                axios.get(urlImages+"/byid/"+post._id)
+                axios.get(urlImages+post._id)
                 .then(element=>{
-
-                     
                     
                     this.setState({ 
-                        JsonImages: [...this.state.JsonImages, element.data[0].ad_image]
-                      })
+                        JsonImages: [...this.state.JsonImages.slice(0, i), element.data[0].ad_image, ...this.state.JsonImages.slice(i + 1)]
+                    })
                     
                 }).catch( (error) =>{
-                if(error.status === 404){
-                    console.log("error 404, no encontrada la imagen");
-                }
+                    if(error.status === 404){
+                        console.log("error 404, no encontrada la imagen");
+                    }
                 });
     
                     
@@ -56,17 +55,7 @@ class PostList extends Component {
         }).catch(console.log);
 
         
- 
-        // setTimeout(function(){
-
-        //     console.log(images);
-
-        // }, 5000); 
-        
- 
-
     }
-
   
     handleClick = (e, data) => {
 
