@@ -10,44 +10,37 @@ class PostList extends Component {
         JsonPosts: [],
         JsonImages: [],
         current_fk: 0
-      };
+    };
     
-
-     togglePopup() {
-        this.setState({
-          showPopup: !this.state.showPopup
-        });
-      }
       
       
     componentDidMount() {
 
         const urlPosts  ='http://35.209.82.198:3002/product';
-        const urlImages ='http://35.209.82.198:3001/ads-images';
+        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         
        
         axios.get(urlPosts)
         .then(result=>{
 
             this.setState({
-                JsonPosts: result.data 
+                JsonPosts: result.data ,
+                JsonImages: new Array(result.data.length)
             });
             
-            result.data.forEach(post => {         
+            result.data.forEach((post, i) => {         
                 
-                axios.get(urlImages+"/byid/"+post._id)
+                axios.get(urlImages+post._id)
                 .then(element=>{
-
-                     
                     
                     this.setState({ 
-                        JsonImages: [...this.state.JsonImages, element.data[0].ad_image]
-                      })
+                        JsonImages: [...this.state.JsonImages.slice(0, i), element.data[0].ad_image, ...this.state.JsonImages.slice(i + 1)]
+                    })
                     
                 }).catch( (error) =>{
-                if(error.status === 404){
-                    console.log("error 404, no encontrada la imagen");
-                }
+                    if(error.status === 404){
+                        console.log("error 404, no encontrada la imagen");
+                    }
                 });
     
                     
@@ -56,19 +49,11 @@ class PostList extends Component {
         }).catch(console.log);
 
         
- 
-        // setTimeout(function(){
-
-        //     console.log(images);
-
-        // }, 5000); 
-        
- 
-
     }
 
   
-    handleClick = (e, data) => {
+    handleClick = (data) => {
+
 
          this.setState({
 
@@ -81,7 +66,7 @@ class PostList extends Component {
 
     render() {
 
-
+        console.log(this.state.fk_post);
 
         const data = this.state.JsonPosts;
 
@@ -102,7 +87,7 @@ class PostList extends Component {
                     <h4 className="text-center">Precio:</h4>
                     <h4 className="text-center">{post.price}</h4>
                     <h5 className="text-center mb-2 text-muted">{post.priceType}</h5>
-                    <button   id={index}   onClick={((e) => this.handleClick(e, post._id))}
+                    <button   id={index}   onClick={((e) => this.handleClick(post._id))}
                         value={post._id}  
                         type="button"
                         className="btn btn-secondary px-4 mt-4"
@@ -177,9 +162,9 @@ class PostList extends Component {
                         <div className="modal-body">
                             {
                                 this.state.current_fk!==0?
-                                <Post 
-                                fk_post = {this.state.current_fk}
-                                />
+                                    <Post 
+                                    fk_post = {this.state.current_fk}
+                                    />
                                 :null
                             }
                            

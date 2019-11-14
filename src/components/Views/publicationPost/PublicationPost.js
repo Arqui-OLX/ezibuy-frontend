@@ -139,7 +139,8 @@ class PublicationPost extends Component {
             category : this.state.category,
             subcategory : this.state.arraySubcategory[this.state.subcategory],
             _id: uniqueId,
-            fistImage: this.state.files[0]
+            fistImage: this.state.files[0],
+            fk_profile: 1
 
         };
         
