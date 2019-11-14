@@ -22,15 +22,11 @@ class  EditProfile extends Component{
     
  
  };
-     
-// changeName(name){
-//     store.dispatch({type:"cambio", name:name});
-// }
 
  
     
     sendData = (e) => {
-        this.props.parentCallback(e);
+
 
         const url ='http://35.208.164.215:3001/profile/1';
 
@@ -39,10 +35,10 @@ class  EditProfile extends Component{
     
         axios.put(url, data)
         .then(res => {
-            
-            console.log(res)
-            // this.setState({ user:  res.data.data.userById.data[0]});
+            console.log(res);
+            this.props.parentCallback(e);
         })
+
         
    }
 

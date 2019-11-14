@@ -27,7 +27,6 @@ class Profile extends Component{
         
         axios.get(url)
         .then(res => {
-            console.log(res.data[0])
             this.setState({ user: res.data[0]});
         })
     }
@@ -49,24 +48,16 @@ class Profile extends Component{
     callbackFunction = (EditProfileData) => {
 
         const url ='http://35.208.164.215:3001/profile/1';
-    
-        setTimeout(() => {
-            console.log("HOLAMUNDO");
-        },5000)
 
         axios.get(url)
         .then(res => {
-            console.log(res.data[0])
             this.setState({ 
                 user: res.data[0],
                 showView: EditProfileData
             });
         })
- 
 
-        console.log("holamundo")
 
-      
 
     }
 
