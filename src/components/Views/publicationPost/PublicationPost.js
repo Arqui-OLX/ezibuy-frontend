@@ -376,6 +376,7 @@ class PublicationPost extends Component {
                             }
       
                                 
+                                
 
                                 <div className="form-group ">
                                     <input 
