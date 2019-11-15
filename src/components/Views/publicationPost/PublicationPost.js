@@ -9,8 +9,8 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import PostList from '../postList/PostList';
- 
+import { Redirect } from 'react-router-dom'
+
 registerPlugin( FilePondPluginImagePreview);
 
 const  stateInicial = { 
@@ -56,11 +56,13 @@ const  stateInicial = {
      showFeatures: false,
      subcategory: 0,
      files: [], 
-     loading: false,
-     buffer: false,
+     loading1: true,
+     loading2:true,
+     buffer: true,
      countPost: 0,
      countPhotos: 0,
-     redirect: 0
+     redirect: 0,
+   
  }
 
 
@@ -150,15 +152,17 @@ class PublicationPost extends Component {
         var idPost = "";       
         axios.post(urlPosts, data)
         .then( (response) => {
-            console.log(response.status);
+ 
             if(response.status === 200){
+                
+           
                 this.setState({
-                    countPost: 200,
-                    redirect: this.redirect 
+                    loading: false,
                 })
             }
             console.log(response);
             idPost = response.data._id
+            
          })
         .catch( (error) =>{
             this.setState({
@@ -180,11 +184,14 @@ class PublicationPost extends Component {
             axios.post(urlImages, bodyFormData)
 
             .then( (response)=>{
-                if(response.status === 200){
-                    this.setState({
-                        countPhotos:200
+             
+                if(response.status === 201){
+                     this.setState({
+                        loading2:false,
+                        countPhotos:201
                     })
                 }
+            
                 console.log(response);
                 
             }).catch((error) =>{
@@ -330,7 +337,7 @@ class PublicationPost extends Component {
                             {
                                 this.state.show[5]?
                                 <ul>
-                                    <li  onClick={(e) => this.showForm(9,features)}>clases</li>
+                                    <li  onClick={(e) => this.showForm(10,features)}>clases</li>
                                 </ul>                                
                                 :null
                             }
@@ -425,23 +432,27 @@ class PublicationPost extends Component {
                                 <button type="submit" className="btn btn-primary btn-block  mt-5">Publicar</button>
                             </form>
 
-                                {
-                                    this.state.countPhotos === 200 && this.state.countPost === 200?
 
-                                    <div className="alert alert-success mt-4" role="alert">
-                                        <h4 className="alert-heading">Listo!</h4>
-                                        <p>Su producto se ha registrado</p>
-                                      
-                                    </div>           
+             
 
-                                    :this.state.countPhotos === -1 || this.state.countPost === -1?
-                                    <div className="alert alert-danger mt-4" role="alert">
-                                        <h4 className="alert-heading">Error!</h4>
-                                        <p>Ha ocurrido un problema al registrar su producto</p>
-                                    </div>
+                                    {
+                                
+                                    
+                                    this.state.loading === true && this.state.loading2 === true?
+                                     
+                                    <Redirect to='/postlist'/>
+                               
+
+                                    : this.state.countPhotos === -1 || this.state.countPost === 200?
+                                        <div className=" m-3 alert alert-danger" role="alert">
+                                        Ha ocurrido un error al publicar tu producto
+                                        </div>
                                     :null
 
                                 }
+ 
+
+                            
 
                                                         
                                 
