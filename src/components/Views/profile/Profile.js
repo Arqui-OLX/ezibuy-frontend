@@ -16,10 +16,9 @@ class Profile extends Component{
     
     };
 
-     
-// changeName(name){
-//     store.dispatch({type:"cambio", name:name});
-// }
+    // changeName(name){
+    //     store.dispatch({type:"cambio", name:name});
+    // }
 
     componentDidMount() {
 
@@ -30,8 +29,6 @@ class Profile extends Component{
             this.setState({ user: res.data[0]});
         })
     }
-
- 
         
 
     
@@ -62,11 +59,9 @@ class Profile extends Component{
     }
 
     render(){
- 
- 
+
         const data = this.state.user;
         
- 
         return(
 
             <div>

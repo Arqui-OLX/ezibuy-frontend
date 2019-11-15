@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import AdFrame from "./AdFrame";
 import ProfileNavBar from "../profile/ProfileNavBar";
- 
+import PostList from'../postList/PostList';
 
 import './Ads.css';
 
@@ -14,18 +14,7 @@ class Ads extends Component {
         return (
             <div className="profile-navbar d-flex flex-column">
             <ProfileNavBar/>                
-                {   
-                    dataProducts.products.map((product)=>{
-                        return <AdFrame 
-                                    key={product.id}
-                                    productName= {product.name} 
-                                    productPrice= {product.price} 
-                                    productLocation= {product.location} 
-                                    imgSrc= {product.imgurl}
-                                />
-                    })
-                        
-                }
+                <PostList profile="1"/>
             </div>
         )
     }

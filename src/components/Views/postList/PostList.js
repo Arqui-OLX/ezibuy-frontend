@@ -16,7 +16,14 @@ class PostList extends Component {
       
     componentDidMount() {
 
-        const urlPosts  ='http://35.209.82.198:3002/product';
+        let urlPosts  ='http://35.209.82.198:3002/product';
+
+
+        if (this.props.profile !== undefined) {
+            urlPosts  ='http://35.209.82.198:3002/product?profile='+this.props.profile;
+        }
+
+        
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         
        
@@ -102,46 +109,9 @@ class PostList extends Component {
 
         return (
 
- 
-                <div className="row justify-content-md-center" style={{backgroundColor: "#eceff1"}}>
-
-                     <div className="h-100 col-md-3 col-ms-10 m-4 p-2 shadow bg-white rounded" style={{backgroundColor: "white"}}>
-
-                        <div>
-                            
-                            <h5 className="bg-info p-2 m-0">Ubicación</h5>
-
-                            <div className="">
-                                <h6 className="select p-2 m-0">Bogotá</h6>
-                                <h6 className="select p-2 m-0">Medellin</h6>
-                                <h6 className="select p-2 m-0">Barranquilla</h6>
-                            </div>
-                        </div>
-
-                        <div>
-                            
-                            <h5 className="bg-info p-2 m-0">Categorias</h5>
-
-                            <div>
-                                <h6 className="select p-2 m-0">Automoviles</h6>
-                                <h6 className="select p-2 m-0">Celulares</h6>
-                                <h6 className="select p-2 m-0">Servicios</h6>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5 className="bg-info p-2 m-0">Precio</h5>
-                            <div className="my-2">
-                                <input type="text" className="form-control px-4 mx-2 w-25 d-inline" placeholder="Min"></input>
-                                <input type="text" className="form-control px-4 mx-2 w-25 d-inline" placeholder="Max"></input>
-                                <button type="button" className="btn btn-secondary">
-                                    <i className="far fa-check-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                    </div>
-
+                
+                <div className="row justify-content-md-center">
+                    
                     <div className="col-md-8 col-ms-10">
                         {result}
                     </div>
