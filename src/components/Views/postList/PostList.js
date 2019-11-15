@@ -73,8 +73,7 @@ class PostList extends Component {
 
     render() {
 
-        console.log(this.state.fk_post);
-
+ 
         const data = this.state.JsonPosts;
 
         

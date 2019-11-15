@@ -58,7 +58,7 @@ class Register extends Component{
                 }
             }).then(result => {
                 console.log(result)
-                const data = result.data.login
+                //const data = result.data.login
                 //const token= data.token
                 //const userId = data.userId
                 let path = `/login`;

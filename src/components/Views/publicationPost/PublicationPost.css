@@ -1,6 +1,9 @@
 #menu{
     width: 100%;
 }
+li{
+    font-size: 20px;
+}
 
 li:hover {
     background-color: #E0DFD0;

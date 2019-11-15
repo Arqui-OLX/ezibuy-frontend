@@ -14,7 +14,7 @@ class Ads extends Component {
         return (
             <div className="profile-navbar d-flex flex-column">
             <ProfileNavBar/>                
-                <PostList profile="1"/>
+                <PostList profile= {JSON.parse(localStorage.getItem("userInfo")).userId}/>
             </div>
         )
     }

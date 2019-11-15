@@ -11,7 +11,10 @@ class Post extends Component {
         this.state = {
             post : {},
             images: [],
-            idImage: 0
+            idImage: 0,
+            chatData:{
+            message: "",    
+            }
         };
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
@@ -28,11 +31,13 @@ class Post extends Component {
         const urlPosts  ='http://35.209.82.198:3002/product/';
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
 
-        console.log(this.props.fk_post);
-        
+
+         
         axios.get(urlPosts+ this.props.fk_post)
         .then(res => {
-
+             
+            console.log(res.data);
+            
             this.setState({ 
                 post: res.data
             });
@@ -50,8 +55,20 @@ class Post extends Component {
 
         })
 
-     
     }
+
+
+    handleChange = e => {
+        // colocar lo que el usuario escribe en el state
+        this.setState({
+           chatData : {
+               ...this.state.chatData,
+               [e.target.name] : e.target.value
+           }
+        })
+    }
+
+  
 
     
     componentDidUpdate(prevProps) {   
@@ -87,6 +104,44 @@ class Post extends Component {
 
         }
      
+    }
+
+    submitData = e => {
+
+        e.preventDefault();  // recarga el formulario
+
+        console.log("esto entra");
+        
+
+        const urlChat = "http://35.206.116.17:3001/room";
+        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
+
+        var data ={
+            messages: [
+                { 
+                  userID: id, 
+                  message: this.state.chatData.message
+                }
+              ],
+              
+              users: {
+                buyerID: id, 
+                sellerID: this.state.post.fk_profile
+              }
+        }
+        console.log(this.state.chatData.message);
+
+
+
+        axios.post(urlChat, data)
+
+        .then( (response)=>{
+          console.log(response);
+          
+        }).catch((error) =>{
+            console.log(error);
+        });
+        
     }
 
     render() {
@@ -150,28 +205,34 @@ class Post extends Component {
                             <p className="date icons-material icon-material-time text-left">{this.state.post.description}</p>
                         </div>
                         
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">{this.state.post.category}</strong></h4>
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">{this.state.post.subcategory}</strong></h4>
+                        {/* <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">{this.state.post.category}</strong></h4>
+                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">{this.state.post.subcategory}</strong></h4> */}
 
                        {ListFeatures}
            
                     </div>
 
                     <div className="col-md-12">
-
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">Nombre usuario</strong></h4>
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark line-height-15 letter-spacing-2px"><strong className="font-size-22px">Telefono</strong></h4>
+{/* 
+                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">holamundo</strong></h4>
+                        <h4 className="font-roboto-light font-size-20px-2c text-dark line-height-15 letter-spacing-2px"><strong className="font-size-22px">Telefono</strong></h4> */}
 
                   
-                        <form>
+                        <form onSubmit={this.submitData}>
+                                
                                 <div className="form-group">
-                                    <input type="phone" className="form-control" id="numberUser" aria-describedby="emailHelp" placeholder="Numero de telefono" />
-                                </div>
-                                <div className="form-group">
-                                    <textarea type="message" className="form-control" id="exampleInputPassword1" placeholder="Mensaje" rows="6"/>
+                                    <textarea 
+                                    type="message"
+                                     className="form-control" 
+                                     id="exampleInputPassword1"
+                                      placeholder="Mensaje" 
+                                     rows="6"  
+                                     name= "message"
+                                      onChange={this.handleChange}
+                                    value={this.state.message}/>
                                 </div>
                             
-                                <button type="submit" className="btn btn-primary btn-block" >Enviar</button>
+                                <button type="submit" className="btn btn-primary btn-block">Enviar</button>
                         </form>
                     
                     </div>                     

@@ -56,7 +56,7 @@ class NavigationBar extends Component {
                   <Form inline>
                   {this.props.userLoggedIn && 
                     
-                      <Button variant="outline-danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</Button>
+                      <Button className="mr-3" variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</Button>
                     
                   }
                     <FormControl type="text" placeholder="Buscar..." className="mr-sm-2" />

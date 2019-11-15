@@ -56,11 +56,12 @@ const  stateInicial = {
      showFeatures: false,
      subcategory: 0,
      files: [], 
-     loading1: true,
-     loading2:true,
+     loading1: false,
+     loading2: false,
      buffer: true,
-     countPost: 0,
-     countPhotos: 0,
+     receivePostRequest: false,
+     receiveImageRequest: false,
+     errorRequest: false,
      redirect: 0,
    
  }
@@ -119,11 +120,15 @@ class PublicationPost extends Component {
  
     }
   
+ 
 
-    submitData = e => {
+     submitData = e => {
 
         this.setState({
-            showInfo: 100
+            showInfo: 100,
+            loading1: true,
+            loading2: true,
+            errorRequest: false
         })
       
 
@@ -150,22 +155,25 @@ class PublicationPost extends Component {
         const urlImages ='http://35.209.82.198:3001/ads-images';
         const urlGraphql = 'http://35.208.241.159:4000';
 
-        let mutation = {"operationName":null,"variables":{},"query":`mutation {\n  createProduct(product: {_id: \"${uniqueId}\", category: \"${data.category}\", subcategory: \"${data.subcategory}\", title: \"${data.title}\", description:\"${data.description}\", price:  ${data.price} , priceType: \"${data.priceType}\", fk_profile:  ${data.fk_profile} , features:  ${data.features} }) {\n    _id\n    title\n    description\n    price\n    priceType\n    features {\n      featureName\n      featureValue\n    }\n    fk_profile\n  }\n}\n`}
-
-        let example = {"operationName":null,"variables":{},"query":"mutation {\n  createProduct(product: {_id: \"234234234\", category: \"automoviles\", subcategory: \"carros\", title: \"vendo carro\", description: \"Auto deportivo\", price: 10000, priceType: \"electivo\", fk_profile: 234234354, features: [{featureName: \"Kilometraje\", featureValue: \"1000\"}, {featureName: \"marca\", featureValue: \"kia\"}]}) {\n    _id\n    title\n    description\n    price\n    priceType\n    features {\n      featureName\n      featureValue\n    }\n    fk_profile\n  }\n}\n"};
-
-        console.log(mutation);
+        const mutation = {"operationName":null,"variables":{},"query":`mutation {\n  createProduct(product: {_id: \"${uniqueId}\", category: \"${data.category}\", subcategory: \"${data.subcategory}\", title: \"${data.title}\", description:\"${data.description}\", price:  ${data.price} , priceType: \"${data.priceType}\", fk_profile:  ${data.fk_profile} , features: ${JSON.stringify(data.features)} }) {\n    _id\n    title\n    description\n    price\n    priceType\n    features {\n      featureName\n      featureValue\n    }\n    fk_profile\n  }\n}\n`};
+        const options = {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
+            data: mutation,
+            url: urlGraphql,
+        };
         
 
        // var idPost = "";       
-        axios.post(urlGraphql, mutation)
+        axios(options)
         .then( (response) => {
  
             if(response.status === 200){
                 
            
                 this.setState({
-                    loading: false,
+                    receivePostRequest: true,
+                    loading1: false,
                 })
             }
             console.log(response);
@@ -174,7 +182,8 @@ class PublicationPost extends Component {
          })
         .catch( (error) =>{
             this.setState({
-                countPost: -1
+               errorRequest: true, 
+               loading1: false        
             })
             console.log(error);
         });
@@ -195,23 +204,33 @@ class PublicationPost extends Component {
              
                 if(response.status === 201){
                      this.setState({
+                         receiveImageRequest: true,
                         loading2:false,
-                        countPhotos:201
-                    })
+                     })
                 }
             
                 console.log(response);
                 
             }).catch((error) =>{
                 this.setState({
-                    countPhotos: -1
+                    errorRequest: true,
+                    loading2: false        
                 })
                 console.log(error);
             });
             
         }); 
+
  
      }
+
+
+
+
+
+
+
+
  
     handleChange = e => {
 
@@ -444,18 +463,31 @@ class PublicationPost extends Component {
 
              
 
-                                    {
-                                
+                                    {                              
                                     
-                                    this.state.loading === true && this.state.loading2 === true?
+                                    this.state.loading1 === true ||  this.state.loading2 ===true ?
                                      
-                                    <Redirect to='/postlist'/>
-                               
-
-                                    : this.state.countPhotos === -1 || this.state.countPost === 200?
-                                        <div className=" m-3 alert alert-danger" role="alert">
-                                        Ha ocurrido un error al publicar tu producto
+                                        <div class="spinner-border" role="status">
+                                            <span class="sr-only">Loading...</span>
                                         </div>
+
+                                    : this.state.receivePostRequest === true && this.state.receiveImageRequest === true?
+                                             
+                                        <Redirect to="postlist"/>
+                                          
+                                    :null
+
+                                }
+
+
+                                {                              
+                                    
+                                    this.state.errorRequest === true ?
+                                     
+                                     <div class=" mt-4 alert alert-danger" role="alert">
+                                         Ups!, ha ocurrido un error al publicar tu producto. Intentalo nuevamente.
+                                     </div>
+
                                     :null
 
                                 }
