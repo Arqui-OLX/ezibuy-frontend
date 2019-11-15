@@ -9,7 +9,7 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import PostList from '../postList/PostList';
+//import PostList from '../postList/PostList';
  
 registerPlugin( FilePondPluginImagePreview);
 
@@ -146,7 +146,7 @@ class PublicationPost extends Component {
         const urlPosts  ='http://35.209.82.198:3002/product';
         const urlImages ='http://35.209.82.198:3001/ads-images';
 
-        var idPost = "";       
+       // var idPost = "";       
         axios.post(urlPosts, data)
         .then( (response) => {
             console.log(response.status);
@@ -157,7 +157,7 @@ class PublicationPost extends Component {
                 })
             }
             console.log(response);
-            idPost = response.data._id
+            //idPost = response.data._id
          })
         .catch( (error) =>{
             this.setState({

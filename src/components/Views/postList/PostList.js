@@ -90,7 +90,7 @@ class PostList extends Component {
 
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
-                    <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]} className="" alt="..." className="img-fluid"/>
+                    <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]}  alt="..." className="img-fluid"/>
                 </div>
                 <div className="d-inline col-md-4">
                     <h4 className="text-md-left text-ms-center">{post.title}</h4>
