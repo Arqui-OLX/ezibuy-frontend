@@ -3,10 +3,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
+import { withRouter } from 'react-router-dom';
 
 import gql from 'graphql-tag';
 //import { Query } from 'react-apollo';
 //import { Mutation } from 'react-apollo';
+//luifrodriguezroj@unal.edu.co
 import ApolloClient from 'apollo-boost';
 
 
@@ -20,13 +22,12 @@ class Login extends Component{
         this.handleTextBoxChange = this.handleTextBoxChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
+
     }
     
     state = {
         email: "",
-        password: "",
-        loginError: false,
-
+        password: ""
     }
 
 
@@ -37,10 +38,12 @@ class Login extends Component{
     handleSubmit(){
         console.log("Pressed the button")
         this.handleLogin(this.state.email, this.state.password)
+        let path = `/home`;
+        this.props.history.push(path);
     }
 
     handleLogin(email, password){
-        const Client = new ApolloClient({ uri: 'http://localhost:4000/' });
+        const Client = new ApolloClient({ uri: 'http://35.208.241.159:4000/' });
 
         const mutation = gql(`
             mutation login($email: String!, $password: String!) {
@@ -64,8 +67,13 @@ class Login extends Component{
                 const data = result.data.login
                 //const token= data.token
                 //const userId = data.userId
+
+                //store user token
                 localStorage.setItem("userInfo", JSON.stringify(data));
-                this.setState({loginError: false })
+                
+                //callback to handle session
+                this.props.handleSessionStorage(true);
+                //this.setState({loginError: false })
             }).catch(error => this.setState({loginError: true }))
         }else{
                 console.log("invalid data")
@@ -74,7 +82,7 @@ class Login extends Component{
 
     }
 
-
+    
 
     render(){
         
@@ -91,11 +99,11 @@ class Login extends Component{
                         <Form.Label>E-mail</Form.Label>
                         <Form.Control onChange={this.handleTextBoxChange} name="email" type="email" placeholder="Introduzca email" />
                     </Form.Group>
-                    <Form.Group controlId="formGroupPassword">
+                    <Form.Group controlId="formGroupPassword" >
                         <Form.Label>Contraseña</Form.Label>
                         <Form.Control onChange={this.handleTextBoxChange} name= "password" type="password" placeholder="Contraseña" />
                         <br></br>
-                        <Button size="lg" onClick={this.handleSubmit}>Entrar</Button>
+                            <Button size="lg" onClick={this.handleSubmit}>Entrar</Button>
                     </Form.Group>
                     {this.state.loginError && <Alert variant="warning">Error, inicio de sesión inválido! </Alert>}
                 </Form>
@@ -105,4 +113,4 @@ class Login extends Component{
     }
 }
 
-export default Login;
+export default withRouter(Login);

@@ -8,20 +8,40 @@ import Footer from './components/Footer/Footer';
 import { BrowserRouter as Router } from "react-router-dom";
 
 
-function App() {
+class App extends React.Component{
+  constructor(props) {
+    super(props)
+    this.handleSessionStorage = this.handleSessionStorage.bind(this);
+ 
+  }
   
-  return (
-      
-        <div className="App">
-          <Router>
-          
-            <NavigationBar/>
-            <Main/>
-            <Footer/>
-          
-          </Router>
-        </div>      
-  );
+
+  state={
+    userLoggedIn: false
+  }
+
+  handleSessionStorage(val){
+    this.setState({userLoggedIn: val});
+  }
+
+  componentDidMount(){
+    !!localStorage.getItem("userInfo") && this.setState({userLoggedIn: true}); 
+  }
+
+  render(){
+    return (
+        
+          <div className="App">
+            <Router>
+            
+              <NavigationBar userLoggedIn ={this.state.userLoggedIn}/>
+              <Main handleSessionStorage={this.handleSessionStorage} />
+              <Footer/>
+            
+            </Router>
+          </div>      
+    );
+  }
 }
 
 
