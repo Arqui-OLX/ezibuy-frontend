@@ -1,24 +1,82 @@
+import axios from 'axios';
+
+
 import React, { Component } from 'react';
 
-  
-
 class PopularCategories extends Component {
-    
+
+    state = {
+        JsonPosts: [],
+        JsonImages: [],
+        current_fk: 0
+      };
     
 
+    componentDidMount() {
+
+        const urlImages ='http://35.209.82.198:3001/ads-images';
+        const urlPosts  ='http://35.209.82.198:3002/product';
+
+       
+        axios.get(urlPosts)
+        .then(result=>{
+
+            this.setState({
+                JsonPosts: result.data 
+            });
+            console.log(result.data);
+            
+            
+            result.data.forEach(post => {         
+                
+                axios.get(urlImages+"/byid/"+post._id)
+                .then(element=>{
+
+                    this.setState({ 
+                        JsonImages: [...this.state.JsonImages, element.data[0].ad_image]
+                      })
+                    
+                }).catch( (error) =>{
+                if(error.status === 404){
+                    console.log("error 404, no encontrada la imagen");
+                }
+                });        
+
+            });
+        }).catch(console.log);
+ 
+
+    }
+ 
     render() {
+
+        var categories = [];
+
+        const data = this.state.JsonPosts;
+
+        
+        const datos = data.map((post) => 
+
+          
+            categories.push(post.categories)
+
+        );
+        //console.log(categories);
+        
+
+        
         return (
                
             <div className="container">
-                <h3>Categorias más populares</h3>
-                <div className="card-deck mb-3 text-center ">
+                <h3>Los ultimos posts</h3>
+                <div className="card-deck mb-3 text-center">
 
                         <div className="card mb-4 box-shadow">
                            <a href="http://google.com">
                                 <div className="card-header">
                                 <p>Carros</p>
                             </div>
-                            <img className="card-img-top"  src="https://dummyimage.com/300x200/000/fff" alt="fotoPerfil"/>                  
+                            <img className="card-img-top"  src=  {'http://35.209.82.198:3001/'+this.state.JsonImages[this.state.JsonImages.length-1]} style={{height:'300px'}} alt="fotoPerfil"/>                  
 
                             <div className="card-body">
                                  <button 
@@ -35,7 +93,7 @@ class PopularCategories extends Component {
                             <div className="card-header">
                                     <p>Carros</p>
                                 </div>
-                                <img className="card-img-top" src="https://dummyimage.com/300x200/000/fff" alt="fotoPerfil"  />                  
+                                <img className="card-img-top" src= {'http://35.209.82.198:3001/'+this.state.JsonImages[this.state.JsonImages.length-2]} style={{height:'300px'}}  alt="fotoPerfil"  />                  
 
                                 <div className="card-body">
                                     <button 
@@ -52,7 +110,7 @@ class PopularCategories extends Component {
                             <div className="card-header">
                                     <p>Carros</p>
                                 </div>
-                                <img className="card-img-top"  src="https://dummyimage.com/300x200/000/fff" alt="fotoPerfil"  />                  
+                                <img className="card-img-top"  src=  {'http://35.209.82.198:3001/'+this.state.JsonImages[this.state.JsonImages.length-3]} style={{height:'300px'}}  alt="fotoPerfil"  />                  
 
                                 <div className="card-body">
                                     <button 
