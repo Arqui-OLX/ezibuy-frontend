@@ -130,7 +130,7 @@ class PublicationPost extends Component {
         e.preventDefault();  // recarga el formulario
 
         var uniqueId = hash(Buffer.from(JSON.stringify(this.state)));
-
+ 
 
         var data ={
             title: this.state.post.title,
@@ -142,15 +142,23 @@ class PublicationPost extends Component {
             subcategory : this.state.arraySubcategory[this.state.subcategory],
             _id: uniqueId,
             fistImage: this.state.files[0],
-            fk_profile: 1
+            fk_profile:  JSON.parse(localStorage.getItem("userInfo")).userId
 
         };
         
-        const urlPosts  ='http://35.209.82.198:3002/product';
+        //const urlPosts  ='http://35.209.82.198:3002/product';
         const urlImages ='http://35.209.82.198:3001/ads-images';
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        let mutation = {"operationName":null,"variables":{},"query":`mutation {\n  createProduct(product: {_id: \"${uniqueId}\", category: \"${data.category}\", subcategory: \"${data.subcategory}\", title: \"${data.title}\", description:\"${data.description}\", price:  ${data.price} , priceType: \"${data.priceType}\", fk_profile:  ${data.fk_profile} , features:  ${data.features} }) {\n    _id\n    title\n    description\n    price\n    priceType\n    features {\n      featureName\n      featureValue\n    }\n    fk_profile\n  }\n}\n`}
+
+        let example = {"operationName":null,"variables":{},"query":"mutation {\n  createProduct(product: {_id: \"234234234\", category: \"automoviles\", subcategory: \"carros\", title: \"vendo carro\", description: \"Auto deportivo\", price: 10000, priceType: \"electivo\", fk_profile: 234234354, features: [{featureName: \"Kilometraje\", featureValue: \"1000\"}, {featureName: \"marca\", featureValue: \"kia\"}]}) {\n    _id\n    title\n    description\n    price\n    priceType\n    features {\n      featureName\n      featureValue\n    }\n    fk_profile\n  }\n}\n"};
+
+        console.log(mutation);
+        
 
        // var idPost = "";       
-        axios.post(urlPosts, data)
+        axios.post(urlGraphql, mutation)
         .then( (response) => {
  
             if(response.status === 200){

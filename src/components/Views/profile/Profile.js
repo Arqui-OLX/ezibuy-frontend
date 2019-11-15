@@ -21,8 +21,9 @@ class Profile extends Component{
     // }
 
     componentDidMount() {
+        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
-        const url ='http://35.208.164.215:3001/profile/1';
+        const url ='http://35.208.164.215:3001/profile/'+id;
         
         axios.get(url)
         .then(res => {
@@ -89,7 +90,6 @@ class Profile extends Component{
                                 <br></br>
                                 <h2 className=""><strong>Tu información personal</strong></h2>
                                 <hr></hr>
-                                <h3>{data.nick}</h3>
                                 <p className="text-left">Nombre: {this.state.user.nickname} </p>
                                 <p className="text-left">Email: {this.state.user.email} </p>
                                 <p className="text-left">Teléfono: {this.state.user.phone}</p>

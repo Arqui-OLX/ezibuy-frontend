@@ -10,7 +10,7 @@ class ProfileNavBar extends Component{
                 <Button href="/myprofile/ads" variant="secondary">Mis anuncios</Button>
                 {/* <Button href="/myprofile/favorites" variant="secondary">Mis favoritos</Button> */}
                 <Button href= "/myprofile/profile" variant="secondary">Mi perfil</Button>
-                <Button href="#" variant="secondary">Mis mensajes</Button>                  
+                <Button href="/myprofile/messages" variant="secondary">Mis mensajes</Button>                  
             </ButtonGroup>
             
         );
