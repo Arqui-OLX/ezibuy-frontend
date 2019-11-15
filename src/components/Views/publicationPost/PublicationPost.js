@@ -161,7 +161,7 @@ class PublicationPost extends Component {
                 })
             }
             console.log(response);
-            idPost = response.data._id
+          //  idPost = response.data._id
             
          })
         .catch( (error) =>{
@@ -375,6 +375,7 @@ class PublicationPost extends Component {
                                 :null
                             }
       
+                                
                                 
 
                                 <div className="form-group ">

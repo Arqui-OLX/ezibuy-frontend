@@ -7,21 +7,22 @@ import FormControl from 'react-bootstrap/FormControl'
 import './navigationbar-styles.css';
 import { NavDropdown } from 'react-bootstrap';
 import './navigationbar-styles.css';
+import { withRouter } from 'react-router-dom';
+
  
 class NavigationBar extends Component {
     
-  //constructor(props) {
-     // super(props)
-     
-  //}
+  constructor(props) {
+    super(props)
+    this.handleLoggoff = this.handleLoggoff.bind(this);
+  }
 
-  state = {
-      userLoggedIn: false
+  handleLoggoff(){
+    localStorage.removeItem("userInfo");
+    let path = `/home`;
+    this.props.history.push(path);
   }
-  componentDidMount(){
-    
-  }
-  
+
     render(){
         return (
 
@@ -39,11 +40,11 @@ class NavigationBar extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
                     <Nav.Link className="texto" href="/home" >EzIBuy</Nav.Link>
-                    {!this.state.userLoggedIn && <Nav.Link href="/login">Ingresar</Nav.Link>}
-                    {!this.state.userLoggedIn && <Nav.Link href="/register" >Registrarse</Nav.Link>}
+                    {!this.props.userLoggedIn && <Nav.Link href="/login">Ingresar</Nav.Link>}
+                    {!this.props.userLoggedIn && <Nav.Link href="/register" >Registrarse</Nav.Link>}
                     <Nav.Link href="/postlist">Catalogo</Nav.Link> 
-                    {this.state.userLoggedIn &&<Nav.Link href="/sale" >Vender</Nav.Link>}
-                    {this.state.userLoggedIn &&<Nav.Link href="/myprofile/profile">Perfil</Nav.Link>}
+                    {this.props.userLoggedIn &&<Nav.Link href="/sale" >Vender</Nav.Link>}
+                    {this.props.userLoggedIn &&<Nav.Link href="/myprofile/profile">Perfil</Nav.Link>}
                     <NavDropdown title="Ver más" id="basic-nav-dropdown">
                       <NavDropdown.Item href="#action1">Categorías</NavDropdown.Item>
                       <NavDropdown.Item href="#action2">Sobre nosotros</NavDropdown.Item>
@@ -53,7 +54,12 @@ class NavigationBar extends Component {
                     </NavDropdown>
                   </Nav>
                   <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                  {this.props.userLoggedIn && 
+                    
+                      <Button variant="outline-danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</Button>
+                    
+                  }
+                    <FormControl type="text" placeholder="Buscar..." className="mr-sm-2" />
                     <Button variant="outline-light">Buscar</Button>
                   </Form>
                 </Navbar.Collapse>
@@ -64,4 +70,4 @@ class NavigationBar extends Component {
     }
 }
 
-export default NavigationBar;
+export default withRouter(NavigationBar);

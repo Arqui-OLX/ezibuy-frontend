@@ -61,13 +61,12 @@ class CarouselLandingPage extends Component {
     render() {
         var ArrayTextPost = [];
 
-        const data = this.state.JsonPosts;
+        //const data = this.state.JsonPosts;
 
         
-        const result = data.map((post) => 
-            ArrayTextPost.push(post.title)
-
-        );
+       // const result = data.map((post) => 
+        //    ArrayTextPost.push(post.title)
+        //);
         
         
         return (

@@ -50,17 +50,14 @@ class PopularCategories extends Component {
  
     render() {
 
-        var categories = [];
+       // var categories = [];
 
-        const data = this.state.JsonPosts;
+        //const data = this.state.JsonPosts;
 
         
-        const datos = data.map((post) => 
-
-          
-            categories.push(post.categories)
-
-        );
+        //const datos = data.map((post) => 
+         //   categories.push(post.categories)
+       // );
         //console.log(categories);
         
 

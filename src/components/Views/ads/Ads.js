@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AdFrame from "./AdFrame";
+//import AdFrame from "./AdFrame";
 import ProfileNavBar from "../profile/ProfileNavBar";
 import PostList from'../postList/PostList';
 

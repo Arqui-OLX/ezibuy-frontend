@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import Figure from 'react-bootstrap/Figure';
+//import Figure from 'react-bootstrap/Figure';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios'
 import ProfileNavBar from './ProfileNavBar'
-import { FilePond, registerPlugin } from 'react-filepond';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import { FilePond } from 'react-filepond';
+//import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
  
@@ -23,14 +23,10 @@ class  EditProfile extends Component{
  
  };
 
- 
-    
     sendData = (e) => {
 
 
         const url ='http://35.208.164.215:3001/profile/1';
-
-     
         let data = this.state.user;
     
         axios.put(url, data)
@@ -90,7 +86,7 @@ class  EditProfile extends Component{
                             <h2 className=""><strong>Edita tu información</strong></h2>
                             <hr></hr>
                             <input 
-                                        id="mascota"
+                                       
                                         type="text" 
                                         className="form-control w-100" 
                                         id="title" 
