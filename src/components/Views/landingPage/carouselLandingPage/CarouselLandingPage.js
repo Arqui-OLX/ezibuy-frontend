@@ -59,32 +59,36 @@ class CarouselLandingPage extends Component {
 
 
     render() {
-        var arreglo3 = [];
+        var ArrayTextPost = [];
 
         const data = this.state.JsonPosts;
 
         
-        const result = data.map((post, index) => 
-            arreglo3.push(post.title)
+        const result = data.map((post) => 
+            ArrayTextPost.push(post.title)
 
         );
-
-        console.log(arreglo3[1]);
         
         
         return (
 
             <div className="w-50 h-25 mx-auto">
-                <Carousel>
-                        <div>
-                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]} alt="img1" />
-                            <h3>{arreglo3[1]}</h3>
+                {/* change the atributes: https://www.npmjs.com/package/react-responsive-carousel */}
+                <Carousel   className="slider-container" dynamicHeight={false} autoPlay={true} showThumbs={false} infiniteLoop={true}	>
+              
+                        <div className="slider-item-div">
+                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]} alt="img1"style={{width:'530px',height:'430px'}} />
+                            <p className="legend">{ArrayTextPost[1]}</p>
                         </div>
                         <div>
-                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]} alt="img2"/>
+                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]} alt="img2" style={{width:'530px',height:'430px'}}/>
+                            <p className="legend">{ArrayTextPost[2]}</p>
+
                         </div>
-                        <div>
-                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]} alt="img3"/>
+                        <div> 
+                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]} alt="img3" style={{width:'530px',height:'430px'}}/>
+                            <p className="legend">{ArrayTextPost[3]}</p>
+
                         </div>
                 </Carousel>
             </div>

@@ -42,8 +42,6 @@ class PopularPosts extends Component {
                     console.log("error 404, no encontrada la imagen");
                 }
                 });
-    
-                    
 
             });
         }).catch(console.log);
@@ -51,6 +49,7 @@ class PopularPosts extends Component {
        
     }
     
+
     handleClick = (e, data) => {
 
         this.setState({
@@ -63,30 +62,28 @@ class PopularPosts extends Component {
 
     render() {
 
-        var arreglo3 = [];
+        var ArrayTextPost = [];
 
         const data = this.state.JsonPosts;
 
         
-        const result = data.map((post, index) => 
-            arreglo3.push(post.title)
+        data.map((post) => 
+            ArrayTextPost.push(post.title)
 
         );
 
-         
- 
-        
+          
         return (
                  <div className="container bg-white ">
                 <h3>Lo que se está vendiendo</h3>
                     <div className="row  justify-content-md-center">
-                        <div className="card-deck col-lg-12  mb-3 " >
+                        <div className="card-deck col-lg-12  mb-3" >
 
                             <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
-                                     <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[0]} alt="fotoPerfil"/>                  
+                                     <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[0]} style={{height:'200px'}}  alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                        <p>{arreglo3[0]}</p>
+                                        <p>{ArrayTextPost[0]}</p>
                                     </div>
                                 </a>
                             </div>
@@ -94,27 +91,27 @@ class PopularPosts extends Component {
                       
                             <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
-                                    <img  className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]} alt="fotoPerfil"/>                  
+                                    <img  className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                    <p>{arreglo3[1]}</p>
+                                    <p>{ArrayTextPost[1]}</p>
                                     </div>
                                 </a>
                             </div>
 
                             <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
-                                    <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]} alt="fotoPerfil"/>                  
+                                    <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                    <p>{arreglo3[2]}</p>
+                                    <p>{ArrayTextPost[2]}</p>
                                     </div>
                                 </a>
                             </div>
 
                             <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
-                                    <img  className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]} alt="fotoPerfil"/>                  
+                                    <img  className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                        <p>{arreglo3[3]}</p>
+                                        <p>{ArrayTextPost[3]}</p>
                                     </div>
                                 </a>
                             </div>
@@ -127,36 +124,36 @@ class PopularPosts extends Component {
 
                             <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
-                                    <img  className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[4]} alt="fotoPerfil"/>                  
+                                    <img  className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[4]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                    <p>{arreglo3[4]}</p>
+                                    <p>{ArrayTextPost[4]}</p>
                                     </div>
                                 </a>
                             </div>
 
                             <div className="card border-info mb-4 box-shadow">
                                 <a href="http://google.com">
-                                    <img  className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[5]} alt="fotoPerfil"/>                  
+                                    <img  className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[5]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                    <p>{arreglo3[5]}</p>
+                                    <p>{ArrayTextPost[5]}</p>
                                     </div>
                                 </a>
                             </div>
 
                             <div className="card border-info mb-4 box-shadow">
                                <a href="http://google.com"> 
-                                    <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[6]} alt="fotoPerfil"/>                  
+                                    <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[6]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
                                     <div className="card-body">
-                                    <p>{arreglo3[6]}</p>
+                                    <p>{ArrayTextPost[6]}</p>
                                     </div>
                                </a>
                             </div>
 
                             <div className="card border-info mb-4 box-shadow">
                                <a href="http://google.com">
-                                    <img className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[7]} alt="fotoPerfil" />                  
+                                    <img className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[7]}  style={{height:'200px'}} alt="fotoPerfil" />                  
                                         <div className="card-body">
-                                        <p>{arreglo3[7]}</p>
+                                        <p>{ArrayTextPost[7]}</p>
                                         </div>
                                </a>
                             </div>
