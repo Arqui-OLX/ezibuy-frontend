@@ -27,14 +27,12 @@ class Post extends Component {
         
         const urlPosts  ='http://35.209.82.198:3002/product/';
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
-        //const getProduct = {"query":"query {\n  catalogById(id: \"5dae83ffc22f297e5f0e2b8c\"){\n    \n    catalog{\n    vehiculos{\n      motos {\n        marca\n        anio\n        kilometraje\n        color\n        cilindrada\n        tipoVendedor\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      carros{\n        marca\n        year\n        kilometraje\n        combustible\n        color\n        transmision\n        placa\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    telefonosTablets{\n      telefonos{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      tablets{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    computadores{\n      computadorEscritorio{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      portatiles{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    electrodomesticos{\n      cocinas{\n        tipo\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      neveras{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    empleos{\n      buscarTrabajo{\n        tipo\n        enEsteAnuncio\n        nombreCompania\n        experienciaMin\n        experienciaMax\n        salarioMin\n        salarioMax\n      }\n    }\n    servicios{\n      clasesCursos{\n        tipo\n      }\n      reparaciones{\n        tipo\n      }\n      transporteMudanza{\n        tipo\n      }\n    }\n  }\n}\n}\n\n","variables":null};
 
         console.log(this.props.fk_post);
         
         axios.get(urlPosts+ this.props.fk_post)
         .then(res => {
 
-    
             this.setState({ 
                 post: res.data
             });
@@ -47,7 +45,6 @@ class Post extends Component {
                     images: res.data
                 });
     
-                //console.log(res);
     
             })
 
@@ -56,40 +53,39 @@ class Post extends Component {
      
     }
 
-    componentDidUpdate(prevProps){   
+    
+    componentDidUpdate(prevProps) {   
         
         if (this.props.fk_post !== prevProps.fk_post) {
-        const urlPosts  ='http://35.209.82.198:3002/product/';
-        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
-        //const getProduct = {"query":"query {\n  catalogById(id: \"5dae83ffc22f297e5f0e2b8c\"){\n    \n    catalog{\n    vehiculos{\n      motos {\n        marca\n        anio\n        kilometraje\n        color\n        cilindrada\n        tipoVendedor\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      carros{\n        marca\n        year\n        kilometraje\n        combustible\n        color\n        transmision\n        placa\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    telefonosTablets{\n      telefonos{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      tablets{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    computadores{\n      computadorEscritorio{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      portatiles{\n        marca\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    electrodomesticos{\n      cocinas{\n        tipo\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n      neveras{\n        precio{\n          valorPrecio\n          tipoPago\n        }\n      }\n    }\n    empleos{\n      buscarTrabajo{\n        tipo\n        enEsteAnuncio\n        nombreCompania\n        experienciaMin\n        experienciaMax\n        salarioMin\n        salarioMax\n      }\n    }\n    servicios{\n      clasesCursos{\n        tipo\n      }\n      reparaciones{\n        tipo\n      }\n      transporteMudanza{\n        tipo\n      }\n    }\n  }\n}\n}\n\n","variables":null};
 
-    
-        axios.get(urlPosts+ this.props.fk_post)
-        .then(res => {
+
+            const urlPosts  ='http://35.209.82.198:3002/product/';
+            const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+
+            console.log(this.props.fk_post);
             
-            console.log(res);
+            axios.get(urlPosts+ this.props.fk_post)
+            .then(res => {
 
-    
-            this.setState({ 
-                post: res.data
-            });
+        
+                this.setState({ 
+                    post: res.data
+                });
 
-        })
+                axios.get(urlImages+ this.props.fk_post)
+                .then(res => {
+        
+                    
+                    this.setState({ 
+                        images: res.data
+                    });
+        
+        
+                })
 
-        axios.get(urlImages+ this.props.fk_post)
-        .then(res => {
+            })
 
-
-            console.log(res);
-
-            
-            this.setState({ 
-                images: res.data
-            });
-
-
-        })
-    }
+        }
      
     }
 
