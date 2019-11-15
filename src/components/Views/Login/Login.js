@@ -1,18 +1,87 @@
 import React, {Component} from 'react';
-//import InputGroup from 'react-bootstrap/InputGroup';
-//import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
-//import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+
+
+import gql from 'graphql-tag';
+//import { Query } from 'react-apollo';
+//import { Mutation } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+
+
 
 import "./Login-styles.css"
 
-class Invoice extends Component{
+class Login extends Component{
+    
+    constructor(props) {
+        super(props)
+        this.handleTextBoxChange = this.handleTextBoxChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+    
+    state = {
+        email: "",
+        password: "",
+        loginError: false,
+
+    }
+
+
+    handleTextBoxChange(e){
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    handleSubmit(){
+        console.log("Pressed the button")
+        this.handleLogin(this.state.email, this.state.password)
+    }
+
+    handleLogin(email, password){
+        const Client = new ApolloClient({ uri: 'http://localhost:4000/' });
+
+        const mutation = gql(`
+            mutation login($email: String!, $password: String!) {
+                login(email: $email, password: $password) {
+                    token
+                    userId
+                        }
+                    }
+            `)
+        
+        
+        if (this.state.email !== "" && this.state.password !== ""){
+            Client.mutate({
+                mutation: mutation,
+                variables:{
+                    email: this.state.email,
+                    password: this.state.password
+                }
+            }).then(result => {
+                console.log(result)
+                const data = result.data.login
+                //const token= data.token
+                //const userId = data.userId
+                localStorage.setItem("userInfo", JSON.stringify(data));
+                this.setState({loginError: false })
+            }).catch(error => this.setState({loginError: true }))
+        }else{
+                console.log("invalid data")
+        }
+
+
+    }
+
+
 
     render(){
+        
+
         return(
             <div>
-
+                
                 <h2 className="main-title">Ingresar</h2>
                 <br></br>
 
@@ -20,14 +89,15 @@ class Invoice extends Component{
                     <br></br>
                     <Form.Group controlId="formGroupEmail">
                         <Form.Label>E-mail</Form.Label>
-                        <Form.Control type="email" placeholder="Introduzca email" />
+                        <Form.Control onChange={this.handleTextBoxChange} name="email" type="email" placeholder="Introduzca email" />
                     </Form.Group>
                     <Form.Group controlId="formGroupPassword">
                         <Form.Label>Contraseña</Form.Label>
-                        <Form.Control type="password" placeholder="Contraseña" />
+                        <Form.Control onChange={this.handleTextBoxChange} name= "password" type="password" placeholder="Contraseña" />
                         <br></br>
-                        <Button size="lg" >Entrar</Button>
+                        <Button size="lg" onClick={this.handleSubmit}>Entrar</Button>
                     </Form.Group>
+                    {this.state.loginError && <Alert variant="warning">Error, inicio de sesión inválido! </Alert>}
                 </Form>
             
             </div>
@@ -35,5 +105,4 @@ class Invoice extends Component{
     }
 }
 
-export default Invoice;
-
+export default Login;

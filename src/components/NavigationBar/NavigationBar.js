@@ -9,6 +9,19 @@ import { NavDropdown } from 'react-bootstrap';
 import './navigationbar-styles.css';
  
 class NavigationBar extends Component {
+    
+  //constructor(props) {
+     // super(props)
+     
+  //}
+
+  state = {
+      userLoggedIn: false
+  }
+  componentDidMount(){
+    
+  }
+  
     render(){
         return (
 
@@ -26,22 +39,22 @@ class NavigationBar extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mr-auto">
                     <Nav.Link className="texto" href="/home" >EzIBuy</Nav.Link>
-                    <Nav.Link href="/login">Ingresar</Nav.Link>
-                    <Nav.Link href="/register" >Registrarse</Nav.Link>
-                    <Nav.Link href="/postlist">catalogo</Nav.Link> 
-                    <Nav.Link href="/sale" >Vender</Nav.Link>
-                    <Nav.Link href="/myprofile/profile">Perfil</Nav.Link>
+                    {!this.state.userLoggedIn && <Nav.Link href="/login">Ingresar</Nav.Link>}
+                    {!this.state.userLoggedIn && <Nav.Link href="/register" >Registrarse</Nav.Link>}
+                    <Nav.Link href="/postlist">Catalogo</Nav.Link> 
+                    {this.state.userLoggedIn &&<Nav.Link href="/sale" >Vender</Nav.Link>}
+                    {this.state.userLoggedIn &&<Nav.Link href="/myprofile/profile">Perfil</Nav.Link>}
                     <NavDropdown title="Ver más" id="basic-nav-dropdown">
-                      <NavDropdown.Item href="#action1">categorias</NavDropdown.Item>
-                      <NavDropdown.Item href="#action2">sobre nosotros</NavDropdown.Item>
-                      <NavDropdown.Item href="#action3">Contactenos</NavDropdown.Item>
+                      <NavDropdown.Item href="#action1">Categorías</NavDropdown.Item>
+                      <NavDropdown.Item href="#action2">Sobre nosotros</NavDropdown.Item>
+                      <NavDropdown.Item href="#action3">Contáctenos</NavDropdown.Item>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action4">Terminos y condiciones</NavDropdown.Item>
+                      <NavDropdown.Item href="#action4">Términos y condiciones</NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
                   <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-light">Search</Button>
+                    <Button variant="outline-light">Buscar</Button>
                   </Form>
                 </Navbar.Collapse>
             </Navbar>
