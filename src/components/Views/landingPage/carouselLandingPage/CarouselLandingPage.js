@@ -73,7 +73,8 @@ class CarouselLandingPage extends Component {
         return (
 
             <div className="w-50 h-25 mx-auto">
-                {/* change the atributes: https://www.npmjs.com/package/react-responsive-carousel */}
+                {/*   change the atributes: https://www.npmjs.com/package/react-responsive-carousel */}
+               
                 <Carousel   className="slider-container" dynamicHeight={false} autoPlay={true} showThumbs={false} infiniteLoop={true}	>
               
                         <div className="slider-item-div">
