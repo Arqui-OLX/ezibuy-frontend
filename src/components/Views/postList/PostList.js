@@ -10,19 +10,20 @@ class PostList extends Component {
         JsonPosts: [],
         JsonImages: [],
         current_fk: 0
-      };
+    };
     
-
-     togglePopup() {
-        this.setState({
-          showPopup: !this.state.showPopup
-        });
-      }
       
       
-      componentDidMount() {
+    componentDidMount() {
 
-        const urlPosts  ='http://35.209.82.198:3002/product';
+        let urlPosts  ='http://35.209.82.198:3002/product';
+
+
+        if (this.props.profile !== undefined) {
+            urlPosts  ='http://35.209.82.198:3002/product?profile='+this.props.profile;
+        }
+
+        
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         
        
@@ -56,8 +57,10 @@ class PostList extends Component {
 
         
     }
+
   
-    handleClick = (e, data) => {
+    handleClick = (data) => {
+
 
          this.setState({
 
@@ -70,7 +73,7 @@ class PostList extends Component {
 
     render() {
 
-
+        console.log(this.state.fk_post);
 
         const data = this.state.JsonPosts;
 
@@ -91,7 +94,7 @@ class PostList extends Component {
                     <h4 className="text-center">Precio:</h4>
                     <h4 className="text-center">{post.price}</h4>
                     <h5 className="text-center mb-2 text-muted">{post.priceType}</h5>
-                    <button   id={index}   onClick={((e) => this.handleClick(e, post._id))}
+                    <button   id={index}   onClick={((e) => this.handleClick(post._id))}
                         value={post._id}  
                         type="button"
                         className="btn btn-secondary px-4 mt-4"
@@ -106,46 +109,9 @@ class PostList extends Component {
 
         return (
 
- 
-                <div className="row justify-content-md-center" style={{backgroundColor: "#eceff1"}}>
-
-                     <div className="h-100 col-md-3 col-ms-10 m-4 p-2 shadow bg-white rounded" style={{backgroundColor: "white"}}>
-
-                        <div>
-                            
-                            <h5 className="bg-info p-2 m-0">Ubicación</h5>
-
-                            <div className="">
-                                <h6 className="select p-2 m-0">Bogotá</h6>
-                                <h6 className="select p-2 m-0">Medellin</h6>
-                                <h6 className="select p-2 m-0">Barranquilla</h6>
-                            </div>
-                        </div>
-
-                        <div>
-                            
-                            <h5 className="bg-info p-2 m-0">Categorias</h5>
-
-                            <div>
-                                <h6 className="select p-2 m-0">Automoviles</h6>
-                                <h6 className="select p-2 m-0">Celulares</h6>
-                                <h6 className="select p-2 m-0">Servicios</h6>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5 className="bg-info p-2 m-0">Precio</h5>
-                            <div className="my-2">
-                                <input type="text" className="form-control px-4 mx-2 w-25 d-inline" placeholder="Min"></input>
-                                <input type="text" className="form-control px-4 mx-2 w-25 d-inline" placeholder="Max"></input>
-                                <button type="button" className="btn btn-secondary">
-                                    <i className="far fa-check-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                    </div>
-
+                
+                <div className="row justify-content-md-center">
+                    
                     <div className="col-md-8 col-ms-10">
                         {result}
                     </div>
@@ -166,9 +132,9 @@ class PostList extends Component {
                         <div className="modal-body">
                             {
                                 this.state.current_fk!==0?
-                                <Post 
-                                fk_post = {this.state.current_fk}
-                                />
+                                    <Post 
+                                    fk_post = {this.state.current_fk}
+                                    />
                                 :null
                             }
                            
