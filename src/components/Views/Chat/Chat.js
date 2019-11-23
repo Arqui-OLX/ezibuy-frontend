@@ -19,6 +19,7 @@ class App extends Component {
         this.handleChatRoomChange = this.handleChatRoomChange.bind(this);
         this.handleSendMessage = this.handleSendMessage.bind(this);
         this.handleTextBoxChange = this.handleTextBoxChange.bind(this);
+        this.scrollToBottom = this.scrollToBottom.bind(this);
   
     }
     
@@ -124,6 +125,14 @@ class App extends Component {
 
     }
 
+    messagesEndRef = React.createRef()
+
+    componentDidUpdate () {
+       this.scrollToBottom()
+     }
+     scrollToBottom (){
+       this.messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+     }
 
  
     render() {
@@ -148,6 +157,7 @@ class App extends Component {
                                         myId ={this.state.myId}
                                     />
                                 }
+                                 <div ref={this.messagesEndRef} />
                             </div>
                             <div className="type_msg">
                                 <div className="input_msg_write">
