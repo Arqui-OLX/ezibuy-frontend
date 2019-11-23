@@ -16,11 +16,11 @@ class ChatRoom extends Component {
 
     render() {
         return (
-            <div class="chat_list chat-room-div" onClick={this.handleClick}>
-                <div class="chat_people">
-                    <div class="chat_img"><img src={this.props.src} alt=":)"/></div>
-                    <div class="chat_ib">
-                        <h5> {this.props.receiverName /*esto obtiene el Id del usuario*/} <span class="chat_date">{this.props.date}</span></h5>
+            <div className="chat_list chat-room-div" onClick={this.handleClick}>
+                <div className="chat_people">
+                    <div className="chat_img"><img src={this.props.src} alt=":)"/></div>
+                    <div className="chat_ib">
+                        <h5> {this.props.receiverName /*esto obtiene el Id del usuario*/} <span className="chat_date">{this.props.date}</span></h5>
                         <p> {this.props.lastMsg} </p>
                     </div>
                 </div>
