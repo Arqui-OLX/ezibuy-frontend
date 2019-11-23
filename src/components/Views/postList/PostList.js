@@ -17,6 +17,35 @@ class PostList extends Component {
     componentDidMount() {
 
         let urlPosts  ='http://35.209.82.198:3002/product';
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        const queryPosts= 
+            {
+                "operationName":null,
+                "variables":{},
+                "query":
+                `{ 
+                    allProducts {
+                        title
+                        description
+                        price
+                        priceType    
+                        features {
+                            featureName
+                            featureValue
+                        }   
+                        _id
+                        fk_profile  
+                    }
+                }`
+            }
+
+            const options = {
+                method: 'POST',
+                data: queryPosts,
+                url: urlGraphql,
+            };
+              
 
 
         if (this.props.profile !== undefined) {
@@ -27,15 +56,16 @@ class PostList extends Component {
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         
        
-        axios.get(urlPosts)
+        axios(options)
         .then(result=>{
-
+            console.log(result.data);
+            
             this.setState({
-                JsonPosts: result.data ,
-                JsonImages: new Array(result.data.length)
+                JsonPosts: result.data.data.allProducts ,
+                JsonImages: new Array(result.data.data.allProducts.length)
             });
             
-            result.data.forEach((post, i) => {         
+            result.data.data.allProducts.forEach((post, i) => {         
                 
                 axios.get(urlImages+post._id)
                 .then(element=>{

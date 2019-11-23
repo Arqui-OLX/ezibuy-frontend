@@ -154,8 +154,38 @@ class PublicationPost extends Component {
         //const urlPosts  ='http://35.209.82.198:3002/product';
         const urlImages ='http://35.209.82.198:3001/ads-images';
         const urlGraphql = 'http://35.208.241.159:4000';
+        
 
-        const mutation = {"operationName":null,"variables":{},"query":`mutation {\n  createProduct(product: {_id: \"${uniqueId}\", category: \"${data.category}\", subcategory: \"${data.subcategory}\", title: \"${data.title}\", description:\"${data.description}\", price:  ${data.price} , priceType: \"${data.priceType}\", fk_profile:  ${data.fk_profile} , features: ${JSON.stringify(data.features)} }) {\n    _id\n    title\n    description\n    price\n    priceType\n    features {\n      featureName\n      featureValue\n    }\n    fk_profile\n  }\n}\n`};
+
+        const mutation = {
+            "variables":{},
+            "query":`mutation {
+                createProduct(
+                    product: {
+                        _id: \"${uniqueId}\",
+                        category: \"${data.category}\",
+                        subcategory: \"${data.subcategory}\", 
+                        title: \"${data.title}\",
+                        description:\"${data.description}\",
+                        price:  ${data.price},
+                        priceType: \"${data.priceType}\",
+                        fk_profile:  ${data.fk_profile},
+                        features: ${JSON.stringify(data.features).replace(/\"([^(\")"]+)\":/g,"$1:")} })
+                        {    
+                            _id   
+                            title    
+                            description 
+                            price   
+                            priceType 
+                            features {    
+                                featureName   
+                                featureValue    
+                            }   
+                             fk_profile 
+                             }
+                            }
+                            `};
+        console.log(mutation);
         const options = {
             method: 'POST',
             headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
