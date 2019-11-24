@@ -16,9 +16,7 @@ class Profile extends Component{
     
     };
 
-    // changeName(name){
-    //     store.dispatch({type:"cambio", name:name});
-    // }
+   
 
     componentDidMount() {
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;

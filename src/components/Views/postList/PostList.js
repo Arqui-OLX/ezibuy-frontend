@@ -1,44 +1,55 @@
 import React, { Component } from 'react';
 import './PostList.css';
 import axios from 'axios';
-import Post from '../post/Post'
+import Post from '../post/Post';
+import store from  "../../Redux/store";
+
+
 class PostList extends Component {
+
     
+
+    constructor(props){
+        super();
+
+        this.state = {
+            JsonPosts: [],
+            JsonImages: [],
+            current_fk: 0,
+            search: ""
+        };
+        
+         store.subscribe(()=>{
+             
+           this.setState({
+              JsonPosts: store.getState().JsonPosts,
+              JsonImages: store.getState().JsonImages
+            })
+     
+         })
+       }
  
 
-    state = {
-        JsonPosts: [],
-        JsonImages: [],
-        current_fk: 0
-    };
-    
-      
-      
     componentDidMount() {
 
         let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.241.159:4000';
 
-        const queryPosts= 
-            {
-                "operationName":null,
-                "variables":{},
-                "query":
-                `{ 
-                    allProducts {
-                        title
-                        description
-                        price
-                        priceType    
-                        features {
-                            featureName
-                            featureValue
-                        }   
-                        _id
-                        fk_profile  
-                    }
-                }`
-            }
+        const queryPosts=  {
+            
+            "operationName":null,
+            "variables":{},
+            "query":
+            `{ 
+                productByFilter(text: \"${this.state.search}\") {
+                    _id  
+                    title
+                    description
+                    price
+                    priceType
+                }
+            }`
+        }
 
             const options = {
                 method: 'POST',
@@ -58,14 +69,14 @@ class PostList extends Component {
        
         axios(options)
         .then(result=>{
-            console.log(result.data);
+
             
             this.setState({
-                JsonPosts: result.data.data.allProducts ,
-                JsonImages: new Array(result.data.data.allProducts.length)
+                JsonPosts: result.data.data.productByFilter,
+                JsonImages: new Array(result.data.data.productByFilter.length)
             });
             
-            result.data.data.allProducts.forEach((post, i) => {         
+            result.data.data.productByFilter.forEach((post, i) => {         
                 
                 axios.get(urlImages+post._id)
                 .then(element=>{
@@ -87,6 +98,9 @@ class PostList extends Component {
 
         
     }
+
+
+    
 
   
     handleClick = (data) => {

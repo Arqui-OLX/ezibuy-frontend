@@ -1,22 +1,24 @@
-// import {createStore} from 'redux';
+import {createStore} from 'redux';
 
-// const reducer = (state, action)=>{
-//     switch (action.type) {
-//         case "cambio":
+const reducer = (state, action)=>{
+    switch (action.type) {
+        case "change":
 
-//             return {
-//                 name: action.name
-//             };
-//             break;
+            return {
+                JsonPosts: action.JsonPosts,
+                JsonImages: action.JsonImages
+            };
+            break;
     
-//         default:
-//             return state;
-//             break;
-//     }
-// }
-// export default createStore(reducer, {
+        default:
+            return state;
+            break;
+    }
+}
+export default createStore(reducer, {
 
-//     name: "cristian"
+    JsonPosts: [],
+    JsonImages: []
 
-// });
+});
 

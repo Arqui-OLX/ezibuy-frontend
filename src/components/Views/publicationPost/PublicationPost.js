@@ -67,7 +67,7 @@ const  stateInicial = {
  }
 
 
-class PublicationPost extends Component {
+class PublicationPost extends Component {   
 
     state = { ...stateInicial  }
 
@@ -141,7 +141,7 @@ class PublicationPost extends Component {
             title: this.state.post.title,
             description: this.state.post.description,
             price: this.state.post.price,
-            priceType: this.state.post.typePrice,
+            priceType: this.state.post.priceType,
             features: this.state.features,
             category : this.state.category,
             subcategory : this.state.arraySubcategory[this.state.subcategory],

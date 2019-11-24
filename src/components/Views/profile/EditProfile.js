@@ -10,7 +10,6 @@ import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
  
-//import store from  "../../Redux/store"
 
 
 class  EditProfile extends Component{
