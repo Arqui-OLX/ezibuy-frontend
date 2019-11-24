@@ -42,17 +42,22 @@ class NavigationBar extends Component {
 
 
   submitData = e => {
-
+    
     let urlPosts  ='http://35.209.82.198:3002/product';
     const urlGraphql = 'http://35.208.241.159:4000';
+    let search;
+    if (this.state.search !== "") {
+      search = '?search=' + this.state.search;
+    } else {
+      search = '';
+
+    }
 
     const queryPosts=  {
-        
-        "operationName":null,
         "variables":{},
         "query":
         `{ 
-            productByFilter(text: \"${this.state.search}\") {
+            productByFilter(text: \"${search}\") {
                 _id  
                 title
                 description
@@ -62,37 +67,33 @@ class NavigationBar extends Component {
         }`
     }
 
-        const options = {
-            method: 'POST',
-            data: queryPosts,
-            url: urlGraphql,
-        };
+    const options = {
+        method: 'POST',
+        data: queryPosts,
+        url: urlGraphql,
+    };
           
     
     const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
     
    
     axios(options)
-    .then(result=>{
-
-        
-     console.log(result);
-
+    .then(result => {
      
         store.dispatch({type:"change",
-            JsonPost: result.data.data.productByFilter,
-            JsonImage: new Array(result.data.data.productByFilter.length)
+          JsonPosts: result.data.data.productByFilter,
+          JsonImages: new Array(result.data.data.productByFilter.length)
         });
 
         result.data.data.productByFilter.forEach((post, i) => {         
             
             axios.get(urlImages+post._id)
             .then(element=>{
-                
 
-            store.dispatch({type:"change",
-              JsonImages: [...this.state.JsonImages.slice(0, i), element.data[0].ad_image, ...this.state.JsonImages.slice(i + 1)]
-            });
+              store.dispatch({type:"change",
+                JsonPosts: store.getState().JsonPosts,
+                JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)]
+              });
                  
             }).catch( (error) =>{
                 if(error.status === 404){
@@ -104,13 +105,11 @@ class NavigationBar extends Component {
 
         });
     }).catch(console.log);
-      
-   
-      e.preventDefault();  // recarga el formulario
+    
+      e.preventDefault();
       //console.log(store.getState().search);
       
   }
-
     render(){
         return (
 

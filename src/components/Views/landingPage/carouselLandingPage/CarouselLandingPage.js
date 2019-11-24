@@ -78,17 +78,14 @@ class CarouselLandingPage extends Component {
               
                         <div className="slider-item-div">
                             <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]} alt="img1"style={{width:'530px',height:'430px'}} />
-                            <p className="legend">{ArrayTextPost[1]}</p>
-                        </div>
+                         </div>
                         <div>
                             <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]} alt="img2" style={{width:'530px',height:'430px'}}/>
-                            <p className="legend">{ArrayTextPost[2]}</p>
-
+ 
                         </div>
                         <div> 
                             <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]} alt="img3" style={{width:'530px',height:'430px'}}/>
-                            <p className="legend">{ArrayTextPost[3]}</p>
-
+ 
                         </div>
                 </Carousel>
             </div>

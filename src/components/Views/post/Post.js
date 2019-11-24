@@ -66,7 +66,7 @@ class Post extends Component {
             });
 
             axios.get(urlImages+ this.props.fk_post)
-            .then(reos => {
+            .then(res => {
     
                 
                 this.setState({ 
