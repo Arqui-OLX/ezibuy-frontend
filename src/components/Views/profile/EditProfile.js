@@ -24,11 +24,34 @@ class  EditProfile extends Component{
 
     sendData = (e) => {
 
+        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
-        const url ='http://35.208.164.215:3001/profile/1';
-        let data = this.state.user;
+
+       // const url ='http://35.208.164.215:3001/profile/1';
+      //  let data = this.state.user;
     
-        axios.put(url, data)
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        const queryEditProfile = {
+            "variables":{},
+            "query":`mutation {  
+                updateProfile(
+                    id: ${id}
+                    profile: {
+                        nickname: \"${this.state.user.nickname}\",
+                        email: \"${this.state.user.email}\",
+                        phone: \"${this.state.user.phone}\"
+                })
+            }`
+        }
+
+        const options = {
+            method: 'POST',
+            data: queryEditProfile,
+            url: urlGraphql,
+        };
+
+        axios(options)
         .then(res => {
             console.log(res);
             this.props.parentCallback(e);

@@ -35,7 +35,7 @@ class PostList extends Component {
         let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.241.159:4000';
 
-        const queryPosts=  {
+        let queryPosts =  {
             
             "operationName":null,
             "variables":{},
@@ -51,18 +51,35 @@ class PostList extends Component {
             }`
         }
 
-            const options = {
-                method: 'POST',
-                data: queryPosts,
-                url: urlGraphql,
-            };
+           
               
 
 
         if (this.props.profile !== undefined) {
-            urlPosts  ='http://35.209.82.198:3002/product?profile='+this.props.profile;
+
+            const id = JSON.parse(localStorage.getItem("userInfo")).userId;
+
+            queryPosts =  {
+                "variables":{},
+                "query":`{
+                    productByFilter(
+                        text: \"?profile=${id}\") {
+                            _id   
+                            title
+                            description    
+                            price    
+                            priceType  
+                        }
+                }`
+            }
+
         }
 
+        const options = {
+            method: 'POST',
+            data: queryPosts,
+            url: urlGraphql,
+        };
         
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         

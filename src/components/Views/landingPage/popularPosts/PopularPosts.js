@@ -10,15 +10,12 @@ class PopularPosts extends Component {
         JsonImages: [],
         current_fk: 0
       };
-    
-
-        
+          
     componentDidMount() {
 
         const urlImages ='http://35.209.82.198:3001/ads-images';
         const urlPosts  ='http://35.209.82.198:3002/product';
 
-       
         axios.get(urlPosts)
         .then(result=>{
 
@@ -30,9 +27,7 @@ class PopularPosts extends Component {
                 
                 axios.get(urlImages+"/byid/"+post._id)
                 .then(element=>{
-
-                     
-                    
+                  
                     this.setState({ 
                         JsonImages: [...this.state.JsonImages, element.data[0].ad_image]
                       })
@@ -45,23 +40,14 @@ class PopularPosts extends Component {
 
             });
         }).catch(console.log);
-
        
     }
-    
-
-    handleClick = (e, data) => {
-
-        this.setState({
-
-           current_fk: data
-
-       })
-   }
-    
+ 
 
     render() {
 
+        
+        console.log(this.urlImages);
         var ArrayTextPost = [];
 
         const data = this.state.JsonPosts;
