@@ -28,18 +28,41 @@ class Post extends Component {
 
     componentDidMount() {
         
-        const urlPosts  ='http://35.209.82.198:3002/product/';
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+        const urlGraphql = 'http://35.208.241.159:4000';
 
-
+        const queryPost = {
+            "variables":{},
+            "query":
+            `{
+                productById(id: \"${this.props.fk_post}\")
+                 {   
+                    title   
+                    description
+                    price
+                    priceType   
+                    features {
+                        featureName      
+                        featureValue   
+                    }   
+                    _id    
+                    fk_profile
+                      }
+            }`
+        }
          
-        axios.get(urlPosts+ this.props.fk_post)
+        const options = {
+            method: 'POST',
+            data: queryPost,
+            url: urlGraphql,
+        };
+             
+        axios(options)
         .then(res => {
              
-            console.log(res.data);
-            
+             
             this.setState({ 
-                post: res.data
+                post: res.data.data.productById
             });
 
             axios.get(urlImages+ this.props.fk_post)
@@ -74,19 +97,46 @@ class Post extends Component {
     componentDidUpdate(prevProps) {   
         
         if (this.props.fk_post !== prevProps.fk_post) {
-
-
-            const urlPosts  ='http://35.209.82.198:3002/product/';
-            const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
-
-            console.log(this.props.fk_post);
+            console.log("entra en el if");
             
-            axios.get(urlPosts+ this.props.fk_post)
+
+
+            const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+            const urlGraphql = 'http://35.208.241.159:4000';
+    
+            const queryPost = {
+                "variables":{},
+                "query":
+                `{
+                    productById(id: \"${this.props.fk_post}\")
+                     {   
+                        title   
+                        description
+                        price
+                        priceType   
+                        features {
+                            featureName      
+                            featureValue   
+                        }   
+                        _id    
+                        fk_profile
+                          }
+                }`
+            }
+          
+
+            const options = {
+                method: 'POST',
+                data: queryPost,
+                url: urlGraphql,
+            };
+                 
+ 
+            axios(options)
             .then(res => {
 
-        
-                this.setState({ 
-                    post: res.data
+                 this.setState({ 
+                    post: res.data.data.productById
                 });
 
                 axios.get(urlImages+ this.props.fk_post)

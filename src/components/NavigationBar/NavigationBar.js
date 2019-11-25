@@ -8,9 +8,26 @@ import './navigationbar-styles.css';
 import { NavDropdown } from 'react-bootstrap';
 import './navigationbar-styles.css';
 import { withRouter } from 'react-router-dom';
+import store from  "../Redux/store";
+import axios from 'axios';
 
  
 class NavigationBar extends Component {
+
+  state ={
+    search: ""
+  }
+
+  handleChange = (e)=>{
+    this.setState({
+
+      [e.target.name] : e.target.value  
+     
+    });
+
+       
+    
+  }
     
   constructor(props) {
     super(props)
@@ -23,6 +40,75 @@ class NavigationBar extends Component {
     this.props.history.push(path);
   }
 
+
+  submitData = e => {
+    
+    const urlGraphql = 'http://35.208.241.159:4000';
+    let search;
+    if (this.state.search !== "") {
+      search = '?search=' + this.state.search;
+    } else {
+      search = '';
+
+    }
+
+    const queryPosts=  {
+        "variables":{},
+        "query":
+        `{ 
+            productByFilter(text: \"${search}\") {
+                _id  
+                title
+                description
+                price
+                priceType
+            }
+        }`
+    }
+
+    const options = {
+        method: 'POST',
+        data: queryPosts,
+        url: urlGraphql,
+    };
+          
+    
+    const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+    
+   
+    axios(options)
+    .then(result => {
+     
+        store.dispatch({type:"change",
+          JsonPosts: result.data.data.productByFilter,
+          JsonImages: new Array(result.data.data.productByFilter.length)
+        });
+
+        result.data.data.productByFilter.forEach((post, i) => {         
+            
+            axios.get(urlImages+post._id)
+            .then(element=>{
+
+              store.dispatch({type:"change",
+                JsonPosts: store.getState().JsonPosts,
+                JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)]
+              });
+                 
+            }).catch( (error) =>{
+                if(error.status === 404){
+                    console.log("error 404, no encontrada la imagen");
+                }
+            });
+
+                
+
+        });
+    }).catch(console.log);
+    
+      e.preventDefault();
+      //console.log(store.getState().search);
+      
+  }
     render(){
         return (
 
@@ -53,14 +139,21 @@ class NavigationBar extends Component {
                       <NavDropdown.Item href="#action4">Términos y condiciones</NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
-                  <Form inline>
+                  <Form inline onSubmit={this.submitData}>
                   {this.props.userLoggedIn && 
                     
                       <Button className="mr-3" variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</Button>
                     
                   }
-                    <FormControl type="text" placeholder="Buscar..." className="mr-sm-2" />
-                    <Button variant="outline-light">Buscar</Button>
+                    <FormControl 
+                      type="text" 
+                      placeholder="Buscar..." 
+                      className="mr-sm-2" 
+                      name="search"
+                      onChange={this.handleChange}
+                      value={this.state.search}
+                    />
+                    <Button variant="outline-light" type="submit" >Buscar</Button>
                   </Form>
                 </Navbar.Collapse>
             </Navbar>

@@ -6,33 +6,73 @@ import Container from 'react-bootstrap/Container';
 import axios from 'axios';
 import ProfileNavBar from './ProfileNavBar';
 import EditProfile from './EditProfile';
-//import store from  "../../Redux/store"
+
 class Profile extends Component{
 
     state = {
-
         user: {},
-        showView: true
-    
+        showView: true,
+        imageProfile: "",
+        imageId: ""
     };
+    
 
-    // changeName(name){
-    //     store.dispatch({type:"cambio", name:name});
-    // }
 
-    componentDidMount() {
+    componentDidMount() {   
+
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
-        const url ='http://35.208.164.215:3001/profile/'+id;
-        
-        axios.get(url)
-        .then(res => {
-            this.setState({ user: res.data[0]});
-        })
-    }
-        
+          const urlGraphql = 'http://35.208.241.159:4000';
 
-    
+        const queryProfile = {
+          
+            "variables":{},
+            "query":`{
+                profileByID(profile_id: ${id}) {
+                    id
+                    nickname
+                    email 
+                    phone  
+                }
+            }`
+        } 
+
+            const options = {
+                method: 'POST',
+                data: queryProfile,
+                url: urlGraphql,
+            };
+
+        
+        axios(options)
+        .then(res => {
+            this.setState({ 
+            user: res.data.data.profileByID
+            });                        
+        })
+
+
+        const UrlImageProfile = 'http://35.209.82.198:3001/user-images';
+
+
+        axios.get(UrlImageProfile+"/byid/"+id)
+        .then(element=>{
+            console.log(element);
+            
+            this.setState({ 
+                imageProfile:  element.data[0].user_image,
+                imageId: element.data[0]._id
+              })
+            console.log(this.state.imageId);
+            
+        }).catch( (error) =>{
+        if(error.status === 404){
+            console.log("error 404, no encontrada la imagen");
+        }
+        });
+    }
+
+        
     changeView(){
 
         const isVisible = this.state.showView;
@@ -44,19 +84,39 @@ class Profile extends Component{
     }
 
     callbackFunction = (EditProfileData) => {
+        
+        console.log("entra2");
 
-        const url ='http://35.208.164.215:3001/profile/1';
+        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
-        axios.get(url)
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        const queryProfile = {
+          
+            "variables":{},
+            "query":`{
+                profileByID(profile_id: ${id}) {
+                    id
+                    nickname
+                    email 
+                    phone  
+                }
+            }`
+        } 
+
+            const options = {
+                method: 'POST',
+                data: queryProfile,
+                url: urlGraphql,
+            };
+
+        axios(options)
         .then(res => {
             this.setState({ 
-                user: res.data[0],
+                user: res.data.data.profileByID,
                 showView: EditProfileData
-            });
+            });            
         })
-
-
-
     }
 
     render(){
@@ -82,17 +142,17 @@ class Profile extends Component{
                                     <Figure.Image
                                         width={171}
                                         height={180}
-                                        src="https://dummyimage.com/300x200/000/fff"
+                                        src={'http://35.209.82.198:3001/'+this.state.imageProfile}
                                     />
                                 </Figure>
                             </Col>
                             <Col>
                                 <br></br>
-                                <h2 className=""><strong>Tu información personal</strong></h2>
+                                <h1 className=""><strong>Tu información personal</strong></h1>
                                 <hr></hr>
-                                <p className="text-left">Nombre: {this.state.user.nickname} </p>
-                                <p className="text-left">Email: {this.state.user.email} </p>
-                                <p className="text-left">Teléfono: {this.state.user.phone}</p>
+                                <h4 className="text-left">Nombre: {this.state.user.nickname} </h4>
+                                <h4 className="text-left">Email: {this.state.user.email} </h4>
+                                <h4 className="text-left">Teléfono: {this.state.user.phone}</h4>
                             </Col>
                             <Col></Col>
                         </Row>
@@ -111,18 +171,18 @@ class Profile extends Component{
                     </div>
                 :
                 <EditProfile 
-                parentCallback = {this.callbackFunction}
-                user = {this.state.user}
+                    parentCallback = {this.callbackFunction}
+                    user = {this.state.user}
+                    idImgage ={this.state.imageId}
+
                 />
 
                 }
                
                 </div>
-
-            
+  
         );
     }
 }
-
 
 export default Profile;

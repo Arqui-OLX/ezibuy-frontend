@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-//import Container from 'react-bootstrap/Container';
 import ChatRoomMessages from './Components/ChatRoomMessages';
 import ChatRooms from './Components/ChatRooms';
 import io from 'socket.io-client';

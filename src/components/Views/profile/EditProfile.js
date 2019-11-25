@@ -9,8 +9,8 @@ import { FilePond } from 'react-filepond';
 //import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+import { thisExpression } from '@babel/types';
  
-//import store from  "../../Redux/store"
 
 
 class  EditProfile extends Component{
@@ -18,24 +18,74 @@ class  EditProfile extends Component{
     
   state = {
 
-    user:  this.props.user
-    
- 
+    user:  this.props.user,
+    files: [],
+    idImage: this.props.idImgage,
+     
  };
 
     sendData = (e) => {
 
-
-        const url ='http://35.208.164.215:3001/profile/1';
-        let data = this.state.user;
+        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
     
-        axios.put(url, data)
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        const queryEditProfile = {
+            "variables":{},
+            "query":`mutation {  
+                updateProfile(
+                    id: ${id}
+                    profile: {
+                        nickname: \"${this.state.user.nickname}\",
+                        email: \"${this.state.user.email}\",
+                        phone: \"${this.state.user.phone}\"
+                })
+            }`
+        }
+
+        const options = {
+            method: 'POST',
+            data: queryEditProfile,
+            url: urlGraphql,
+        };
+
+        axios(options)
         .then(res => {
             console.log(res);
-            this.props.parentCallback(e);
+            this.setState({
+                redirec: true
+            })
         })
 
+ 
+        var bodyFormData = new FormData();
+
+        bodyFormData.set('user_id', id);
+
+        bodyFormData.append('userImage',this.state.files[0]); 
+
+         
+        const UrlImageEditProfile = 'http://35.209.82.198:3001/user-images/';
+
+        console.log(UrlImageEditProfile + this.state.idImage);
         
+
+        if(this.state.files[0] != undefined){
+            console.log("ENTRA");
+            
+            axios.patch(UrlImageEditProfile+this.state.idImage, bodyFormData)
+           
+            
+            .then( (response)=>{
+                console.log(response);
+
+            }).catch((error) =>{
+                
+                console.log(error);
+            });
+        }
+            
+    
    }
 
 

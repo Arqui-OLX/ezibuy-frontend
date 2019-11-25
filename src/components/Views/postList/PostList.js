@@ -1,41 +1,102 @@
 import React, { Component } from 'react';
 import './PostList.css';
 import axios from 'axios';
-import Post from '../post/Post'
+import Post from '../post/Post';
+import store from  "../../Redux/store";
+
+
 class PostList extends Component {
+
     
+
+    constructor(props){
+        super();
+
+        this.state = {
+            JsonPosts: [],
+            JsonImages: [],
+            current_fk: 0,
+            search: ""
+        };
+        
+         store.subscribe(()=>{
+             
+           this.setState({
+              JsonPosts: store.getState().JsonPosts,
+              JsonImages: store.getState().JsonImages
+            })
+     
+         })
+       }
  
 
-    state = {
-        JsonPosts: [],
-        JsonImages: [],
-        current_fk: 0
-    };
-    
-      
-      
     componentDidMount() {
 
         let urlPosts  ='http://35.209.82.198:3002/product';
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        let queryPosts =  {
+            
+            "operationName":null,
+            "variables":{},
+            "query":
+            `{ 
+                productByFilter(text: \"${this.state.search}\") {
+                    _id  
+                    title
+                    description
+                    price
+                    priceType
+                }
+            }`
+        }
+
+           
+              
 
 
         if (this.props.profile !== undefined) {
-            urlPosts  ='http://35.209.82.198:3002/product?profile='+this.props.profile;
+
+            const id = JSON.parse(localStorage.getItem("userInfo")).userId;
+
+            queryPosts =  {
+                "variables":{},
+                "query":`{
+                    productByFilter(
+                        text: \"?profile=${id}\") {
+                            _id   
+                            title
+                            description    
+                            price    
+                            priceType  
+                        }
+                }`
+            }
+
         }
 
+        const options = {
+            method: 'POST',
+            data: queryPosts,
+            url: urlGraphql,
+        };
         
         const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
         
        
-        axios.get(urlPosts)
+        axios(options)
         .then(result=>{
 
-            this.setState({
-                JsonPosts: result.data ,
-                JsonImages: new Array(result.data.length)
-            });
             
-            result.data.forEach((post, i) => {         
+            this.setState({
+                JsonPosts: result.data.data.productByFilter,
+                JsonImages: new Array(result.data.data.productByFilter.length)
+            });
+
+            console.log(result.data.data.productByFilter);
+            
+            
+            result.data.data.productByFilter.forEach((post, i) => {         
                 
                 axios.get(urlImages+post._id)
                 .then(element=>{
@@ -57,6 +118,9 @@ class PostList extends Component {
 
         
     }
+
+
+    
 
   
     handleClick = (data) => {
