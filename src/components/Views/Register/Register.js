@@ -2,11 +2,16 @@ import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import gql from 'graphql-tag';
 import ApolloClient from 'apollo-boost';
 
 import { withRouter } from 'react-router-dom';
+import { FilePond } from 'react-filepond';
+//import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 
 import "./Register.css"
@@ -26,12 +31,15 @@ class Register extends Component{
         email: "",
         password: "",
         nickname: "",
-        phone: ""         
+        phone: "",
+        imageProfile: 'imageProfile.png',
+        files:[]
     }
 
     handleSubmit(){
         console.log("Pressed the button")
         this.handleRegister(this.state.email, this.state.password,this.state.nickname, this.state.phone)
+
     }
 
     handleRegister(email, password, nickname, phone){
@@ -61,6 +69,40 @@ class Register extends Component{
                 //const data = result.data.login
                 //const token= data.token
                 //const userId = data.userId
+                
+                console.log(result.data.create.userId);
+                
+ 
+                var bodyFormData = new FormData();
+
+                bodyFormData.set('user_id', result.data.create.userId);
+        
+                bodyFormData.append('userImage',this.state.files[0]); 
+        
+                 
+                const UrlImageEditProfile = 'http://35.209.82.198:3001/user-images/';
+        
+               console.log("ENTRA");
+                 
+        
+                axios.post(UrlImageEditProfile, bodyFormData )
+                   
+                    
+                    .then( (response)=>{
+                        console.log(response);
+                        console.log("Entra Patch");
+                        console.log("Entra Patch");
+                    
+        
+                        
+                    }).catch((error) =>{
+                        
+                        console.log(error);
+                    });
+
+
+
+
                 let path = `/login`;
                 this.props.history.push(path);
 
@@ -81,7 +123,8 @@ class Register extends Component{
 
                 <h2 className="main-title">Regístrate</h2>
                 <br></br>
-
+                
+                    
                 <Form className= "signupFormContainer mb-5 mt-4">
                     <br></br>
                     <Form.Group controlId="formGroupEmail">
@@ -101,7 +144,19 @@ class Register extends Component{
                         <Form.Control onChange={this.handleTextBoxChange}  name="phone" type="text" placeholder="dame tu telefono" />
                     </Form.Group>
                     <br></br>
-                        <Button size="lg" onClick={this.handleSubmit} >Regístrate</Button>
+
+
+                    <FilePond  
+                        onupdatefiles={(fileItems) => {
+                        this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
+                        onDrop={this.handleUploadImages}
+                        allowMultiple={false}
+                        required ={true}
+                    />
+
+                    <Button size="lg" onClick={this.handleSubmit} >Regístrate</Button>
+
+
                 </Form>
 
                 <Link to={`/login`} className="current">Ya tienes una cuenta, presiona aquí</Link>

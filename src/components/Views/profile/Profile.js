@@ -11,11 +11,14 @@ class Profile extends Component{
 
     state = {
         user: {},
-        showView: true
+        showView: true,
+        imageProfile: "",
+        imageId: ""
     };
+    
 
 
-    componentDidMount() {
+    componentDidMount() {   
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
@@ -45,9 +48,30 @@ class Profile extends Component{
         .then(res => {
             this.setState({ 
             user: res.data.data.profileByID
-            });
+            });                        
         })
+
+
+        const UrlImageProfile = 'http://35.209.82.198:3001/user-images';
+
+
+        axios.get(UrlImageProfile+"/byid/"+id)
+        .then(element=>{
+            console.log(element);
+            
+            this.setState({ 
+                imageProfile:  element.data[0].user_image,
+                imageId: element.data[0]._id
+              })
+            console.log(this.state.imageId);
+            
+        }).catch( (error) =>{
+        if(error.status === 404){
+            console.log("error 404, no encontrada la imagen");
+        }
+        });
     }
+
         
     changeView(){
 
@@ -60,6 +84,8 @@ class Profile extends Component{
     }
 
     callbackFunction = (EditProfileData) => {
+        
+        console.log("entra2");
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
@@ -89,9 +115,8 @@ class Profile extends Component{
             this.setState({ 
                 user: res.data.data.profileByID,
                 showView: EditProfileData
-            });
+            });            
         })
-
     }
 
     render(){
@@ -117,7 +142,7 @@ class Profile extends Component{
                                     <Figure.Image
                                         width={171}
                                         height={180}
-                                        src="https://dummyimage.com/300x200/000/fff"
+                                        src={'http://35.209.82.198:3001/'+this.state.imageProfile}
                                     />
                                 </Figure>
                             </Col>
@@ -146,8 +171,10 @@ class Profile extends Component{
                     </div>
                 :
                 <EditProfile 
-                parentCallback = {this.callbackFunction}
-                user = {this.state.user}
+                    parentCallback = {this.callbackFunction}
+                    user = {this.state.user}
+                    idImgage ={this.state.imageId}
+
                 />
 
                 }

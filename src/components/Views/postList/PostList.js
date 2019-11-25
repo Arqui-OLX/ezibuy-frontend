@@ -92,6 +92,9 @@ class PostList extends Component {
                 JsonPosts: result.data.data.productByFilter,
                 JsonImages: new Array(result.data.data.productByFilter.length)
             });
+
+            console.log(result.data.data.productByFilter);
+            
             
             result.data.data.productByFilter.forEach((post, i) => {         
                 

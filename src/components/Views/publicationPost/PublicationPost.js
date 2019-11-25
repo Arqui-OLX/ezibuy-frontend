@@ -151,7 +151,6 @@ class PublicationPost extends Component {
 
         };
         
-        //const urlPosts  ='http://35.209.82.198:3002/product';
         const urlImages ='http://35.209.82.198:3001/ads-images';
         const urlGraphql = 'http://35.208.241.159:4000';
         

@@ -18,39 +18,71 @@ class CarouselLandingPage extends Component {
   
     componentDidMount() {
 
-        const urlImages ='http://35.209.82.198:3001/ads-images';
-        const urlPosts  ='http://35.209.82.198:3002/product';
+         
 
-       
-        axios.get(urlPosts)
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        let queryPosts = {
+           
+            "variables":{},
+            "query":`{
+                allProducts {
+                    title
+                    description
+                    price
+                    priceType
+                    features {
+                        featureName      
+                        featureValue   
+                    }
+                    _id   
+                    fk_profile
+                    }
+                }
+        `}
+
+        const options = {
+            method: 'POST',
+            data: queryPosts,
+            url: urlGraphql,
+        };
+        
+        const urlImages ='http://35.209.82.198:3001/ads-images/byid/'; 
+        
+        
+        axios(options)
         .then(result=>{
-
-            this.setState({
-                JsonPosts: result.data 
-            });
+            console.log(result);
             
-            result.data.forEach(post => {         
-                
-                axios.get(urlImages+"/byid/"+post._id)
-                .then(element=>{
 
-                     
+            
+            this.setState({
+                JsonPosts: result.data.data.allProducts,
+                JsonImages: new Array(result.data.data.allProducts.length)
+            });
+
+            console.log(result.data.data.allProducts);
+            
+            
+            result.data.data.allProducts.forEach((post, i) => {         
+                
+                axios.get(urlImages+post._id)
+                .then(element=>{
                     
                     this.setState({ 
-                        JsonImages: [...this.state.JsonImages, element.data[0].ad_image]
-                      })
+                        JsonImages: [...this.state.JsonImages.slice(0, i), element.data[0].ad_image, ...this.state.JsonImages.slice(i + 1)]
+                    })
                     
                 }).catch( (error) =>{
-                if(error.status === 404){
-                    console.log("error 404, no encontrada la imagen");
-                }
+                    if(error.status === 404){
+                        console.log("error 404, no encontrada la imagen");
+                    }
                 });
     
                     
 
             });
         }).catch(console.log);
-
         
     }
 

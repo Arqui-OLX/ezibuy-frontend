@@ -43,7 +43,6 @@ class NavigationBar extends Component {
 
   submitData = e => {
     
-    let urlPosts  ='http://35.209.82.198:3002/product';
     const urlGraphql = 'http://35.208.241.159:4000';
     let search;
     if (this.state.search !== "") {
