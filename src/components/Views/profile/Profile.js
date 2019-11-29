@@ -135,27 +135,26 @@ class Profile extends Component{
                     <ProfileNavBar/>
                     <Container>
     
-                        <Row>
-                            <Col>
+                        <div className="row">
+                            <div className="col">
                                 <br></br>
-                                <Figure>
-                                    <Figure.Image
-                                        width={171}
-                                        height={180}
-                                        src={'http://35.209.82.198:3001/'+this.state.imageProfile}
-                                    />
-                                </Figure>
-                            </Col>
-                            <Col>
+                                <img
+                                    className="rounded-circle"
+                                    width={171}
+                                    height={180}
+                                    src={'http://35.209.82.198:3001/'+this.state.imageProfile}
+                                />
+                                  
                                 <br></br>
-                                <h1 className=""><strong>Tu información personal</strong></h1>
-                                <hr></hr>
-                                <h4 className="text-left">Nombre: {this.state.user.nickname} </h4>
-                                <h4 className="text-left">Email: {this.state.user.email} </h4>
-                                <h4 className="text-left">Teléfono: {this.state.user.phone}</h4>
-                            </Col>
-                            <Col></Col>
-                        </Row>
+               
+                               <div className="mt-3">
+                                    <h4>Nombre: {this.state.user.nickname} </h4>
+                                    <h4>Email: {this.state.user.email} </h4>
+                                    <h4>Teléfono: {this.state.user.phone}</h4>
+                               </div>
+
+                            </div>
+                        </div>
 
                     </Container>
 
