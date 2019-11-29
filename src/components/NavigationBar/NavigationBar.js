@@ -52,6 +52,7 @@ class NavigationBar extends Component {
 
     }
 
+    
     const queryPosts=  {
         "variables":{},
         "query":
