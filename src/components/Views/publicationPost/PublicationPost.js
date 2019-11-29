@@ -144,12 +144,14 @@ class PublicationPost extends Component {
             priceType: this.state.post.priceType,
             features: this.state.features,
             category : this.state.category,
-            subcategory : this.state.arraySubcategory[this.state.subcategory],
+            subcategory : this.state.arraySubcategory[this.state.subcategory-1],
             _id: uniqueId,
             fistImage: this.state.files[0],
             fk_profile:  JSON.parse(localStorage.getItem("userInfo")).userId
 
         };
+        console.log(data.subcategory);
+        
         
         const urlImages ='http://35.209.82.198:3001/ads-images';
         const urlGraphql = 'http://35.208.241.159:4000';
@@ -293,6 +295,7 @@ class PublicationPost extends Component {
        var listItems = <div></div>;
 
        var features = [];
+       
        if(this.state.subcategory !==-1){
            
             listItems = this.state.fields[this.state.subcategory].map((i, index) =>
