@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from 'axios';
-
+import './Post.css';
 
 class Post extends Component {
     
@@ -194,6 +194,16 @@ class Post extends Component {
         
     }
 
+    addFavorite(){
+        console.log("holamundo");
+        
+    }
+
+    removePost(){
+
+        console.log()
+    }
+
     render() {
 
    
@@ -262,30 +272,40 @@ class Post extends Component {
            
                     </div>
 
+                   {this.state.post.fk_profile !== JSON.parse(localStorage.getItem("userInfo")).userId?
                     <div className="col-md-12">
-{/* 
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">holamundo</strong></h4>
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark line-height-15 letter-spacing-2px"><strong className="font-size-22px">Telefono</strong></h4> */}
 
-                  
-                        <form onSubmit={this.submitData}>
+                       <button onClick={this.addFavorite} className="pepe"><i className="fas fa-heart"></i></button>
+                        
+                        <form onSubmit={this.submitData}>               
                                 
                                 <div className="form-group">
                                     <textarea 
                                     type="message"
-                                     className="form-control" 
-                                     id="exampleInputPassword1"
-                                      placeholder="Mensaje" 
-                                     rows="6"  
-                                     name= "message"
-                                      onChange={this.handleChange}
+                                    className="form-control" 
+                                    id="exampleInputPassword1"
+                                    placeholder="Mensaje" 
+                                    rows="6"  
+                                    name= "message"
+                                    onChange={this.handleChange}
                                     value={this.state.message}/>
                                 </div>
                             
                                 <button type="submit" className="btn btn-primary btn-block">Enviar</button>
                         </form>
-                    
-                    </div>                     
+                        
+                       
+
+                    </div>      
+                    :
+                    <div>
+
+                        <button  onClick={this.addFavorite} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
+
+                    </div>  
+                     
+                    }
+                                   
                 </div>
         );
 

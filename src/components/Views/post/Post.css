@@ -1,0 +1,13 @@
+.pepe{
+    background-color: transparent;
+    border-color: transparent;
+    
+}
+.fa-heart{
+    color:red;
+    font-size: 50px;
+}
+
+.fa-heart:hover{
+    color: crimson;
+}
