@@ -9,7 +9,6 @@ import ApolloClient from 'apollo-boost';
 
 import { withRouter } from 'react-router-dom';
 import { FilePond } from 'react-filepond';
-//import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
@@ -32,17 +31,21 @@ class Register extends Component{
         password: "",
         nickname: "",
         phone: "",
-        imageProfile: 'imageProfile.png',
         files:[]
     }
 
-    handleSubmit(){
+    handleSubmit(e){
+        e.preventDefault();
         console.log("Pressed the button")
+  
         this.handleRegister(this.state.email, this.state.password,this.state.nickname, this.state.phone)
 
     }
 
     handleRegister(email, password, nickname, phone){
+        console.log("entra handleregister");
+        
+
         const Client = new ApolloClient({ uri: 'http://35.208.241.159:4000/' });
 
         const mutation = gql(`
@@ -56,6 +59,7 @@ class Register extends Component{
         
         
         if (this.state.email !== "" && this.state.password !== "" && this.state.nickname !== "" && this.state.phone !== ""){
+           
             Client.mutate({
                 mutation: mutation,
                 variables:{
@@ -65,13 +69,6 @@ class Register extends Component{
                     phone: this.state.phone
                 }
             }).then(result => {
-                console.log(result)
-                //const data = result.data.login
-                //const token= data.token
-                //const userId = data.userId
-                
-                console.log(result.data.create.userId);
-                
  
                 var bodyFormData = new FormData();
 
@@ -81,27 +78,19 @@ class Register extends Component{
         
                  
                 const UrlImageEditProfile = 'http://35.209.82.198:3001/user-images/';
-        
-               console.log("ENTRA");
-                 
+                         
         
                 axios.post(UrlImageEditProfile, bodyFormData )
                    
                     
                     .then( (response)=>{
-                        console.log(response);
-                        console.log("Entra Patch");
-                        console.log("Entra Patch");
-                    
-        
+                       
                         
                     }).catch((error) =>{
                         
                         console.log(error);
                     });
-
-
-
+ 
 
                 let path = `/login`;
                 this.props.history.push(path);
@@ -125,45 +114,75 @@ class Register extends Component{
                 <br></br>
                 
                     
-                <Form className= "signupFormContainer mb-5 mt-4">
-                    <br></br>
-                    <Form.Group controlId="formGroupEmail">
-                        <Form.Label>E-mail</Form.Label>
-                        <Form.Control onChange={this.handleTextBoxChange} name="email" type="email" placeholder="Introduzca email" />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupPassword">
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control onChange={this.handleTextBoxChange}  name="password" type="password" placeholder="Contraseña" />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Ingrese un nick</Form.Label>
-                        <Form.Control onChange={this.handleTextBoxChange}  name="nickname" type="text" placeholder="dame tu nick" />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Ingrese un telefono</Form.Label>
-                        <Form.Control onChange={this.handleTextBoxChange}  name="phone" type="text" placeholder="dame tu telefono" />
-                    </Form.Group>
-                    <br></br>
-
+                <form onSubmit={this.handleSubmit} className= "signupFormContainer mb-5 mt-4">
 
                     <FilePond  
                         onupdatefiles={(fileItems) => {
-                        this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
+                        this.setState({files: fileItems.map(fileItem => fileItem.file)});}}  
                         onDrop={this.handleUploadImages}
                         allowMultiple={false}
                         required ={true}
                     />
+                    <br></br>
 
-                    <Button size="lg" onClick={this.handleSubmit} >Regístrate</Button>
+
+                    <div className="form-group ">
+                        <input 
+                            type="email" 
+                            className="form-control w-100" 
+                            id="title" 
+                            placeholder="Email" 
+                            name="email" 
+                            //value={this.state.post.title} 
+                            onChange={this.handleTextBoxChange}
+                            required/>
+                    </div>
+
+                    <div className="form-group ">
+                        <input 
+                            type="password" 
+                            className="form-control w-100" 
+                            id="password" 
+                            placeholder="contraseña" 
+                            name="password" 
+                            onChange={this.handleTextBoxChange}
+                            required/>
+                    </div>
+
+                    <div className="form-group ">
+                        <input 
+                            type="text" 
+                            className="form-control w-100" 
+                            id="nickname" 
+                            placeholder="Nickname" 
+                            name="nickname" 
+                            onChange={this.handleTextBoxChange}
+                            required/>
+                    </div>
+
+                    <div className="form-group ">
+                        <input 
+                            type="number" 
+                            className="form-control w-100" 
+                            id="phone" 
+                            placeholder="numero telefonico" 
+                            name="phone" 
+                            onChange={this.handleTextBoxChange}
+                            required/>
+                    </div>
+                    
+                
+                    <br></br>
+
+                    <button type="submit" className="btn btn-primary btn-block  mt-5"  >Registrarse</button>
 
 
-                </Form>
+                </form>
 
-                <Link to={`/login`} className="current">Ya tienes una cuenta, presiona aquí</Link>
-            
+             
             </div>
         );
     }
 }
 
-export default withRouter(Register);
+export default Register;

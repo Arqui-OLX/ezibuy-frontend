@@ -21,7 +21,6 @@ class LandingPage extends Component {
                 <PopularPosts/>
                 <Categories/>
 
-
             </div>
 
           

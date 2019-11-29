@@ -52,9 +52,8 @@ class  EditProfile extends Component{
         axios(options)
         .then(res => {
             console.log(res);
-            this.setState({
-                redirec: true
-            })
+            this.props.parentCallback(e);
+
         })
 
  
@@ -106,8 +105,6 @@ class  EditProfile extends Component{
 
     render(){
 
-
- 
         
         return(
             <div className="profile-navbar d-flex flex-column">

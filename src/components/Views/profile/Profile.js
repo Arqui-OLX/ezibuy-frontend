@@ -57,7 +57,7 @@ class Profile extends Component{
 
         axios.get(UrlImageProfile+"/byid/"+id)
         .then(element=>{
-            console.log(element);
+            console.log(element.data[0]._id);
             
             this.setState({ 
                 imageProfile:  element.data[0].user_image,
