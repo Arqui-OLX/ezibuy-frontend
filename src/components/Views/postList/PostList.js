@@ -4,8 +4,9 @@ import axios from 'axios';
 import Post from '../post/Post';
 import store from  "../../Redux/store";
 import Form from 'react-bootstrap/Form';	
-import Button from 'react-bootstrap/Button';	
-
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+ 
 class PostList extends Component {
 
     
@@ -17,12 +18,17 @@ class PostList extends Component {
             JsonPosts: [],
             JsonImages: [],
             current_fk: 0,
-            search: "",	
+            search: "?",	
             categories: Array(10).fill(false),	
             minPrice: "0",	
-            maxPrice: "9999999999"	
-   
+            maxPrice: "9999999999",
+            currentPage: 1
+
         };
+
+        this.handleClickLast = this.handleClickLast.bind(this)
+        this.handleClickNext = this.handleClickNext.bind(this)
+        
         
          store.subscribe(()=>{
              
@@ -33,6 +39,37 @@ class PostList extends Component {
      
          })
        }
+
+       handleClickLast(){
+            if(this.state.currentPage !== 1){
+                this.setState({currentPage: this.state.currentPage - 1}, this.searchPosts(this.state.currentPage-1))
+                //this.handleUpdatePosts()
+                store.dispatch({type:"change",
+                    JsonPosts: store.getState().JsonPosts,
+                    JsonImages: store.getState().JsonImages,	
+                    filter: store.getState().filter,
+                    currentPage: this.state.currentPage-1
+                        
+                });
+            }
+
+        }
+
+        handleClickNext(){ 
+            console.log(this.state);
+            
+            if(this.state.JsonPosts !== []){
+
+                this.setState({currentPage: this.state.currentPage + 1}, this.searchPosts(this.state.currentPage+1))
+                //this.handleUpdatePosts()
+                store.dispatch({type:"change",
+                JsonPosts: store.getState().JsonPosts,
+                JsonImages: store.getState().JsonImages,	
+                    filter: store.getState().filter,
+                    currentPage: this.state.currentPage + 1
+                });
+            }
+        }
        categories_map =
             [ 
                 'carros', 'motos','telefonos', 'tablets',	
@@ -43,18 +80,24 @@ class PostList extends Component {
             min = 0;	
             max = 9999999999;	
 
-    searchPosts() {
+    searchPosts(currentPage) {
+
+        console.log(currentPage);
+        
 
         let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.241.159:4000';
-
+        let pagination = '&pageNumber=' + currentPage + '&nPerPage='+ '10';
+        
+        console.log(this.state.search+pagination);
+        
         let queryPosts =  {
             
             "operationName":null,
             "variables":{},
             "query":
             `{ 
-                productByFilter(text: \"${this.state.search}\") {
+                productByFilter(text: \"${this.state.search+pagination}\") {
                     _id  
                     title
                     description
@@ -133,7 +176,7 @@ class PostList extends Component {
     }
 
     componentDidMount(){	
-        this.searchPosts();	
+        this.searchPosts(this.state.currentPage);	
     }	
 
 
@@ -269,6 +312,15 @@ class PostList extends Component {
                     <div className="col-md-8 col-ms-10">
                         {result}
                     </div>
+
+                    <div className="col-md-5 row justify-content-md-center">
+                        {this.state.JsonPosts !== [] && <ButtonGroup aria-label="Basic example" size="lg">
+                            <Button disabled={ (this.state.currentPage===1 ? true : false)} variant="secondary" onClick={this.handleClickLast}>Anterior</Button>
+                            <Button disabled={ (this.state.JsonPosts.length > 0 ? false : true)}  variant="secondary" onClick={this.handleClickNext}>Siguiente</Button>
+                        </ButtonGroup>}
+                    </div>
+
+
 
 
                     <div>

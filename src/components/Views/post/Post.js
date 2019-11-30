@@ -206,7 +206,8 @@ class Post extends Component {
 
     render() {
 
-   
+        console.log(JSON.parse(localStorage.getItem("userInfo")).userId);
+        
         var listItems = this.state.images.map((url, i) =>
 
 
@@ -273,8 +274,7 @@ class Post extends Component {
                     <div className="col-md-12">
 
                        <button onClick={this.addFavorite} className="pepe"><i className="fas fa-heart"></i></button>
-                       <button onClick={this.editProfile} className="pepe"><i className="fas fa-heart"></i></button>
-
+ 
                         <form onSubmit={this.submitData}>               
                                 
                                 <div className="form-group">
@@ -300,12 +300,13 @@ class Post extends Component {
 
                         <button  onClick={this.addFavorite} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
 
+
                     </div>  
                      
                     }
                                    
                 </div>
-        );
+        );  
 
     }
 }

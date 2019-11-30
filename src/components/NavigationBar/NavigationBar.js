@@ -42,15 +42,21 @@ class NavigationBar extends Component {
 
 
   submitData = e => {
-    
+        
     const urlGraphql = 'http://35.208.241.159:4000';
     let search;
+    let pagination = '&pageNumber=' + store.getState().currentPage + '&nPerPage='+ '10';
+
     if (this.state.search !== "") {
-      search =  store.getState().filter + 'search=' + this.state.search;	
+      search =  store.getState().filter + 'search=' + this.state.search + pagination;	
+
+
     } else {
-      search = '';
+    
+      search = '?'+pagination;
 
     }
+    
 
     const queryPosts=  {
         "variables":{},
@@ -82,7 +88,8 @@ class NavigationBar extends Component {
         store.dispatch({type:"change",
           JsonPosts: result.data.data.productByFilter,
           JsonImages: new Array(result.data.data.productByFilter.length),	
-          filter: store.getState().filter
+          filter: store.getState().filter, 
+          currentPage: store.getState().currentPage
         });
 
         result.data.data.productByFilter.forEach((post, i) => {         
@@ -93,7 +100,8 @@ class NavigationBar extends Component {
               store.dispatch({type:"change",
                 JsonPosts: store.getState().JsonPosts,
                 JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)],	
-                filter: store.getState().filter 
+                filter: store.getState().filter,
+                currentPage: store.getState().currentPage
               });
                  
             }).catch( (error) =>{

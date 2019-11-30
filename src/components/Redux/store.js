@@ -8,6 +8,7 @@ const reducer = (state, action)=>{
                 JsonPosts: action.JsonPosts,
                 JsonImages: action.JsonImages,
                 filter: action.filter,
+                currentPage: action.currentPage
             };
             break;
     
@@ -20,7 +21,8 @@ export default createStore(reducer, {
 
     JsonPosts: [],
     JsonImages: [],
-    filter: ""
+    filter: "",
+    currentPage: 1
 
 });
 
