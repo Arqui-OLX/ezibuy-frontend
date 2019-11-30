@@ -3,7 +3,8 @@ import './PostList.css';
 import axios from 'axios';
 import Post from '../post/Post';
 import store from  "../../Redux/store";
-
+import Form from 'react-bootstrap/Form';	
+import Button from 'react-bootstrap/Button';	
 
 class PostList extends Component {
 
@@ -16,7 +17,11 @@ class PostList extends Component {
             JsonPosts: [],
             JsonImages: [],
             current_fk: 0,
-            search: ""
+            search: "",	
+            categories: Array(10).fill(false),	
+            minPrice: "0",	
+            maxPrice: "9999999999"	
+   
         };
         
          store.subscribe(()=>{
@@ -28,9 +33,17 @@ class PostList extends Component {
      
          })
        }
- 
+       categories_map =
+            [ 
+                'carros', 'motos','telefonos', 'tablets',	
+                'desktops', 'portatiles', 'ventas de inmuebles',	
+                'arriendo de inmuebles','buscar empleos',	
+                'clases'
+            ];	
+            min = 0;	
+            max = 9999999999;	
 
-    componentDidMount() {
+    searchPosts() {
 
         let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.241.159:4000';
@@ -119,6 +132,10 @@ class PostList extends Component {
         
     }
 
+    componentDidMount(){	
+        this.searchPosts();	
+    }	
+
 
     
 
@@ -133,6 +150,46 @@ class PostList extends Component {
         })
     }
     
+
+    handleChange(index, event) {	
+        const categories = this.state.categories.slice();	
+        categories[index] = event.target.checked	
+        this.changeFilter(categories, this.state.minPrice, this.state.maxPrice);	
+    }	
+    handleChangePrice(option, event) {	
+        if(option === 1)	
+            this.min = event.target.value	
+        else	
+            this.max = event.target.value	
+    }	
+    handlePriceButton(){	
+        this.changeFilter(this.state.categories, this.min, this.max)	
+    }	
+    	
+    changeFilter(categories, minPrice, maxPrice){	
+        var arrayLength = categories.length	
+        let filter = '?'	
+        for (var i = 0; i < arrayLength; i++) {	
+            if(categories[i])	
+                filter += "subcategory[]=" + this.categories_map[i] + "&"	
+        }	
+        	
+        minPrice = minPrice === "" ? "0": minPrice;	
+        maxPrice = maxPrice === "" ? "9999999999": maxPrice;	
+        filter += "priceFilter[]=" + minPrice + "&"	
+        filter += "priceFilter[]=" + maxPrice + "&"	
+        	
+        this.setState({ categories: categories,	
+                        search: filter,	
+                        minPrice: minPrice,	
+                        maxPrice: maxPrice}, () => this.searchPosts())	
+        	
+        store.dispatch({type:"change",	
+                        JsonPosts: store.getState().JsonPosts,	
+                        JsonImages: store.getState().JsonImages,	
+                        filter: filter});	
+    }	
+
     
 
     render() {
@@ -174,6 +231,40 @@ class PostList extends Component {
 
                 
                 <div className="row justify-content-md-center">
+
+                    {
+                    (this.props.profile === undefined) &&	
+                        <div className="col-md-4 col-sm-12 shadow bg-white rounded text-left categories">	
+                        <Form>	
+                            {['Carros','Motos','Telefonos','Tablets',	
+                            'Computadores de escritorio', 'Portatiles',	
+                            'Venta de inmuebles', 'Arriendo de inmuebles',	
+                            'Empleo', 'Clases'].map((type, index) => (	
+                                <div key={`categories-${index}`} className="mb-3">	
+                                <Form.Check 	
+                                    checked={this.state.categories[index]}	
+                                    type={'checkbox'}	
+                                    id={`category-${index}`}	
+                                    label={type}	
+                                    onChange={(event) => this.handleChange(index, event)}	
+                                />	
+                                </div>	
+                            ))}	
+                            <Form.Group controlId="formMinPrice">	
+                                <Form.Label>Precio Mínimo</Form.Label>	
+                                <Form.Control onChange={(event) => this.handleChangePrice(1, event)} type="number" placeholder="Mín" />	
+                            </Form.Group>	
+                            <Form.Group controlId="formMaxPrice">	
+                                <Form.Label>Precio Máximo</Form.Label>	
+                                <Form.Control onChange={(event) => this.handleChangePrice(2, event)} type="number" placeholder="Máx" />	
+                            </Form.Group>	
+                        </Form>	
+                        <Button onClick ={() => this.handlePriceButton()} variant="primary" type="submit">	
+                                Buscar	
+                        </Button>	
+                            
+                        </div>
+                    }
                     
                     <div className="col-md-8 col-ms-10">
                         {result}

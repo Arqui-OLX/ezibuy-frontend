@@ -264,9 +264,6 @@ class Post extends Component {
                         <div className="detalles">
                             <p className="date icons-material icon-material-time text-left">{this.state.post.description}</p>
                         </div>
-                        
-                        {/* <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">{this.state.post.category}</strong></h4>
-                        <h4 className="font-roboto-light font-size-20px-2c text-dark   letter-spacing-2px mt-2"><strong className="font-size-22px">{this.state.post.subcategory}</strong></h4> */}
 
                        {ListFeatures}
            
@@ -276,7 +273,8 @@ class Post extends Component {
                     <div className="col-md-12">
 
                        <button onClick={this.addFavorite} className="pepe"><i className="fas fa-heart"></i></button>
-                        
+                       <button onClick={this.editProfile} className="pepe"><i className="fas fa-heart"></i></button>
+
                         <form onSubmit={this.submitData}>               
                                 
                                 <div className="form-group">

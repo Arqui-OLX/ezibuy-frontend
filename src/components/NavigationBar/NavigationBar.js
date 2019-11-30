@@ -46,7 +46,7 @@ class NavigationBar extends Component {
     const urlGraphql = 'http://35.208.241.159:4000';
     let search;
     if (this.state.search !== "") {
-      search = '?search=' + this.state.search;
+      search =  store.getState().filter + 'search=' + this.state.search;	
     } else {
       search = '';
 
@@ -81,7 +81,8 @@ class NavigationBar extends Component {
      
         store.dispatch({type:"change",
           JsonPosts: result.data.data.productByFilter,
-          JsonImages: new Array(result.data.data.productByFilter.length)
+          JsonImages: new Array(result.data.data.productByFilter.length),	
+          filter: store.getState().filter
         });
 
         result.data.data.productByFilter.forEach((post, i) => {         
@@ -91,7 +92,8 @@ class NavigationBar extends Component {
 
               store.dispatch({type:"change",
                 JsonPosts: store.getState().JsonPosts,
-                JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)]
+                JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)],	
+                filter: store.getState().filter 
               });
                  
             }).catch( (error) =>{

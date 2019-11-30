@@ -6,7 +6,8 @@ const reducer = (state, action)=>{
 
             return {
                 JsonPosts: action.JsonPosts,
-                JsonImages: action.JsonImages
+                JsonImages: action.JsonImages,
+                filter: action.filter,
             };
             break;
     
@@ -18,7 +19,8 @@ const reducer = (state, action)=>{
 export default createStore(reducer, {
 
     JsonPosts: [],
-    JsonImages: []
+    JsonImages: [],
+    filter: ""
 
 });
 
