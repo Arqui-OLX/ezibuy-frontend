@@ -144,7 +144,7 @@ class PublicationPost extends Component {
             priceType: this.state.post.priceType,
             features: this.state.features,
             category : this.state.category,
-            subcategory : this.state.arraySubcategory[this.state.subcategory],
+            subcategory : this.state.arraySubcategory[this.state.subcategory-1],
             _id: uniqueId,
             fistImage: this.state.files[0],
             fk_profile:  JSON.parse(localStorage.getItem("userInfo")).userId
