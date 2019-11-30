@@ -3,6 +3,8 @@ import './PostList.css';
 import axios from 'axios';
 import Post from '../post/Post';
 import store from  "../../Redux/store";
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Button from 'react-bootstrap/Button'
 
 
 class PostList extends Component {
@@ -16,39 +18,77 @@ class PostList extends Component {
             JsonPosts: [],
             JsonImages: [],
             current_fk: 0,
-            search: ""
+            search: "",
+            currentPage: 1
         };
+        this.handleUpdatePosts = this.handleUpdatePosts.bind(this)
+        this.handleClickLast = this.handleClickLast.bind(this)
+        this.handleClickNext = this.handleClickNext.bind(this)
         
          store.subscribe(()=>{
              
            this.setState({
-              JsonPosts: store.getState().JsonPosts,
-              JsonImages: store.getState().JsonImages
+                JsonPosts: store.getState().JsonPosts,
+                JsonImages: store.getState().JsonImages,
+                search: store.getState().search
             })
      
          })
        }
- 
 
-    componentDidMount() {
-
+    handleClickLast(){
+        if(this.state.currentPage !== 1){
+            this.setState({currentPage: this.state.currentPage - 1})
+            //this.handleUpdatePosts()
+        }
+    }
+    handleClickNext(){ 
+        if(this.state.JsonPosts !== []){
+            this.setState({currentPage: this.state.currentPage + 1})
+            //this.handleUpdatePosts()
+        }
+    }
+    
+    handleUpdatePosts(){
         let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.241.159:4000';
+        const nPerPage = 1
 
-        let queryPosts =  {
+        let search;
+        var queryPosts
+        if (this.state.search !== "") {
+            search = '?pageNumber=' + this.state.currentPage + '&nPerPage='+ nPerPage +'&search=' + this.state.search;
+            queryPosts =  {
+                
+                "operationName":null,
+                "variables":{},
+                "query":
+                `{ 
+                    productByFilter(text: \"${search}\") {
+                        _id  
+                        title
+                        description
+                        price
+                        priceType
+                    }
+                }`
+            }
+        } else {
+            queryPosts =  {
             
-            "operationName":null,
-            "variables":{},
-            "query":
-            `{ 
-                productByFilter(text: \"${this.state.search}\") {
-                    _id  
-                    title
-                    description
-                    price
-                    priceType
-                }
-            }`
+                "operationName":null,
+                "variables":{},
+                "query":
+                `{ 
+                    productByFilter(text: "?pageNumber=${this.state.currentPage}&nPerPage=${nPerPage}") {
+                        _id  
+                        title
+                        description
+                        price
+                        priceType
+                    }
+                }`
+            }
         }
 
            
@@ -90,7 +130,8 @@ class PostList extends Component {
             
             this.setState({
                 JsonPosts: result.data.data.productByFilter,
-                JsonImages: new Array(result.data.data.productByFilter.length)
+                JsonImages: new Array(result.data.data.productByFilter.length), 
+                search: this.state.search
             });
 
             console.log(result.data.data.productByFilter);
@@ -116,8 +157,18 @@ class PostList extends Component {
             });
         }).catch(console.log);
 
-        
     }
+
+    componentDidMount() {
+        this.handleUpdatePosts()
+    }
+    
+    componentDidUpdate(prevProps,prevState){
+        if (prevState.currentPage !== this.state.currentPage){
+            this.handleUpdatePosts()
+        }
+    }
+
 
 
     
@@ -137,14 +188,8 @@ class PostList extends Component {
 
     render() {
 
- 
         const data = this.state.JsonPosts;
-
-        
         const result = data.map((post, index) => 
-
-             
-
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
                     <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]}  alt="..." className="img-fluid"/>
@@ -176,40 +221,48 @@ class PostList extends Component {
                 <div className="row justify-content-md-center">
                     
                     <div className="col-md-8 col-ms-10">
-                        {result}
+                        {result}        
                     </div>
+
+                    <div className="col-md-5 row justify-content-md-center">
+                        {this.state.JsonPosts !== [] && <ButtonGroup aria-label="Basic example" size="lg">
+                            <Button disabled={ (this.state.currentPage===1 ? true : false)} variant="secondary" onClick={this.handleClickLast}>Anterior</Button>
+                            <Button disabled={ (this.state.JsonPosts.length > 0 ? false : true)}  variant="secondary" onClick={this.handleClickNext}>Siguiente</Button>
+                        </ButtonGroup>}
+                    </div>
+
 
 
                     <div>
  
                     
                     
-                     <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                            </button>
+                    <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    {
+                                        this.state.current_fk!==0?
+                                            <Post 
+                                            fk_post = {this.state.current_fk}
+                                            />
+                                        :null
+                                    }
+                                
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="modal-body">
-                            {
-                                this.state.current_fk!==0?
-                                    <Post 
-                                    fk_post = {this.state.current_fk}
-                                    />
-                                :null
-                            }
-                           
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                        </div>
-                    </div>
                     </div> 
-
-                </div>
+                   
+                    </div>
                 </div>
 
                 

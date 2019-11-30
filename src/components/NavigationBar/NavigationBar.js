@@ -13,26 +13,32 @@ import axios from 'axios';
 
  
 class NavigationBar extends Component {
-
-  state ={
-    search: ""
-  }
-
-  handleChange = (e)=>{
-    this.setState({
-
-      [e.target.name] : e.target.value  
-     
-    });
-
-       
-    
-  }
-    
   constructor(props) {
     super(props)
+  
+    this.handleTextBoxChange = this.handleTextBoxChange.bind(this); 
     this.handleLoggoff = this.handleLoggoff.bind(this);
+
+    this.state = {
+      search: ""
+    }
+
+    store.subscribe(()=>{
+             
+      this.setState({
+         search: store.getState().search
+       })
+
+    })
   }
+  
+
+ 
+
+  handleTextBoxChange(event){
+    this.setState({search: event.target.value})
+  }
+    
 
   handleLoggoff(){
     localStorage.removeItem("userInfo");
@@ -45,27 +51,40 @@ class NavigationBar extends Component {
     
     const urlGraphql = 'http://35.208.241.159:4000';
     let search;
-    if (this.state.search !== "") {
-      search = '?search=' + this.state.search;
-    } else {
-      search = '';
-
-    }
-
-    
-    const queryPosts=  {
-        "variables":{},
-        "query":
-        `{ 
-            productByFilter(text: \"${search}\") {
-                _id  
-                title
-                description
-                price
-                priceType
+        var queryPosts
+        if (this.state.search !== "") {
+            search = '?pageNumber=1&nPerPage=1&search=' + this.state.search;
+            queryPosts =  {
+                
+                "variables":{},
+                "query":
+                `{ 
+                    productByFilter(text: \"${search}\") {
+                        _id  
+                        title
+                        description
+                        price
+                        priceType
+                    }
+                }`
             }
-        }`
-    }
+        } else {
+            queryPosts =  {
+            
+                "operationName":null,
+                "variables":{},
+                "query":
+                `{ 
+                    productByFilter(text: "?pageNumber=1&nPerPage=1") {
+                        _id  
+                        title
+                        description
+                        price
+                        priceType
+                    }
+                }`
+            }
+        }
 
     const options = {
         method: 'POST',
@@ -82,7 +101,8 @@ class NavigationBar extends Component {
      
         store.dispatch({type:"change",
           JsonPosts: result.data.data.productByFilter,
-          JsonImages: new Array(result.data.data.productByFilter.length)
+          JsonImages: new Array(result.data.data.productByFilter.length),
+          search: this.state.search
         });
 
         result.data.data.productByFilter.forEach((post, i) => {         
@@ -92,7 +112,8 @@ class NavigationBar extends Component {
 
               store.dispatch({type:"change",
                 JsonPosts: store.getState().JsonPosts,
-                JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)]
+                JsonImages: [...store.getState().JsonImages.slice(0, i), element.data[0].ad_image, ...store.getState().JsonImages.slice(i + 1)],
+                search: this.state.search
               });
                  
             }).catch( (error) =>{
@@ -151,8 +172,7 @@ class NavigationBar extends Component {
                       placeholder="Buscar..." 
                       className="mr-sm-2" 
                       name="search"
-                      onChange={this.handleChange}
-                      value={this.state.search}
+                      onChange={this.handleTextBoxChange}
                     />
                     <Button variant="outline-light" type="submit" >Buscar</Button>
                   </Form>
