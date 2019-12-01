@@ -8,6 +8,7 @@ class Post extends Component {
     constructor(props) {
         
         super(props);
+
         this.state = {
             post : {},
             images: [],
@@ -19,6 +20,8 @@ class Post extends Component {
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
         this.handleClick = this.handleClick.bind(this);
+        this.deleteProduct = this.deleteProduct.bind(this)
+
     }
     
     handleClick(e) {
@@ -72,6 +75,11 @@ class Post extends Component {
                 this.setState({ 
                     images: res.data
                 });
+
+                //console.log(res.data[0]._id);
+                //console.log(this.state.images[0]._id);
+                //console.log(this.state.images[1]._id);
+                
     
     
             })
@@ -199,12 +207,80 @@ class Post extends Component {
         
     }
 
-    removePost(){
+    deleteProduct(){
 
-        console.log()
+        console.log("i wanna delete this post")
+
+        console.log(this.props.fk_post);
+        
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        const mutationDeleteProduct =  {
+            "operationName":null,
+            "variables":{},
+            "query":
+                `mutation {
+                    deleteProduct(id: \"${this.props.fk_post}\") 
+                    {
+                        _id
+                    }
+                }`
+            }
+
+    
+
+
+            console.log(mutationDeleteProduct);
+            
+            const options= {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
+                data: mutationDeleteProduct,
+                url: urlGraphql,
+            };
+
+            axios(options)
+            .then(res => {
+               
+             
+                for (let i = 0; i < this.state.images.length; i++) {
+                    
+                    const mutationDelImgPost = {
+                        "operationName":null,
+                        "variables":{},
+                        "query":`mutation {
+                            deleteAdImage(id: \"${this.state.images[i]._id}\")
+                        }`
+                    }
+
+                    const options= {
+                        method: 'POST',
+                        headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
+                        data: mutationDelImgPost,
+                        url: urlGraphql,
+                    };
+
+
+                    axios(options)
+                    .then(res => {
+                        console.log(res.data);
+                        
+                    }).catch(console.log);
+
+                    
+                }
+    
+               
+
+                   
+            })
+            
+
     }
-
+             
     render() {
+
+        
 
         console.log(JSON.parse(localStorage.getItem("userInfo")).userId);
         
@@ -298,7 +374,7 @@ class Post extends Component {
                     :
                     <div>
 
-                        <button  onClick={this.addFavorite} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
+                        <button  onClick={this.deleteProduct} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
 
 
                     </div>  
