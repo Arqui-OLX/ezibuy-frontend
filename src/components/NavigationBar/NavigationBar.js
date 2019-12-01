@@ -50,7 +50,6 @@ class NavigationBar extends Component {
     if (this.state.search !== "") {
       search = store.getState().filter + 'search=' + this.state.search + pagination;	
 
-
     } else {
     
       search = '?' + pagination;

@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
  
 class ProfileNavBar extends Component{
     render(){
+        
         return(
             
             <ButtonGroup size="lg">   

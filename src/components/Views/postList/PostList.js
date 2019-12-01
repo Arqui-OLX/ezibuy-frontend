@@ -23,7 +23,7 @@ class PostList extends Component {
             minPrice: "0",	
             maxPrice: "9999999999",
             currentPage: 1
-
+ 
         };
 
         this.handleClickLast = this.handleClickLast.bind(this)
@@ -56,8 +56,7 @@ class PostList extends Component {
         }
 
         handleClickNext(){ 
-            console.log(this.state);
-            
+             
             if(this.state.JsonPosts !== []){
 
                 this.setState({currentPage: this.state.currentPage + 1}, this.searchPosts(this.state.currentPage+1))
@@ -82,15 +81,12 @@ class PostList extends Component {
 
     searchPosts(currentPage) {
 
-        console.log(currentPage);
-        
-
+         
         let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.241.159:4000';
         let pagination = '&pageNumber=' + currentPage + '&nPerPage='+ '10';
         
-        console.log(this.state.search+pagination);
-        
+         
         let queryPosts =  {
             
             "operationName":null,
@@ -131,6 +127,7 @@ class PostList extends Component {
 
         }
 
+ 
         const options = {
             method: 'POST',
             data: queryPosts,
@@ -143,14 +140,14 @@ class PostList extends Component {
         axios(options)
         .then(result=>{
 
-            
+            let buffer = (this.props.favorite !== undefined)?this.getFavorites():result.data.data.productByFilter;
+             
             this.setState({
-                JsonPosts: result.data.data.productByFilter,
+                JsonPosts: buffer,
                 JsonImages: new Array(result.data.data.productByFilter.length)
             });
 
-            console.log(result.data.data.productByFilter);
-            
+             
             
             result.data.data.productByFilter.forEach((post, i) => {         
                 
@@ -179,12 +176,93 @@ class PostList extends Component {
         this.searchPosts(this.state.currentPage);	
     }	
 
+    getFavorites(){
 
+        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+
+       let queryGetFavorites =   {
+            "operationName":null,
+            "variables":{},
+            "query":`{
+                getFavorites(userId: ${id}) {
+                    id   
+                    fk_post
+                }
+            }`
+        }  
+
+        const options = {
+            method: 'POST',
+            data: queryGetFavorites,
+            url: urlGraphql,
+        };
+
+        let post2 =[]
+        let arrowFunction2 = async()=>{
+            try {
+                let peticion2 = await axios(options);
+                await peticion2.data.data.getFavorites.forEach(element => {
+                
+                    const queryPost = {
+                        "variables":{},
+                        "query":
+                        `{
+                            productById(id: \"${element.fk_post}\")
+                             {   
+                                title   
+                                description
+                                price
+                                priceType   
+                                features {
+                                    featureName      
+                                    featureValue   
+                                }   
+                                _id    
+                                fk_profile
+                                  }
+                        }`
+                    }
+                  
+        
+                    const options = {
+                        method: 'POST',
+                        data: queryPost,
+                        url: urlGraphql,
+                    };
+    
+                    let arrowFunction = async ()=>{
+                        try{
+                            
+                            let peticion = await axios(options);  
+                            post2.push( await peticion.data.data.productById);      
+                          
+                        }catch{
+                            
+                        }
+                    }
+    
+                    arrowFunction();
+                    
+                    
+                    
+                });
+            } catch (error) {
+                
+            }
+        }
+        
+        arrowFunction2();
+         
+         
+        return post2;
+        
+    }
     
 
   
     handleClick = (data) => {
-
 
          this.setState({
 
@@ -264,6 +342,7 @@ class PostList extends Component {
                         data-toggle="modal" 
                         data-target="#exampleModal">
                         <h4 className="m-0">Ver mas</h4>
+                        {this.getFavorites()}
                     </button>
                  </div>
             </div>
