@@ -21,7 +21,7 @@ export default createStore(reducer, {
 
     JsonPosts: [],
     JsonImages: [],
-    filter: "",
+    filter: "?",
     currentPage: 1
 
 });

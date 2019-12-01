@@ -21,6 +21,8 @@ class Post extends Component {
         // Este enlace es necesario para hacer que `this` funcione en el callback
         this.handleClick = this.handleClick.bind(this);
         this.deleteProduct = this.deleteProduct.bind(this)
+        this.addFavorite = this.addFavorite.bind(this)
+
 
     }
     
@@ -203,13 +205,42 @@ class Post extends Component {
     }
 
     addFavorite(){
-        console.log("holamundo");
+
+        const urlGraphql = 'http://35.208.241.159:4000';
+
+        const mutationCreateFavorite = {
+            "operationName":null,
+            "variables":{},
+            "query":`mutation { 
+                addFavToPost(
+                    fav: {
+                        id: ${JSON.parse(localStorage.getItem("userInfo")).userId},
+                        fk_post: \"${this.props.fk_post}\"
+                    })
+            }`
+        }
+
+        const options= {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
+            data: mutationCreateFavorite,
+            url: urlGraphql,
+        };
+        
+        console.log("SI ENTRA A FAVORITOS");
+        
+        axios(options)
+        .then(res => {
+            console.log(res.data);
+            
+        }).catch(console.log);
+
+
+        
         
     }
 
     deleteProduct(){
-
-        console.log("i wanna delete this post")
 
         console.log(this.props.fk_post);
         
@@ -226,9 +257,6 @@ class Post extends Component {
                     }
                 }`
             }
-
-    
-
 
             console.log(mutationDeleteProduct);
             

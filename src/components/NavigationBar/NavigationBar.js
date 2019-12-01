@@ -48,13 +48,12 @@ class NavigationBar extends Component {
     let pagination = '&pageNumber=' + store.getState().currentPage + '&nPerPage='+ '10';
 
     if (this.state.search !== "") {
-      search =  store.getState().filter + 'search=' + this.state.search + pagination;	
+      search = store.getState().filter + 'search=' + this.state.search + pagination;	
 
 
     } else {
     
-      search = '?'+pagination;
-
+      search = '?' + pagination;
     }
     
 
@@ -107,7 +106,7 @@ class NavigationBar extends Component {
             }).catch( (error) =>{
                 if(error.status === 404){
                     console.log("error 404, no encontrada la imagen");
-                }
+                } 
             });
 
                 

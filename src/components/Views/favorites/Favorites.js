@@ -19,7 +19,6 @@ class Favorites extends Component {
                         return <FavoriteFrame 
                                     key={product.id}
                                     productName= {product.name} 
-                                    productPrice= {product.price} 
                                     productLocation= {product.location} 
                                     imgSrc= {product.imgurl}
                                 />
