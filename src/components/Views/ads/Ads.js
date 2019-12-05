@@ -9,8 +9,7 @@ class Ads extends Component {
     
 
     render(){
-        var dataProducts = require('../../../data/Favorites.json')
-        console.log(dataProducts);
+ 
         return (
             <div className="profile-navbar d-flex flex-column">
             <ProfileNavBar/>                

@@ -15,7 +15,8 @@ class Post extends Component {
             idImage: 0,
             chatData:{
             message: "",    
-            }
+            },
+            MessageDelete: false
         };
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
@@ -77,12 +78,7 @@ class Post extends Component {
                 this.setState({ 
                     images: res.data
                 });
-
-                //console.log(res.data[0]._id);
-                //console.log(this.state.images[0]._id);
-                //console.log(this.state.images[1]._id);
-                
-    
+ 
     
             })
 
@@ -204,7 +200,7 @@ class Post extends Component {
         
     }
 
-    addFavorite(){
+    addFavorite(){      
 
         const urlGraphql = 'http://35.208.241.159:4000';
 
@@ -303,6 +299,10 @@ class Post extends Component {
                    
             })
             
+            this.setState({
+                
+                MessageDelete: true
+            })
 
     }
              
@@ -377,7 +377,7 @@ class Post extends Component {
                    {this.state.post.fk_profile !== JSON.parse(localStorage.getItem("userInfo")).userId?
                     <div className="col-md-12">
 
-                       <button onClick={this.addFavorite} className="pepe"><i className="fas fa-heart"></i></button>
+                       <button onClick={this.addFavorite} className="buttonFavorite"><i className="far fa-heart"></i></button>
  
                         <form onSubmit={this.submitData}>               
                                 
@@ -404,6 +404,12 @@ class Post extends Component {
 
                         <button  onClick={this.deleteProduct} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
 
+                        {this.state.MessageDelete?
+                            <div className="alert alert-warning mt-4" role="alert">
+                                <strong>Exito!</strong> Tu producto ha sido eliminado
+                          </div>
+                        :null
+                        }
 
                     </div>  
                      

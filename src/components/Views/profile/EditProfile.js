@@ -21,10 +21,19 @@ class  EditProfile extends Component{
     user:  this.props.user,
     files: [],
     idImage: this.props.idImgage,
-     
+    flag1UpdateProfile: false,
+    flag2UpdateProfile: false,
+    spinner1EditData: false,
+    spinner2EditData: false,
+    errorRequest: false
  };
 
     sendData = (e) => {
+        this.setState({
+            
+            spinner1EditData: true,
+            spinner2EditData: true
+        })
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
     
@@ -51,10 +60,21 @@ class  EditProfile extends Component{
 
         axios(options)
         .then(res => {
-            console.log(res);
-            this.props.parentCallback(e);
+             
+            this.setState({
+        
+                flag1UpdateProfile: true,
+                spinner1EditData: false
+              })
+        }).catch((error) =>{
 
-        })
+            this.setState({
+                spinner1EditData: false,
+                errorRequest: true
+              })
+            
+            console.log(error);
+        });
 
  
         var bodyFormData = new FormData();
@@ -76,14 +96,22 @@ class  EditProfile extends Component{
            
             
             .then( (response)=>{
-                console.log(response);
+               
+                this.setState({
+                    spinner1EditData: false,
+                    flag2UpdateProfile: true
+                  })
 
             }).catch((error) =>{
-                
+                this.setState({
+                    spinner2EditData: false,
+                    errorRequest: true
+                  })
                 console.log(error);
             });
         }
-            
+       
+    
     
    }
 
@@ -177,6 +205,41 @@ class  EditProfile extends Component{
                     data-target="#exampleModal">
                     Aceptar 
                 </button>
+
+               
+
+
+                {                              
+                                    
+                    this.state.spinner1EditData === true &&  this.state.spinner2EditData ===true ?
+                        
+                        <div class="spinner-border mx-auto" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                    : this.state.flag1UpdateProfile === true && this.state.flag2UpdateProfile === true?
+                                
+                        <div className="alert alert-success mt-4" role="alert">
+                            <strong>Exito!</strong> La información fue actualizada
+                        </div>
+                                
+                    :null
+
+                }
+
+                {                              
+                    
+                    this.state.errorRequest === true ?
+                        
+                        <div class=" mt-4 alert alert-danger" role="alert">
+                            Ups!, ha ocurrido un error al actualizar tu información. Intentalo nuevamente.
+                        </div>
+
+                    :null
+
+                                }
+
+
 
             </div>
             

@@ -172,6 +172,11 @@ class PostList extends Component {
         
     }
 
+    closeModal(){
+        window.location.reload();
+
+    }
+
     componentDidMount(){	
         this.searchPosts(this.state.currentPage);	
     }	
@@ -356,7 +361,7 @@ class PostList extends Component {
 
                     {
                     (this.props.profile === undefined) &&	
-                        <div className="col-md-4 col-sm-12 shadow bg-white rounded text-left categories">	
+                        <div className="filtros col-lg-2 col-md-2 col-sm-12 shadow bg-white rounded text-left categories mt-2">	
                         <Form>	
                             {['Carros','Motos','Telefonos','Tablets',	
                             'Computadores de escritorio', 'Portatiles',	
@@ -425,7 +430,7 @@ class PostList extends Component {
                            
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModal}>Close</button>
                         </div>
                         </div>
                     </div>

@@ -1,13 +1,4 @@
-
-.navbar{
-    background-color: #5a8596;
-    font-family: 'Anton', sans-serif;
-    font-size: 150%;
-    margin-bottom: 1%;
-  }
-
-  
-  .navLogo{
+.navLogo{
 
     -webkit-transition: .25s ease-in-out;
     transition: .25s ease-in-out;
@@ -15,3 +6,14 @@
   .navLogo:hover{
     transform: scale(1.1)
   }
+
+ 
+ 
+.nav-link:hover{
+  background-color: white;
+ }
+
+ 
+.nav-link a:hover{
+  color: green;
+ }

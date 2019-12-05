@@ -16,7 +16,7 @@ class NavigationBar extends Component {
 
   state ={
     search: ""
-  }
+   }
 
   handleChange = (e)=>{
     this.setState({
@@ -38,6 +38,8 @@ class NavigationBar extends Component {
     localStorage.removeItem("userInfo");
     let path = `/home`;
     this.props.history.push(path);
+    window.location.reload(); 
+
   }
 
 
@@ -115,56 +117,68 @@ class NavigationBar extends Component {
     
       e.preventDefault();
       //console.log(store.getState().search);
-      
-  }
+
+  
+    }
     render(){
         return (
 
           <div>
-              <Navbar variant="dark"  expand="lg">
-                <Navbar.Brand href="/" className = "navLogo" >
-                    < img 
+             <nav className="navbar navbar-expand-lg navbar-light bg-white"   >
+              <a className="navLogo" href="/home">
+              < img 
                       src= "/logo.png"
-                      width="130"
-                      height="70"
+                      width="110"
+                      height="50"
                       alt="EZiBuy logo"
                     />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="mr-auto">
-                    <Nav.Link className="texto" href="/home" >EzIBuy</Nav.Link>
-                    {!this.props.userLoggedIn && <Nav.Link href="/login">Ingresar</Nav.Link>}
-                    {!this.props.userLoggedIn && <Nav.Link href="/register" >Registrarse</Nav.Link>}
-                    <Nav.Link href="/postlist">Catalogo</Nav.Link> 
-                    {this.props.userLoggedIn &&<Nav.Link href="/sale" >Vender</Nav.Link>}
-                    {this.props.userLoggedIn &&<Nav.Link href="/myprofile/profile">Perfil</Nav.Link>}
-                    <NavDropdown title="Ver más" id="basic-nav-dropdown">
-                      <NavDropdown.Item href="#action1">Categorías</NavDropdown.Item>
-                      <NavDropdown.Item href="#action2">Sobre nosotros</NavDropdown.Item>
-                      <NavDropdown.Item href="#action3">Contáctenos</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item href="#action4">Términos y condiciones</NavDropdown.Item>
-                    </NavDropdown>
-                  </Nav>
-                  <Form inline onSubmit={this.submitData}>
-                  {this.props.userLoggedIn && 
-                    
-                      <Button className="mr-3" variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</Button>
-                    
-                  }
-                    <FormControl 
-                      type="text" 
-                      placeholder="Buscar..." 
-                      className="mr-sm-2" 
+              </a>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon" />
+              </button>
+              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
+                  
+                  <li className="nav-item active">
+                     {!this.props.userLoggedIn && <a className="nav-link" href="/login">Ingresar</a>}
+                  </li>
+                  <li className="nav-item active">
+                     {!this.props.userLoggedIn && <a  className="nav-link" href="/register">Registrate</a>}
+                  </li>
+                  <li className="nav-item active">
+                      <a className="nav-link" href="/postlist">Catalogo</a>
+                  </li>
+                  <li className="nav-item active">
+                    {this.props.userLoggedIn &&<a className="nav-link" href="/sale" >Vender</a>}
+                  </li>
+                  <li className="nav-item active">
+                    {this.props.userLoggedIn &&<a className="nav-link" href="/myprofile/profile">Perfil</a>}
+                  </li>                              
+                </ul>
+                <form className="form-inline my-2 my-lg-0" onSubmit={this.submitData}>
+               
+                  <div className="md-form mt-0 mr-2">
+                    <input 
+                      className="form-control" 
+                      type="search" 
                       name="search"
+                      placeholder="Ingresa el texto" 
+                      aria-label="Search"
                       onChange={this.handleChange}
-                      value={this.state.search}
+                      value={this.state.search} 
                     />
-                    <Button variant="outline-light" type="submit" >Buscar</Button>
-                  </Form>
-                </Navbar.Collapse>
-            </Navbar>
+
+                  </div>
+                  
+                  <button type="button" class="btn btn-primary"  type="submit">Buscar</button>
+                </form>
+                 {this.props.userLoggedIn && 
+                    
+                    <button type="button" class="btn btn-danger ml-3"  variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</button>
+ 
+                  }
+              </div>
+            </nav>
           </div>
 
         );

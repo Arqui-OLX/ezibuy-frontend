@@ -70,6 +70,7 @@ class Profile extends Component{
             console.log("error 404, no encontrada la imagen");
         }
         });
+ 
     }
 
         
@@ -170,7 +171,7 @@ class Profile extends Component{
                     </div>
                 :
                 <EditProfile 
-                    parentCallback = {this.callbackFunction}
+                    
                     user = {this.state.user}
                     idImgage ={this.state.imageId}
 
