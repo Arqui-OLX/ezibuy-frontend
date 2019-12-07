@@ -237,7 +237,7 @@ class  EditProfile extends Component{
 
                     :null
 
-                                }
+                }
 
 
 

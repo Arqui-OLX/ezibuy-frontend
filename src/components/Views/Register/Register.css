@@ -3,7 +3,7 @@ body{
 
 }
 
-.signupFormContainer{
+/* .signupFormContainer{
     border-radius: 3%;
     border-style: solid;
     border-color: gray;
@@ -12,4 +12,21 @@ body{
     margin-right: 30%;
     padding-inline: 3%;
     background: #d6d5c7;
+} */
+
+.inputRegister{
+
+     background: transparent;
+    border: none;
+    border-bottom: 1px solid #123c69   ;
+
 }
+
+.btnsubmit{
+    background-color: #AC3B61;
+    border: #AC3B61;
+    color: white;
+    font-size: 25px;
+}
+
+ 

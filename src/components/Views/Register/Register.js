@@ -114,7 +114,7 @@ class Register extends Component{
                 <br></br>
                 
                     
-                <form onSubmit={this.handleSubmit} className= "signupFormContainer mb-5 mt-4">
+                <form onSubmit={this.handleSubmit} className= "mx-auto w-25">
 
                     <FilePond  
                         onupdatefiles={(fileItems) => {
@@ -126,10 +126,10 @@ class Register extends Component{
                     <br></br>
 
 
-                    <div className="form-group ">
+                    <div className=" form-group ">
                         <input 
                             type="email" 
-                            className="form-control w-100" 
+                            className="inputRegister form-control" 
                             id="title" 
                             placeholder="Email" 
                             name="email" 
@@ -141,7 +141,7 @@ class Register extends Component{
                     <div className="form-group ">
                         <input 
                             type="password" 
-                            className="form-control w-100" 
+                            className="inputRegister form-control" 
                             id="password" 
                             placeholder="contraseña" 
                             name="password" 
@@ -152,7 +152,7 @@ class Register extends Component{
                     <div className="form-group ">
                         <input 
                             type="text" 
-                            className="form-control w-100" 
+                            className="inputRegister form-control" 
                             id="nickname" 
                             placeholder="Nickname" 
                             name="nickname" 
@@ -163,7 +163,7 @@ class Register extends Component{
                     <div className="form-group ">
                         <input 
                             type="number" 
-                            className="form-control w-100" 
+                            className="inputRegister form-control" 
                             id="phone" 
                             placeholder="numero telefonico" 
                             name="phone" 
@@ -174,7 +174,7 @@ class Register extends Component{
                 
                     <br></br>
 
-                    <button type="submit" className="btn btn-primary btn-block  mt-5"  >Registrarse</button>
+                    <button type="submit" className="btnsubmit btn btn-block  mb-5"  >Registrarse</button>
 
 
                 </form>

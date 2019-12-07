@@ -1,19 +1,32 @@
+
+
 .select:hover {
     background-color: gray;
 }
-
-#overlay {
-    position: fixed;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 10%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 2;
-    cursor: pointer;
+h1, h2, h3, h4, h5, h6{
+    font-family:  serif;
+    font-weight: bold;
+    color: #123c69;
 }
 
-.categories {
-    padding-left: 20px;
+
+ 
+h4{
+    font-family: sans-serif;
+}
+
+.moreInfo {
+    background: #AC3B61;
+    border: #AC3B61;
+    color: white;
+    font-size: 20px;
+
+}
+.moreInfo:hover {
+    background: white;
+    border: solid 1px #AC3B61;
+    color: #AC3B61
+}
+.pagination{
+    background-color: brown;
 }
