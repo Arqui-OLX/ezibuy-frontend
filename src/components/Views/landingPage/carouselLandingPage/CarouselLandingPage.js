@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
 import axios from 'axios';
+import "./CarouselLandingPage.css"
+
 
 
 class CarouselLandingPage extends Component {
@@ -20,7 +21,7 @@ class CarouselLandingPage extends Component {
 
          
 
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlGraphql = 'http://35.208.164.215:4000';
 
         let queryPosts = {
            
@@ -47,7 +48,7 @@ class CarouselLandingPage extends Component {
             url: urlGraphql,
         };
         
-        const urlImages ='http://35.209.82.198:3001/ads-images/byid/'; 
+        const urlImages ='http://35.209.82.198:3000/ads-images/byid/'; 
         
         
         axios(options)
@@ -103,24 +104,67 @@ class CarouselLandingPage extends Component {
         
         return (
 
-            <div className="w-50 h-25 mx-auto">
-                {/*   change the atributes: https://www.npmjs.com/package/react-responsive-carousel */}
-               
-                <Carousel   className="slider-container" dynamicHeight={false} autoPlay={true} showThumbs={false} infiniteLoop={true}	>
-              
-                        <div className="slider-item-div">
-                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]} alt="img1"style={{width:'530px',height:'430px'}} />
-                         </div>
-                        <div>
-                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]} alt="img2" style={{width:'530px',height:'430px'}}/>
- 
-                        </div>
-                        <div> 
-                            <img src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]} alt="img3" style={{width:'530px',height:'430px'}}/>
- 
-                        </div>
-                </Carousel>
+            <div className="container bg-white ">
+            <header className="firstContend jumbotron my-4 mb-5">
+               {/* <p className="lead">Compra y vende lo que tu quieras</p> */}
+              <div className="typewriter">
+                <h1 className="title">¡Bienvenido a Ezibuy!</h1>
+             </div>
+              <img className=""  src= "https://vue.ai/static/vuetag/v1/images/home/Automated-Product-Tagging.svg"  style={{height:'400px'}} alt="fotoPerfil"/>                  
+            </header>
+            {/* Page Features */}
+            <div className="row text-center">
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
+                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <div className="card-body">
+                    <h4 className="card-title">Card title</h4>
+                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="#" className="buttonCard btn">Ver mas</a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
+                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <div className="card-body">
+                    <h4 className="card-title">Card title</h4>
+                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="#" className="buttonCard btn">Ver mas</a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
+                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <div className="card-body">
+                    <h4 className="card-title">Card title</h4>
+                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="#" className="buttonCard btn">Ver mas</a>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-3 col-md-6 mb-4">
+                <div className="card h-100">
+                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <div className="card-body">
+                    <h4 className="card-title">Card title</h4>
+                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                  </div>
+                  <div className="card-footer">
+                    <a href="#" className="buttonCard btn">Ver ma</a>
+                  </div>
+                </div>
+              </div>
             </div>
+            {/* /.row */}
+          </div>
 
                 
          );

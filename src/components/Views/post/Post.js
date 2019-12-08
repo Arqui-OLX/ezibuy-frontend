@@ -33,9 +33,12 @@ class Post extends Component {
 
 
     componentDidMount() {
+
+        console.log("entra");
+
         
-        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+        const urlGraphql = 'http://35.208.164.215:4000';
 
         const queryPost = {
             "variables":{},
@@ -102,14 +105,18 @@ class Post extends Component {
     
     componentDidUpdate(prevProps) {   
         
+           
+        
         if (this.props.fk_post !== prevProps.fk_post) {
-            console.log("entra en el if");
+             
+            console.log("entra2");
+        
+
+            const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+            const urlGraphql = 'http://35.208.164.215:4000';
+
+            console.log(this.props.fk_post);
             
-
-
-            const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
-            const urlGraphql = 'http://35.208.241.159:4000';
-    
             const queryPost = {
                 "variables":{},
                 "query":
@@ -141,6 +148,7 @@ class Post extends Component {
             axios(options)
             .then(res => {
 
+                
                  this.setState({ 
                     post: res.data.data.productById
                 });
@@ -169,7 +177,7 @@ class Post extends Component {
         console.log("esto entra");
         
 
-        const urlChat = "http://35.206.116.17:3001/room";
+        const urlChat = "http://35.209.82.198:3003/room";
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
         var data ={
@@ -202,7 +210,7 @@ class Post extends Component {
 
     addFavorite(){      
 
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlGraphql = 'http://35.208.164.215:4000';
 
         const mutationCreateFavorite = {
             "operationName":null,
@@ -240,7 +248,7 @@ class Post extends Component {
 
         console.log(this.props.fk_post);
         
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlGraphql = 'http://35.208.164.215:4000';
 
         const mutationDeleteProduct =  {
             "operationName":null,
@@ -310,14 +318,13 @@ class Post extends Component {
 
         
 
-        console.log(JSON.parse(localStorage.getItem("userInfo")).userId);
         
         var listItems = this.state.images.map((url, i) =>
 
 
 
             <div key={i} >
-                <img className="img-fluid" src={'http://35.209.82.198:3001/'+url.ad_image} id={i} onClick={this.handleClick} alt=""></img>  
+                <img className="img-fluid" src={'http://35.209.82.198:3000/'+url.ad_image} id={i} onClick={this.handleClick} alt=""></img>  
             </div>
 
         );

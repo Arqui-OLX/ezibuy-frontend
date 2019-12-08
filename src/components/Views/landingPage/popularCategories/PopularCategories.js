@@ -16,7 +16,7 @@ class PopularCategories extends Component {
 
 
         
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlGraphql = 'http://35.208.164.215:4000';
 
         let queryPosts = {
            
@@ -43,7 +43,7 @@ class PopularCategories extends Component {
             url: urlGraphql,
         };
         
-        const urlImages ='http://35.209.82.198:3001/ads-images/byid/'; 
+        const urlImages ='http://35.209.82.198:3000/ads-images/byid/'; 
         
         
         axios(options)
@@ -99,63 +99,16 @@ class PopularCategories extends Component {
  
         return (
                
-            <div className="container">
-                <h3>Los ultimos posts</h3>
-                <div className="card-deck mb-3 text-center">
-
-                        <div className="card mb-4 box-shadow">
-                           <a href="http://google.com">
-                                <div className="card-header">
-                                <p>{ArrayTextPost[this.state.JsonImages.length-1]}</p>
-                            </div>
-                            <img className="card-img-top"  src=  {'http://35.209.82.198:3001/'+this.state.JsonImages[this.state.JsonImages.length-1]} style={{height:'300px'}} alt="fotoPerfil"/>                  
-
-                            <div className="card-body">
-                                 <button 
-                                    type="button" 
-                                    className="btn btn-lg btn-block bg-primary btn-outline-primary text-white  ">
-                                    Aceptar
-                                </button>
-                            </div>
-                           </a>
-                        </div>
-
-                        <div className="card mb-4 box-shadow">
-                           <a href="http://google.com">
-                            <div className="card-header">
-                                <p>{ArrayTextPost[this.state.JsonImages.length-2]}</p>
-
-                                </div>
-                                <img className="card-img-top" src= {'http://35.209.82.198:3001/'+this.state.JsonImages[this.state.JsonImages.length-2]} style={{height:'300px'}}  alt="fotoPerfil"  />                  
-
-                                <div className="card-body">
-                                    <button 
-                                        type="button" 
-                                        className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
-                                        Aceptar
-                                    </button>
-                                </div>
-                           </a>
-                        </div>
-
-                        <div className="card mb-4 box-shadow">
-                           <a href="http://google.com">
-                            <div className="card-header">
-                                 <p>{ArrayTextPost[this.state.JsonImages.length-3]}</p>
-
-                                </div>
-                                <img className="card-img-top"  src=  {'http://35.209.82.198:3001/'+this.state.JsonImages[this.state.JsonImages.length-3]} style={{height:'300px'}}  alt="fotoPerfil"  />                  
-
-                                <div className="card-body">
-                                    <button 
-                                        type="button" 
-                                        className="btn btn-lg btn-block bg-primary btn-outline-primary text-white">
-                                        Aceptar
-                                    </button>
-                                </div>
-                           </a>
-                        </div>
-                </div>
+            <div className="container bg-white">
+                <div className="row bg-white mt-5">
+                    <div className="col-lg-6 my-auto ">
+                        <h1 className="mt-5">Tus compras en el mejor lugar</h1>
+                        <p>Todo lo que necesitas está acá. Si quieres comprar o vender un producto, ezybuy es el lugar que estabas buscando</p>
+                    </div>
+                    <div className="col-lg-6">
+                        <img className=""  src= "buy.gif"   alt="fotoPerfil"/>                  
+                    </div>
+          </div>
             </div>
             
          );

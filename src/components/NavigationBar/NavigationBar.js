@@ -45,7 +45,7 @@ class NavigationBar extends Component {
 
   submitData = e => {
         
-    const urlGraphql = 'http://35.208.241.159:4000';
+    const urlGraphql = 'http://35.208.164.215:4000';
     let search;
     let pagination = '&pageNumber=' + store.getState().currentPage + '&nPerPage='+ '10';
 
@@ -79,7 +79,7 @@ class NavigationBar extends Component {
     };
           
     
-    const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+    const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
     
    
     axios(options)
@@ -124,7 +124,7 @@ class NavigationBar extends Component {
         return (
 
           <div>
-             <nav className="navbar navbar-expand-lg navbar-light bg-white"   >
+             <nav className="navbar navbar-expand-lg navbar-light bg-white">
               <a className="navLogo" href="/home">
               < img 
                       src= "/logo.png"
@@ -136,7 +136,7 @@ class NavigationBar extends Component {
               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon" />
               </button>
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
+              <div className="collapse navbar-collapse"  id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                   
                   <li className="nav-item active">
@@ -174,7 +174,7 @@ class NavigationBar extends Component {
                 </form>
                  {this.props.userLoggedIn && 
                     
-                    <button type="button" class="btn btn-danger ml-3"  variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</button>
+                    <button type="button" class="Bbbtn btn-danger ml-3"  variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</button>
  
                   }
               </div>

@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import gql from 'graphql-tag';
 import ApolloClient from 'apollo-boost';
 
-import { withRouter } from 'react-router-dom';
 import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
@@ -46,7 +42,7 @@ class Register extends Component{
         console.log("entra handleregister");
         
 
-        const Client = new ApolloClient({ uri: 'http://35.208.241.159:4000/' });
+        const Client = new ApolloClient({ uri: 'http://35.208.164.215:4000/' });
 
         const mutation = gql(`
             mutation create($email: String!, $password: String!, $nickname: String!, $phone: String!) {
@@ -77,7 +73,7 @@ class Register extends Component{
                 bodyFormData.append('userImage',this.state.files[0]); 
         
                  
-                const UrlImageEditProfile = 'http://35.209.82.198:3001/user-images/';
+                const UrlImageEditProfile = 'http://35.209.82.198:3000/user-images/';
                          
         
                 axios.post(UrlImageEditProfile, bodyFormData )
@@ -108,13 +104,13 @@ class Register extends Component{
 
     render(){
         return(
-            <div>
+            <div className="divRegister">
 
-                <h2 className="main-title">Regístrate</h2>
-                <br></br>
+                <h2 className="main-title mt-4 mb-4">Regístrate</h2>
+     
                 
                     
-                <form onSubmit={this.handleSubmit} className= "mx-auto w-25">
+                <form onSubmit={this.handleSubmit} className= "mx-auto">
 
                     <FilePond  
                         onupdatefiles={(fileItems) => {
@@ -129,7 +125,7 @@ class Register extends Component{
                     <div className=" form-group ">
                         <input 
                             type="email" 
-                            className="inputRegister form-control" 
+                            className="inputRegister form-control mx-auto" 
                             id="title" 
                             placeholder="Email" 
                             name="email" 
@@ -141,7 +137,7 @@ class Register extends Component{
                     <div className="form-group ">
                         <input 
                             type="password" 
-                            className="inputRegister form-control" 
+                            className="inputRegister form-control mx-auto" 
                             id="password" 
                             placeholder="contraseña" 
                             name="password" 
@@ -152,7 +148,7 @@ class Register extends Component{
                     <div className="form-group ">
                         <input 
                             type="text" 
-                            className="inputRegister form-control" 
+                            className="inputRegister form-control mx-auto" 
                             id="nickname" 
                             placeholder="Nickname" 
                             name="nickname" 
@@ -163,7 +159,7 @@ class Register extends Component{
                     <div className="form-group ">
                         <input 
                             type="number" 
-                            className="inputRegister form-control" 
+                            className="inputRegister form-control mx-auto" 
                             id="phone" 
                             placeholder="numero telefonico" 
                             name="phone" 
@@ -174,7 +170,7 @@ class Register extends Component{
                 
                     <br></br>
 
-                    <button type="submit" className="btnsubmit btn btn-block  mb-5"  >Registrarse</button>
+                    <button type="submit" className="btnsubmit btn w-75 mb-5"  >Registrarse</button>
 
 
                 </form>

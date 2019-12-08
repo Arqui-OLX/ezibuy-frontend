@@ -43,7 +43,7 @@ class Login extends Component{
     }
 
     handleLogin(email, password){
-        const Client = new ApolloClient({ uri: 'http://35.208.241.159:4000/' });
+        const Client = new ApolloClient({ uri: 'http://35.208.164.215:4000/' });
 
         const mutation = gql(`
             mutation login($email: String!, $password: String!) {
@@ -89,28 +89,50 @@ class Login extends Component{
 
         
         return(
-            <div>
+
+
+            <div className="divLogin">
                 
-                <h2 className="main-title">Ingresar</h2>
+                <h2 className="main-title mt-4">Ingresar</h2>
 
                 <br></br>
 
+                <div className="login">
 
-                <Form className= "loginFormContainer mb-5 mt-4">
-                    <br></br>
-                    <Form.Group controlId="formGroupEmail">
-                        <Form.Label>E-mail</Form.Label>
-                        <Form.Control onChange={this.handleTextBoxChange} name="email" type="email" placeholder="Introduzca email" />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupPassword" >
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control onChange={this.handleTextBoxChange} name= "password" type="password" placeholder="Contraseña" />
-                        <br></br>
-                            <Button size="lg" onClick={this.handleSubmit}>Entrar</Button>
-                    </Form.Group>
-                    {this.state.loginError && <Alert variant="warning">Error, inicio de sesión inválido! </Alert>}
-                </Form>
+                    <form onSubmit={this.handleSubmit} className= "mx-auto">
             
+                        <div className=" form-group">
+                            <input 
+                                type="email" 
+                                className="inputRegister form-control mx-auto" 
+                                id="title" 
+                                placeholder="introduzca el email" 
+                                name="email" 
+                                onChange={this.handleTextBoxChange}
+                                required/>
+                        </div>
+
+
+                        <div className="form-group ">
+                            <input 
+                                type="password" 
+                                className="inputRegister form-control mx-auto" 
+                                id="password" 
+                                placeholder="Ingrese su contraseña" 
+                                name="password" 
+                                onChange={this.handleTextBoxChange}
+                                required/>
+                        </div>
+
+    
+                        
+        
+                        <button type="submit" className="btnsubmit btn mt-5 w-75">Entrar</button>
+                        
+                        {this.state.loginError && <alert variant="warning">Error, inicio de sesión inválido! </alert>}
+                    </form>
+                
+                </div>
             </div>
         );
     }

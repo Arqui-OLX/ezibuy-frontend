@@ -15,7 +15,7 @@ class PopularPosts extends Component {
 
 
 
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlGraphql = 'http://35.208.164.215:4000';
 
         let queryPosts = {
            
@@ -42,7 +42,7 @@ class PopularPosts extends Component {
             url: urlGraphql,
         };
         
-        const urlImages ='http://35.209.82.198:3001/ads-images/byid/'; 
+        const urlImages ='http://35.209.82.198:3000/ads-images/byid/'; 
         
         
         axios(options)
@@ -98,93 +98,17 @@ class PopularPosts extends Component {
 
           
         return (
-                 <div className="container bg-white ">
-                <h3>Lo que se está vendiendo</h3>
-                    <div className="row  justify-content-md-center">
-                        <div className="card-deck col-lg-12  mb-3" >
-
-                            <div className="card border-info mb-4 box-shadow">
-                                <a href="http://google.com">
-                                     <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[0]} style={{height:'200px'}}  alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                        <p>{ArrayTextPost[0]}</p>
-                                    </div>
-                                </a>
-                            </div>
-
-                      
-                            <div className="card border-info mb-4 box-shadow">
-                                <a href="http://google.com">
-                                    <img  className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[1]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                    <p>{ArrayTextPost[1]}</p>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div className="card border-info mb-4 box-shadow">
-                                <a href="http://google.com">
-                                    <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[2]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                    <p>{ArrayTextPost[2]}</p>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div className="card border-info mb-4 box-shadow">
-                                <a href="http://google.com">
-                                    <img  className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[3]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                        <p>{ArrayTextPost[3]}</p>
-                                    </div>
-                                </a>
-                            </div>
-    
-                        </div>
-                    </div>
-
-                    <div className="row justify-content-md-center">
-                        <div className="card-deck col-lg-12  mb-3 " >
-
-                            <div className="card border-info mb-4 box-shadow">
-                                <a href="http://google.com">
-                                    <img  className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[4]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                    <p>{ArrayTextPost[4]}</p>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div className="card border-info mb-4 box-shadow">
-                                <a href="http://google.com">
-                                    <img  className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[5]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                    <p>{ArrayTextPost[5]}</p>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div className="card border-info mb-4 box-shadow">
-                               <a href="http://google.com"> 
-                                    <img className="card-img-top"   src= {'http://35.209.82.198:3001/'+this.state.JsonImages[6]}  style={{height:'200px'}} alt="fotoPerfil"/>                  
-                                    <div className="card-body">
-                                    <p>{ArrayTextPost[6]}</p>
-                                    </div>
-                               </a>
-                            </div>
-
-                            <div className="card border-info mb-4 box-shadow">
-                               <a href="http://google.com">
-                                    <img className="card-img-top"  src= {'http://35.209.82.198:3001/'+this.state.JsonImages[7]}  style={{height:'200px'}} alt="fotoPerfil" />                  
-                                        <div className="card-body">
-                                        <p>{ArrayTextPost[7]}</p>
-                                        </div>
-                               </a>
-                            </div>
-    
-                        </div>
-                    </div>
+            <div className="container bg-white">
+            <div className="row bg-white">
+                <div className="col-lg-6 my-auto ">
+                    <img className=""  src= "addFavorites.gif"   alt="fotoPerfil"/>                  
                 </div>
+                <div className="col-lg-6 my-auto">
+                    <h1 className="mt-5">Tus favoritos donde estés</h1>
+                    <p>Agrega tus productos con un  click y  contacta al comprador cuando y donde quieras</p>
+                </div>
+            </div>
+        </div>
          );
     }
 }

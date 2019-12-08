@@ -3,13 +3,43 @@ body{
 
 }
 
-.loginFormContainer{
-    border-radius: 3%;
-    border-style: solid;
-    border-color: gray;
-    border-width: 1%;
-    margin-left: 30%;
-    margin-right: 30%;
-    padding-inline: 3%;
-    background: #d6d5c7;
+.inputRegister{
+
+     background: transparent;
+    border: none;
+    border-bottom: 1px solid #123c69   ;
+
+}
+
+.btnsubmit{
+    background-color: #AC3B61;
+    border: #AC3B61;
+    color: white;
+    font-size: 25px;
+}
+
+.btnsubmit:hover{
+    background-color: #c35c7f;
+    color: white;
+}
+
+.login{
+    margin-bottom: 150px;
+
+}
+ 
+.main-title{
+    font-family: sans-serif;
+}
+
+.divLogin{
+    background-color: #f8f8f8;
+    margin: 50px auto;
+    width: 350px;
+    height: 300px;
+    border-radius: 25px;
+}
+
+.inputRegister{
+    width: 250px;
 }

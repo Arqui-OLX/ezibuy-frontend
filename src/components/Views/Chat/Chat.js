@@ -34,7 +34,7 @@ class App extends Component {
 
     componentDidMount(){
         //Load all rooms
-        axios.get("http://35.206.116.17:3001/"+ this.state.myId +"/room")
+        axios.get("http://35.209.82.198:3003/"+ this.state.myId +"/room")
         .then(response => {
             const chatRooms = response.data;
             this.setState({chatRooms});  
@@ -43,7 +43,7 @@ class App extends Component {
             var i
             for(i=0;i<chatRooms.length;i++){
                 var id= chatRooms[i].id
-                var socket = io('http://35.206.116.17:3001');
+                var socket = io('http://35.209.82.198:3003');
                 socket.emit("subscribe", id);
                 socket.on('conversation private post', (data ) => {
                     //if i receive some message add it to my state 
@@ -54,7 +54,7 @@ class App extends Component {
                     
                     //also refresh chatrooms with their last message sent/received
                     setTimeout(()=> {
-                        axios.get("http://35.206.116.17:3001/"+ this.state.myId +"/room")
+                        axios.get("http://35.209.82.198:3003/"+ this.state.myId +"/room")
                         .then(response => {
                             const chatRooms = response.data;
                             this.setState({chatRooms:chatRooms});
@@ -73,7 +73,7 @@ class App extends Component {
         this.setState({roomId: id})  
 
         // Get all messages in this chat room
-        axios.get("http://35.206.116.17:3001/"+ id)
+        axios.get("http://35.209.82.198:3003/"+ id)
             .then(response => {
                 const messages = response.data[0].messages;
                 console.log(this.state.messages)
@@ -97,7 +97,7 @@ class App extends Component {
         }else{
 
             //Send message
-            var socket = io('http://35.206.116.17:3001');
+            var socket = io('http://35.209.82.198:3003');
             socket.emit("send message", {
                 room: this.state.roomId,
                 userID: this.state.myId,
@@ -109,7 +109,7 @@ class App extends Component {
 
             //Updates chatrooms after message is sent
             setTimeout(()=> {
-                axios.get("http://35.206.116.17:3001/"+ this.state.myId +"/room")
+                axios.get("http://35.209.82.198:3003/"+ this.state.myId +"/room")
                 .then(response => {
                     const chatRooms = response.data;
                     this.setState({chatRooms:chatRooms});

@@ -12,29 +12,24 @@ class Footer extends Component{
         return (
 
             <footer>
-                <div className="container">
-                    <div className ="row">
-                            <div className="col-lg-4">
-                                <h4>información util</h4>
-                                <ul className="lista">
-                                    <li><a href="http://google.com">Contactos y ayuda</a></li>
-                                    <li><a href="http://google.com">Consejos y seguridad</a></li>
-                                    <li><a href="http://google.com">Terminos y condiciones</a></li>
-                                  
-                                </ul>
+                <div className="container mt-5 mb-1">
+                    <div className ="row bg-white">
+                            <div className="col-lg-3 my-auto">
+                                 
+                                  <a href="http://google.com">Políticas de privacidad</a>                                             
+                              
                             </div>
-                            <div className="col-lg-4">
-                                <h4 className="text-center">Nuestros servicios</h4>
-                                <ul className="lista mt-4">
-                                    <li><a href="http://google.com">Publicar un anuncio</a></li>
-                                    <li><a href="http://google.com">Comprar un producto</a></li>
-                                    <li><a href="http://google.com">Mis anuncios</a></li>
-                                </ul>
+                            <div className="col-lg-3 my-auto">           
+                                    <a href="http://google.com">Sobre nosotros</a>                                
                             </div>
-                            <div className="col-lg-4 my-auto">
-                                <img className="logoFooter card-img-top" src="/logo.png" alt="fotoPerfil"  />                  
-                                <p>Ezibuy, todos los derechos reservados, 2019</p>
-                            </div>                             
+                            <div className="row col-lg-3 my-auto mx-auto">
+                                <p className="my-auto mx-auto">Ezibuy, Copyright, 2019</p> 
+                            </div>  
+
+                            <div className="row col-lg-3 my-auto">
+                                <img className="logoFooter card-img-top d-inline mx-auto" src="/logo.png" style={{height:'50px', width:'100px'}} alt="fotoPerfil"  />                          
+                            </div>  
+
                     </div>
                 </div>
  

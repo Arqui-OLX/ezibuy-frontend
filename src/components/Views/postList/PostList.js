@@ -83,7 +83,7 @@ class PostList extends Component {
 
          
         let urlPosts  ='http://35.209.82.198:3002/product';
-        const urlGraphql = 'http://35.208.241.159:4000';
+        const urlGraphql = 'http://35.208.164.215:4000';
         let pagination = '&pageNumber=' + currentPage + '&nPerPage='+ '10';
         
          
@@ -134,13 +134,13 @@ class PostList extends Component {
             url: urlGraphql,
         };
         
-        const urlImages ='http://35.209.82.198:3001/ads-images/byid/';
+        const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
         
        
         axios(options)
         .then(result=>{
 
-            let buffer = (this.props.favorite !== undefined)?this.getFavorites():result.data.data.productByFilter;
+            let buffer = result.data.data.productByFilter;
              
             this.setState({
                 JsonPosts: buffer,
@@ -181,89 +181,6 @@ class PostList extends Component {
         this.searchPosts(this.state.currentPage);	
     }	
 
-    getFavorites(){
-
-        const id = JSON.parse(localStorage.getItem("userInfo")).userId;
-        const urlGraphql = 'http://35.208.241.159:4000';
-
-
-       let queryGetFavorites =   {
-            "operationName":null,
-            "variables":{},
-            "query":`{
-                getFavorites(userId: ${id}) {
-                    id   
-                    fk_post
-                }
-            }`
-        }  
-
-        const options = {
-            method: 'POST',
-            data: queryGetFavorites,
-            url: urlGraphql,
-        };
-
-        let post2 =[]
-        let arrowFunction2 = async()=>{
-            try {
-                let peticion2 = await axios(options);
-                await peticion2.data.data.getFavorites.forEach(element => {
-                
-                    const queryPost = {
-                        "variables":{},
-                        "query":
-                        `{
-                            productById(id: \"${element.fk_post}\")
-                             {   
-                                title   
-                                description
-                                price
-                                priceType   
-                                features {
-                                    featureName      
-                                    featureValue   
-                                }   
-                                _id    
-                                fk_profile
-                                  }
-                        }`
-                    }
-                  
-        
-                    const options = {
-                        method: 'POST',
-                        data: queryPost,
-                        url: urlGraphql,
-                    };
-    
-                    let arrowFunction = async ()=>{
-                        try{
-                            
-                            let peticion = await axios(options);  
-                            post2.push( await peticion.data.data.productById);      
-                          
-                        }catch{
-                            
-                        }
-                    }
-    
-                    arrowFunction();
-                    
-                    
-                    
-                });
-            } catch (error) {
-                
-            }
-        }
-        
-        arrowFunction2();
-         
-         
-        return post2;
-        
-    }
     
 
   
@@ -330,7 +247,7 @@ class PostList extends Component {
 
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
-                    <img src={'http://35.209.82.198:3001/'+this.state.JsonImages[index]}  width="160" height="160"/>
+                    <img src={'http://35.209.82.198:3000/'+this.state.JsonImages[index]}  width="160" height="160"/>
                 </div>
                 <div className="d-inline col-md-4">
                     <h3 className="text-md-left text-ms-center">{post.title}</h3>
@@ -346,7 +263,7 @@ class PostList extends Component {
                         data-toggle="modal" 
                         data-target="#exampleModal">
                         <span className="m-0">Ver mas</span>
-                        {this.getFavorites()}
+                  
                     </button>
                  </div>
             </div>
