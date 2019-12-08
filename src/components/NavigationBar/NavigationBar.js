@@ -39,7 +39,6 @@ class NavigationBar extends Component {
     let path = `/home`;
     this.props.history.push(path);
     window.location.reload(); 
-
   }
 
 
@@ -155,6 +154,7 @@ class NavigationBar extends Component {
                     {this.props.userLoggedIn &&<a className="nav-link" href="/myprofile/profile">Perfil</a>}
                   </li>                              
                 </ul>
+                
                 <form className="form-inline my-2 my-lg-0" onSubmit={this.submitData}>
                
                   <div className="md-form mt-0 mr-2">

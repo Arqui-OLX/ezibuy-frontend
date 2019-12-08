@@ -16,7 +16,8 @@ class Post extends Component {
             chatData:{
             message: "",    
             },
-            MessageDelete: false
+            MessageDelete: false,
+            isFavorite: false
         };
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
@@ -34,12 +35,29 @@ class Post extends Component {
 
     componentDidMount() {
 
-        console.log("entra");
+        console.log(this.props.fk_post);
 
         
         const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
         const urlGraphql = 'http://35.208.164.215:4000';
 
+        const isFavorite = {
+            
+            "operationName":null,
+            "variables":{},
+            "query":`{ 
+                isFavorite(id_profile: ${this.props.id_profile}, fk_post: \"${this.props.fk_post}\")
+            }
+        `}
+
+            
+          
+        const options2 = {
+            method: 'POST',
+            data: isFavorite,
+            url: urlGraphql,
+        };
+      
         const queryPost = {
             "variables":{},
             "query":
@@ -65,7 +83,9 @@ class Post extends Component {
             data: queryPost,
             url: urlGraphql,
         };
-             
+
+     
+
         axios(options)
         .then(res => {
              
@@ -82,9 +102,19 @@ class Post extends Component {
                     images: res.data
                 });
  
-    
+
             })
 
+        })
+
+
+
+        axios(options2)
+        .then(res => {
+              this.setState({
+                 isFavorite: res.data.data.isFavorite 
+              })
+            
         })
 
     }
@@ -208,9 +238,29 @@ class Post extends Component {
         
     }
 
+    
     addFavorite(){      
 
+        
+        console.log("ENTRA");
+        
         const urlGraphql = 'http://35.208.164.215:4000';
+
+
+        const deleteFavorite = {
+            "operationName":null,
+            "variables":{},
+            "query":`mutation {
+                deleteFavorite(id: \"${this.props.fk_post}\")
+            }
+        `}
+
+        const options2= {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer '+this.props.id_profile },
+            data: deleteFavorite,
+            url: urlGraphql,
+        };
 
         const mutationCreateFavorite = {
             "operationName":null,
@@ -218,7 +268,7 @@ class Post extends Component {
             "query":`mutation { 
                 addFavToPost(
                     fav: {
-                        id: ${JSON.parse(localStorage.getItem("userInfo")).userId},
+                        id: ${this.props.isFavorite},
                         fk_post: \"${this.props.fk_post}\"
                     })
             }`
@@ -226,19 +276,39 @@ class Post extends Component {
 
         const options= {
             method: 'POST',
-            headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
+            headers: { 'Authorization': 'Bearer '+this.props.id_profile},
             data: mutationCreateFavorite,
             url: urlGraphql,
         };
         
-        console.log("SI ENTRA A FAVORITOS");
+        console.log(this.state.isFavorite);
         
-        axios(options)
-        .then(res => {
-            console.log(res.data);
-            
-        }).catch(console.log);
+        if(!this.state.isFavorite){
+            axios(options)
+            .then(res => {
+                console.log(res.data);
+                this.setState({
+                    isFavorite:true
+                })
+                
+            }).catch(console.log);
 
+        }else{
+
+            axios(options2)
+            .then(res => {
+            
+                console.log(res.data);
+                this.setState({
+                    isFavorite: false
+                })
+                
+            }).catch(console.log);
+
+
+        }
+        
+        
 
         
         
@@ -317,8 +387,6 @@ class Post extends Component {
     render() {
 
         
-
-        
         var listItems = this.state.images.map((url, i) =>
 
 
@@ -381,10 +449,17 @@ class Post extends Component {
            
                     </div>
 
-                   {this.state.post.fk_profile !== JSON.parse(localStorage.getItem("userInfo")).userId?
-                    <div className="col-md-12">
+                   {this.state.post.fk_profile !== this.props.id_profile?
 
-                       <button onClick={this.addFavorite} className="buttonFavorite"><i className="far fa-heart"></i></button>
+                    <div className="col-md-12">
+                          
+                        {this.props.id_profile !== 0?
+
+                            
+                            <button onClick={this.addFavorite} className="buttonFavorite"><i className="far fa-heart"></i></button>
+                        :null
+                        }
+
  
                         <form onSubmit={this.submitData}>               
                                 

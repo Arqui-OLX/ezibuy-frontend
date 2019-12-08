@@ -237,7 +237,22 @@ class PostList extends Component {
 
     render() {
 
- 
+
+        let status;
+        
+        try {
+            
+           status = JSON.parse(localStorage.getItem("userInfo")).userId
+            
+        } catch (error) {
+
+            status = 0
+            
+        }
+
+        
+        console.log(this.state.current_fk);
+        
         const data = this.state.JsonPosts;
 
         
@@ -313,6 +328,7 @@ class PostList extends Component {
                         {result}
                     </div>
 
+
                     <div className="col-md-5 row justify-content-md-center">
                         {this.state.JsonPosts !== [] && <ButtonGroup aria-label="Basic example" size="lg">
                             <Button disabled={ (this.state.currentPage===1 ? true : false)} variant="secondary" onClick={this.handleClickLast}>Anterior</Button>
@@ -328,13 +344,14 @@ class PostList extends Component {
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
-                            </button>
+                            </button>                          
                         </div>
                         <div className="modal-body">
                             {
                                 this.state.current_fk!==0?
                                     <Post 
                                     fk_post = {this.state.current_fk}
+                                    id_profile = {status}
                                     />
                                 :null
                             }

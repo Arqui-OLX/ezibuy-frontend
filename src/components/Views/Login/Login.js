@@ -63,7 +63,9 @@ class Login extends Component{
                     password: this.state.password
                 }
             }).then(result => {
-                console.log(result)
+                
+                console.log( result.data.login)
+
                 const data = result.data.login
                 //const token= data.token
                 //const userId = data.userId
