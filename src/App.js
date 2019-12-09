@@ -34,7 +34,7 @@ class App extends React.Component{
 
     return (
         
-          <div className="app h-100 ">
+          <div className="App">
             <Router>
             
               <NavigationBar userLoggedIn ={this.state.userLoggedIn}/>

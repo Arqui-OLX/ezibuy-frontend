@@ -432,11 +432,7 @@ class PublicationPost extends Component {
   
         <div className=" mb-2 ">
             <h4>Publicar un producto</h4>
-
-
-            <div>
-
-       
+        <div>
 
          <form onSubmit={this.submitData}>
 
@@ -547,13 +543,7 @@ class PublicationPost extends Component {
                     :null
 
                 }
-
-
-            
-
-                                        
-                
-         
+   
             </div>
 
 
@@ -564,7 +554,6 @@ class PublicationPost extends Component {
     </div>   
  </div>
 
-
                 
             </div>
          
@@ -574,6 +563,7 @@ class PublicationPost extends Component {
 
     }
 }
+
 
  
 export default PublicationPost;

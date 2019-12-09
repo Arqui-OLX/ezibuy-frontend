@@ -94,13 +94,7 @@ class CarouselLandingPage extends Component {
     render() {
         var ArrayTextPost = [];
 
-        //const data = this.state.JsonPosts;
-
-        
-       // const result = data.map((post) => 
-        //    ArrayTextPost.push(post.title)
-        //);
-        
+         
         
         return (
 
@@ -110,7 +104,7 @@ class CarouselLandingPage extends Component {
               <div className="typewriter">
                 <h1 className="title">¡Bienvenido a Ezibuy!</h1>
              </div>
-              <img className=""  src= "https://vue.ai/static/vuetag/v1/images/home/Automated-Product-Tagging.svg"  style={{height:'400px'}} alt="fotoPerfil"/>                  
+              <img className="img1"  src= "https://vue.ai/static/vuetag/v1/images/home/Automated-Product-Tagging.svg"  style={{height:'400px'}} alt="fotoPerfil"/>                  
             </header>
             {/* Page Features */}
             <div className="row text-center">

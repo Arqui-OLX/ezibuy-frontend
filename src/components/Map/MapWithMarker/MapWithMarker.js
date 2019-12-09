@@ -110,6 +110,8 @@ class MapWithMarker extends Component {
         <div style={{height: '100%', width: '100%'}}>
           <EzibuyMap
             id="myMap"
+            lat={this.state.lat}
+            lng={this.state.lng}
             options={{
               center: { lat: this.state.lat, lng: this.state.lng},
               zoom: 14,
@@ -121,7 +123,7 @@ class MapWithMarker extends Component {
 
               var geocoder = new window.google.maps.Geocoder;
 
-              map.addListener('dragend', () => {
+              map.addListener('idle', () => {
                 
                 
                 geocoder.geocode({'location': map.getCenter()}, this.handleReverseGeocoding);

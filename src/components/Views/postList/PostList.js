@@ -314,7 +314,7 @@ class PostList extends Component {
                 <div className="row justify-content-md-center">
 
                     {
-                    (this.props.profile === undefined) &&	
+                    (this.props.profile === undefined && this.props.favorite === undefined) &&	
                         <div className="filtros col-lg-2 col-md-2 col-sm-12 shadow bg-white rounded text-left categories mt-2">	
                         <Form>	
                             {['Carros','Motos','Telefonos','Tablets',	

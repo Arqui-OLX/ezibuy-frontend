@@ -1,51 +1,53 @@
 .firstContend{
     
-    height: 550px;
-    background-color: white;
-    font-family: sans-serif !important;
-    }
+  height: 550px;
+  background-color: white;
+  font-family: sans-serif !important;
+  }
 
 .title{
-    font-family: sans-serif !important;
-    color: #123c69;
+  font-family: sans-serif !important;
+  color: #123c69;
 
 }
 
 .buttonCard{
-    background-color: #AC3B61;
-    color: white;
+  background-color: #AC3B61;
+  color: white;
 }
 
 .buttonCard:hover{
-    background-color: white;
-    color: #AC3B61;
-    border-style: solid;
-    border-color: #AC3B61;
- }
+  background-color: white;
+  color: #AC3B61;
+  border-style: solid;
+  border-color: #AC3B61;
+}
 
- 
+
 /* DEMO-SPECIFIC STYLES */
 .typewriter h1 {
-  color: #123c69;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em none white; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 4.5s steps(30, end),
-    blink-caret .5s step-end infinite;
+color: #123c69;
+font-family: Verdana, Geneva, Tahoma, sans-serif;
+overflow: hidden; /* Ensures the content is not revealed until the animation */
+border-right: .15em none white; /* The typwriter cursor */
+white-space: nowrap; /* Keeps the content on a single line */
+margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+letter-spacing: .15em; /* Adjust as needed */
+animation: 
+  typing 4.5s steps(30, end),
+  blink-caret .5s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+from { width: 0 }
+to { width: 100% }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #AC3B61 }
+from, to { border-color: transparent }
+50% { border-color: #AC3B61 }
 }
+
+ 

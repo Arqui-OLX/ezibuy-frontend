@@ -17,20 +17,64 @@ class Post extends Component {
             chatData:{
             message: "",    
             },
+
             MessageDelete: false,
-            isFavorite: false
+            isFavorite: false,
+            map: null,
+            circle: null
         };
     
         // Este enlace es necesario para hacer que `this` funcione en el callback
         this.handleClick = this.handleClick.bind(this);
-        this.deleteProduct = this.deleteProduct.bind(this)
-        this.addFavorite = this.addFavorite.bind(this)
-
+        this.deleteProduct = this.deleteProduct.bind(this);
+        this.addFavorite = this.addFavorite.bind(this);
+        this.onScriptLoad = this.onScriptLoad.bind(this);
+        this.updateMap = this.updateMap.bind(this);
 
     }
     
     handleClick(e) {
         this.setState({idImage: e.target.id});
+    }
+
+    updateMap() {
+        if(this.state.post.lat != undefined && this.state.post.lat != null && this.state.post.lng != undefined && this.state.post.lng != null) {
+            this.state.map.setCenter({lat: this.state.post.lat, lng: this.state.post.lng})
+            this.state.circle.setCenter({lat: this.state.post.lat, lng: this.state.post.lng})
+        }else {
+            this.state.map.setCenter({ lat: 4.657248, lng: -74.099235}) 
+            this.state.circle.setCenter({lat: this.state.post.lat, lng: this.state.post.lng})
+        }
+
+    }
+
+    onScriptLoad() {
+        
+        //console.log(this.state.post.lat)
+        const map = new window.google.maps.Map(
+          document.getElementById("mapaSimplificado"),
+          {
+            center: { lat: 4.657248, lng: -74.099235},
+            zoom: 14,
+            disableDefaultUI: true,
+            gestureHandling: 'none'
+         }
+        );
+
+        const circle = new window.google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat: 4.657248, lng: -74.099235},
+            radius: 1200
+          });
+
+        this.setState({map: map, circle: circle})
+         
+        console.log(map)
     }
 
 
@@ -75,6 +119,10 @@ class Post extends Component {
                     }   
                     _id    
                     fk_profile
+                    lat
+                    lng
+                    city
+                    department
                       }
             }`
         }
@@ -117,6 +165,20 @@ class Post extends Component {
               })
             
         })
+
+        //Cargar script de mapa 
+        if(!window.google) {
+            var s = document.createElement('script');
+            s.type = 'text/javascript'
+            s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyDrlikUB7hm1mfHK9iIix2u_-b2P6YvVFU'
+            document.head.insertBefore(s,null)
+            s.addEventListener('load', e=> {
+              this.onScriptLoad()
+            })
+    
+          }else {
+            this.onScriptLoad()
+        }
 
     }
 
@@ -163,6 +225,10 @@ class Post extends Component {
                         }   
                         _id    
                         fk_profile
+                        lat
+                        lng
+                        city
+                        department
                           }
                 }`
             }
@@ -421,6 +487,8 @@ class Post extends Component {
              
     render() {
 
+        if(this.state.map != null && this.state.circle != null)
+            this.updateMap();
         
         var listItems = this.state.images.map((url, i) =>
 
@@ -510,33 +578,40 @@ class Post extends Component {
                                         value={this.state.message}/>
                                     </div>
 
-                                    {/* <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky">
-                                        <MapWithCircle/>
-                                    </div>  */}
+                                  
                                 
                                     <button type="submit" className="btn btn-primary btn-block">Enviar</button>
                             </form>                        
                        
                         :null
+
                         }
 
+
+                           
                     </div>      
                     :
                     <div>
 
-                        <button  onClick={this.deleteProduct} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
-
-                        {this.state.MessageDelete?
-                            <div className="alert alert-warning mt-4" role="alert">
-                                <strong>Exito!</strong> Tu producto ha sido eliminado
-                          </div>
-                        :null
-                        }
+                        
 
                     </div>  
                      
                     }
+                         <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky" id="mapaSimplificado">
+                            <h1>acá está</h1>
+                         </div>
                                    
+                         <button  onClick={this.deleteProduct} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
+
+                        {this.state.MessageDelete?
+                            <div className="alert alert-warning mt-4" role="alert">
+                                <strong>Exito!</strong> Tu producto ha sido eliminado
+                        </div>
+                        :null
+                        }
+                
+                
                 </div>
         );  
 
