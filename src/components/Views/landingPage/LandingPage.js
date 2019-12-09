@@ -19,7 +19,7 @@ class LandingPage extends Component {
                 <CarouselLandingPage/>                        
                 <PopularCategories/>
                 <PopularPosts/>
-                <Categories/>
+                {/* <Categories/> */}
 
             </div>
 

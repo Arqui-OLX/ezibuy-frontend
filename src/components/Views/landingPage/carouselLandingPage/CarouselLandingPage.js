@@ -92,10 +92,24 @@ class CarouselLandingPage extends Component {
 
 
     render() {
-        var ArrayTextPost = [];
-
          
+        var ArrayTextPost = [];
+        var ArrayTextDescription = [];
+
+        const data = this.state.JsonPosts;
+
         
+        data.map((post) => 
+            ArrayTextPost.push(post.title)
+           
+        );
+
+        data.map((post) => 
+        ArrayTextDescription.push(post.description)       
+       );
+
+
+
         return (
 
             <div className="container bg-white ">
@@ -107,13 +121,14 @@ class CarouselLandingPage extends Component {
               <img className="img1"  src= "https://vue.ai/static/vuetag/v1/images/home/Automated-Product-Tagging.svg"  style={{height:'400px'}} alt="fotoPerfil"/>                  
             </header>
             {/* Page Features */}
+              <h1>Los ultimos posts </h1>
             <div className="row text-center">
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <img className="card-img-top" src= {'http://35.209.82.198:3000/'+this.state.JsonImages[0]} alt="" />
                   <div className="card-body">
-                    <h4 className="card-title">Card title</h4>
-                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    <h4 className="card-title">{ArrayTextPost[0]}</h4>
+                    <p className="card-text">{ArrayTextDescription[0]}</p>
                   </div>
                   <div className="card-footer">
                     <a href="#" className="buttonCard btn">Ver mas</a>
@@ -122,10 +137,10 @@ class CarouselLandingPage extends Component {
               </div>
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <img className="card-img-top"  src= {'http://35.209.82.198:3000/'+this.state.JsonImages[1]} alt="" />
                   <div className="card-body">
-                    <h4 className="card-title">Card title</h4>
-                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                    <h4 className="card-title">{ArrayTextPost[1]}</h4>
+                    <p className="card-text">{ArrayTextDescription[1]}</p>
                   </div>
                   <div className="card-footer">
                     <a href="#" className="buttonCard btn">Ver mas</a>
@@ -134,10 +149,10 @@ class CarouselLandingPage extends Component {
               </div>
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <img className="card-img-top"  src= {'http://35.209.82.198:3000/'+this.state.JsonImages[2]} alt="" />
                   <div className="card-body">
-                    <h4 className="card-title">Card title</h4>
-                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                    <h4 className="card-title">{ArrayTextPost[2]}</h4>
+                    <p className="card-text">{ArrayTextDescription[2]}</p>
                   </div>
                   <div className="card-footer">
                     <a href="#" className="buttonCard btn">Ver mas</a>
@@ -146,10 +161,10 @@ class CarouselLandingPage extends Component {
               </div>
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top" src="http://placehold.it/500x325" alt="" />
+                  <img className="card-img-top"  src= {'http://35.209.82.198:3000/'+this.state.JsonImages[3]} alt="" />
                   <div className="card-body">
-                    <h4 className="card-title">Card title</h4>
-                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
+                    <h4 className="card-title">{ArrayTextPost[3]}</h4>
+                    <p className="card-text">{ArrayTextDescription[3]}</p>
                   </div>
                   <div className="card-footer">
                     <a href="#" className="buttonCard btn">Ver ma</a>
