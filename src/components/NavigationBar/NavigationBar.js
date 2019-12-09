@@ -174,7 +174,7 @@ class NavigationBar extends Component {
                 </form>
                  {this.props.userLoggedIn && 
                     
-                    <button type="button" class="Bbbtn btn-danger ml-3"  variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</button>
+                    <button type="button" class="btn btn-danger ml-3"  variant="danger" onClick={this.handleLoggoff} type="submit">Cerrar Sesión</button>
  
                   }
               </div>

@@ -1,0 +1,40 @@
+.message { 
+  position: absolute;
+  width: 178px;
+  height: 35px;
+  top:84%;left: 20%;
+  background-color: rgba(42,45,50,0.6);
+  border-radius: 25px !important;
+}
+
+.ezibuyp1 {
+  color: rgb(255,255,255) !important;
+  font-family: "Roboto" !important;
+  font-size: 13px !important;
+}
+
+.warningEzibuy {
+
+  width: 100%;
+  font-size: 12px;
+
+}
+.ezibuyp {
+  color: #D8000C !important;
+}
+
+#messageContainer {
+  display: none;
+}
+
+.searchBar {
+  width: 80%;
+  height: 35px;
+  position: absolute;
+  top: 8px;
+  left: 3px;
+  float: right;
+  border: none;
+  padding: 10px;
+  box-shadow: 2px 2px 5px grey;
+}

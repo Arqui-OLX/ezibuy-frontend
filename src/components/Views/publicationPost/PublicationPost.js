@@ -9,7 +9,8 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import MapWithMarker from '../../Map/MapWithMarker/MapWithMarker'
 
 registerPlugin( FilePondPluginImagePreview);
 
@@ -63,6 +64,7 @@ const  stateInicial = {
      receiveImageRequest: false,
      errorRequest: false,
      redirect: 0,
+     ejecuteMap: false
    
  }
 
@@ -124,11 +126,13 @@ class PublicationPost extends Component {
 
      submitData = e => {
 
+
         this.setState({
             showInfo: 100,
             loading1: true,
             loading2: true,
-            errorRequest: false
+            errorRequest: false,
+            ejecuteMap:true
         })
       
 
@@ -290,6 +294,9 @@ class PublicationPost extends Component {
 
     render() {
 
+        console.log("entra al form");
+        
+
        var listItems = <div></div>;
 
        var features = [];
@@ -414,6 +421,14 @@ class PublicationPost extends Component {
                             <div>
 
                        
+               
+                            
+                            {/* <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky">
+                                <MapWithMarker/>
+                            </div> */}
+
+                     
+
 
                          <form onSubmit={this.submitData}>
 

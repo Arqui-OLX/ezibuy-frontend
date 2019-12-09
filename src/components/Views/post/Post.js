@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import MapWithCircle from '../../Map/MapWithCircle/MapWithCircle'
 import axios from 'axios';
 import './Post.css';
 
@@ -138,13 +139,12 @@ class Post extends Component {
            
         
         if (this.props.fk_post !== prevProps.fk_post) {
-             
+            
             console.log("entra2");
-        
 
-            const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
             const urlGraphql = 'http://35.208.164.215:4000';
-
+            const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+ 
             console.log(this.props.fk_post);
             
             const queryPost = {
@@ -173,8 +173,7 @@ class Post extends Component {
                 data: queryPost,
                 url: urlGraphql,
             };
-                 
- 
+
             axios(options)
             .then(res => {
 
@@ -195,6 +194,37 @@ class Post extends Component {
                 })
 
             })
+
+
+            const isFavorite = {
+                
+                "operationName":null,
+                "variables":{},
+                "query":`{ 
+                    isFavorite(id_profile: ${this.props.id_profile}, fk_post: \"${this.props.fk_post}\")
+                }
+            `}
+    
+                
+              
+            const options2 = {
+                method: 'POST',
+                data: isFavorite,
+                url: urlGraphql,
+            };
+
+
+            axios(options2)
+            .then(res => {
+                this.setState({
+                    isFavorite: res.data.data.isFavorite 
+                })
+            
+            })
+             
+                 
+ 
+      
 
         }
      
@@ -247,11 +277,12 @@ class Post extends Component {
         const urlGraphql = 'http://35.208.164.215:4000';
 
 
-        const deleteFavorite = {
-            "operationName":null,
-            "variables":{},
-            "query":`mutation {
-                deleteFavorite(id: \"${this.props.fk_post}\")
+        const deleteFavorite =  {"operationName":null,
+        "variables":{},
+        "query":
+        `mutation {
+             deleteFavorite(id_profile: ${this.props.id_profile},
+                 fk_post: \"${this.props.fk_post}\")
             }
         `}
 
@@ -261,6 +292,7 @@ class Post extends Component {
             data: deleteFavorite,
             url: urlGraphql,
         };
+        
 
         const mutationCreateFavorite = {
             "operationName":null,
@@ -268,7 +300,7 @@ class Post extends Component {
             "query":`mutation { 
                 addFavToPost(
                     fav: {
-                        id: ${this.props.isFavorite},
+                        id: ${this.props.id_profile},
                         fk_post: \"${this.props.fk_post}\"
                     })
             }`
@@ -382,6 +414,9 @@ class Post extends Component {
                 MessageDelete: true
             })
 
+        
+
+
     }
              
     render() {
@@ -454,31 +489,36 @@ class Post extends Component {
                     <div className="col-md-12">
                           
                         {this.props.id_profile !== 0?
-
-                            
                             <button onClick={this.addFavorite} className="buttonFavorite"><i className="far fa-heart"></i></button>
                         :null
                         }
 
  
-                        <form onSubmit={this.submitData}>               
-                                
-                                <div className="form-group">
-                                    <textarea 
-                                    type="message"
-                                    className="form-control" 
-                                    id="exampleInputPassword1"
-                                    placeholder="Mensaje" 
-                                    rows="6"  
-                                    name= "message"
-                                    onChange={this.handleChange}
-                                    value={this.state.message}/>
-                                </div>
-                            
-                                <button type="submit" className="btn btn-primary btn-block">Enviar</button>
-                        </form>
+                        {this.props.id_profile !==0?
                         
+                            <form onSubmit={this.submitData}>               
+                                    
+                                    <div className="form-group">
+                                        <textarea 
+                                        type="message"
+                                        className="form-control" 
+                                        id="exampleInputPassword1"
+                                        placeholder="Mensaje" 
+                                        rows="6"  
+                                        name= "message"
+                                        onChange={this.handleChange}
+                                        value={this.state.message}/>
+                                    </div>
+
+                                    {/* <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky">
+                                        <MapWithCircle/>
+                                    </div>  */}
+                                
+                                    <button type="submit" className="btn btn-primary btn-block">Enviar</button>
+                            </form>                        
                        
+                        :null
+                        }
 
                     </div>      
                     :

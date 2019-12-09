@@ -172,13 +172,10 @@ class PostList extends Component {
         
     }
 
-    closeModal(){
-        window.location.reload();
-
-    }
-
+  
     componentDidMount(){	
         this.searchPosts(this.state.currentPage);	
+
     }	
 
     
@@ -342,7 +339,7 @@ class PostList extends Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                         <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" className="close"  data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                             </button>                          
                         </div>
@@ -358,7 +355,7 @@ class PostList extends Component {
                            
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.closeModal}>Close</button>
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                         </div>
                     </div>
