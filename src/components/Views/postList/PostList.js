@@ -164,16 +164,17 @@ class PostList extends Component {
             console.log("entra axios");
             
             let buffer = this.props.favorite !== undefined?result.data.data.getProducts:result.data.data.productByFilter;
-            console.log(buffer);
+            buffer = buffer.filter(Boolean);
 
+            
             this.setState({
                 JsonPosts: buffer,
-                JsonImages: new Array(result.data.data.productByFilter.length)
+                JsonImages: new Array(buffer.length)
             });
 
              
             
-            result.data.data.productByFilter.forEach((post, i) => {         
+            buffer.forEach((post, i) => {         
                 
                 axios.get(urlImages+post._id)
                 .then(element=>{
@@ -202,7 +203,10 @@ class PostList extends Component {
 
     }	
 
-    
+    componentWillReceiveProps(nextProps) {
+        this.props = nextProps;
+        this.searchPosts(this.state.currentPage);
+    }
 
   
     handleClick = (data) => {
