@@ -30,6 +30,7 @@ class Post extends Component {
         this.addFavorite = this.addFavorite.bind(this);
         this.onScriptLoad = this.onScriptLoad.bind(this);
         this.updateMap = this.updateMap.bind(this);
+        this.createHeart = this.createHeart.bind(this);
 
     }
     
@@ -75,6 +76,21 @@ class Post extends Component {
         this.setState({map: map, circle: circle})
          
         console.log(map)
+    }
+
+    createHeart() {
+
+        let heartClass
+
+        if(this.state.isFavorite)
+            heartClass = "fas fa-heart"
+        else
+            heartClass = "far fa-heart"
+
+
+        return (
+            <i className={heartClass}></i>
+          );
     }
 
 
@@ -463,7 +479,7 @@ class Post extends Component {
 
                     axios(options)
                     .then(res => {
-                        console.log(res.data);
+                        this.props.update();
                         
                     }).catch(console.log);
 
@@ -549,6 +565,10 @@ class Post extends Component {
                         </div>
 
                        {ListFeatures}
+
+                       <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky" id="mapaSimplificado">
+                            <h1>acá está</h1>
+                        </div>
            
                     </div>
 
@@ -557,13 +577,12 @@ class Post extends Component {
                     <div className="col-md-12">
                           
                         {this.props.id_profile !== 0?
-                            <button onClick={this.addFavorite} className="buttonFavorite"><i className="far fa-heart"></i></button>
+                            <button onClick={this.addFavorite} className="buttonFavorite">{this.createHeart()}</button>
                         :null
                         }
 
  
-                        {this.props.id_profile !==0?
-                        
+                        {this.props.id_profile !==0 ?
                             <form onSubmit={this.submitData}>               
                                     
                                     <div className="form-group">
@@ -578,12 +597,11 @@ class Post extends Component {
                                         value={this.state.message}/>
                                     </div>
 
-                                  
+                                
                                 
                                     <button type="submit" className="btn btn-primary btn-block">Enviar</button>
                             </form>                        
-                       
-                        :null
+                        : null
 
                         }
 
@@ -598,18 +616,22 @@ class Post extends Component {
                     </div>  
                      
                     }
-                         <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky" id="mapaSimplificado">
-                            <h1>acá está</h1>
-                         </div>
-                                   
-                         <button  onClick={this.deleteProduct} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button>
 
-                        {this.state.MessageDelete?
+                    {
+                        this.props.id_profile === this.state.post.fk_profile ?
+                            <button onClick={this.deleteProduct} className="btn btn-danger btn-block mt-3"><i class="far fa-trash-alt"></i></button> 
+                        :
+                        null
+                    }
+
+                    {this.state.MessageDelete ?
+                        <div>
                             <div className="alert alert-warning mt-4" role="alert">
                                 <strong>Exito!</strong> Tu producto ha sido eliminado
+                            </div>
                         </div>
-                        :null
-                        }
+                    :null
+                    }
                 
                 
                 </div>

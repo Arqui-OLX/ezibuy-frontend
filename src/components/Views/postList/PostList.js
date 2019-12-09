@@ -99,6 +99,8 @@ class PostList extends Component {
                     description
                     price
                     priceType
+                    city
+                    department
                 }
             }`
         }
@@ -120,7 +122,9 @@ class PostList extends Component {
                             title
                             description    
                             price    
-                            priceType  
+                            priceType
+                            city
+                            department
                         }
                 }`
             }
@@ -139,7 +143,9 @@ class PostList extends Component {
                         title    
                         description   
                         price   
-                        priceType  
+                        priceType
+                        city
+                        department  
                     }
                 }
             `}
@@ -294,6 +300,8 @@ class PostList extends Component {
                 <div className="d-inline col-md-4">
                     <h3 className="text-md-left text-ms-center">{post.title}</h3>
                     <h4 className="text-md-left text-ms-center mb-2">{post.description}</h4>
+                    <h5 className="text-md-left text-ms-center d-inline">{post.department} - </h5>
+                    <h5 className="text-md-left text-ms-center d-inline">{post.city}</h5>
                 </div>
                 <div className="d-inline col-md-4 mx-center">
                     <h4 className="text-center">$:{post.price}</h4>
@@ -377,8 +385,9 @@ class PostList extends Component {
                             {
                                 this.state.current_fk!==0?
                                     <Post 
-                                    fk_post = {this.state.current_fk}
-                                    id_profile = {status}
+                                        update={() => {this.forceUpdate()}}
+                                        fk_post = {this.state.current_fk}
+                                        id_profile = {status}
                                     />
                                 :null
                             }
