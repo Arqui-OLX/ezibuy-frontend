@@ -5,56 +5,60 @@ import axios from 'axios'
 import './Favorites.css';
 
 class Favorites extends Component {
+s
+    constructor(props){
+        super();
+        this.state={
 
-    state={
-
-        favoriteList: ""
+            favoriteList: "0"
+        }
     }
-
-    componentDidMount(){
+    
+    componentWillMount(){
 
         const urlGraphql = 'http://35.208.164.215:4000';
 
-    
+        
         const listFavorites= {
             "operationName":null,
             "variables":{},
             "query":`{
                 getFavorites(userId: ${JSON.parse(localStorage.getItem("userInfo")).userId}) {
-                id
-                fk_post 
+                    id
+                    fk_post 
+                }
             }
-        }
-    `}
-
-        const options = {
-            method: 'POST',
-            data: listFavorites,
-            url: urlGraphql,
-        };
-
-        axios(options)
-        .then(res=>{
+            `}
             
-            console.log(res.data.data.getFavorites);
-            let dataString ="?";
-
-            res.data.data.getFavorites.forEach(element => {
+            const options = {
+                method: 'POST',
+                data: listFavorites,
+                url: urlGraphql,
+            };
+            
+            axios(options)
+            .then(res=>{
                 
-                dataString = dataString + "posts[]=" + element.fk_post +"&"
+                console.log(res.data.data.getFavorites);
+                let dataString ="?";
+                
+                res.data.data.getFavorites.forEach(element => {
+                
+                    dataString = dataString + "posts[]=" + element.fk_post +"&"
+                    
+                });
+
+                this.setState({
+                    favoriteList: dataString
+                })
+                
+                console.log(this.state.favoriteList);
+                
+            }).catch( (error) =>{
                 
             });
-
-            this.setState({
-                favoriteList: dataString
-            })
-         
             
-        }).catch( (error) =>{
             
-        });
-
-    
 
     }
     
@@ -64,8 +68,7 @@ class Favorites extends Component {
         return (
             <div className="profile-navbar d-flex flex-column">
             <ProfileNavBar/>                
-            {/* <PostList favorite = {JSON.parse(localStorage.getItem("userInfo")).userId}/> */}
-
+            <PostList favorite = {this.state.favoriteList}/>
             </div>
         )
     }

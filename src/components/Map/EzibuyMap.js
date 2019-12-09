@@ -6,7 +6,7 @@ class EzibuyMap extends Component{
     constructor(props){
       super(props)
       this.onScriptLoad = this.onScriptLoad.bind(this)
-      this.checkMap = this.checkMap.bind(this)
+      //this.checkMap = this.checkMap.bind(this)
     }
 
     onScriptLoad() {
@@ -18,7 +18,7 @@ class EzibuyMap extends Component{
       this.props.onMapLoad(map)
     }
 
-    checkMap() {
+    componentDidMount() {
       if(!window.google) {
         var s = document.createElement('script');
         s.type = 'text/javascript'
@@ -36,7 +36,7 @@ class EzibuyMap extends Component{
 
     render() {
       console.log("render in map!")
-      this.checkMap()
+      //this.checkMap()
 
         return (
           

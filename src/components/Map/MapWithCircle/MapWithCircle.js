@@ -3,28 +3,23 @@ import EzibuyMap from '../EzibuyMap'
 
 class MapWithCircle extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-          lat: 4.657248,
-          lng: -74.099235,
-        }
-    }
 
     render () {
 
+        const myLat = this.props.lat === undefined ? 4.657248 : this.props.lat
+        const myLng = this.props.lng === undefined ? -74.099235 : this.props.lng
+        
         return (
             <div style={{height: '100%', width: '100%'}}>
                 <EzibuyMap
                     id="myMapCircle"
                     options={{
-                        center: { lat: this.state.lat, lng: this.state.lng},
+                        center: { lat: 0, lng: 0},
                         zoom: 14,
-                        mapTypeControl: false,
-                        streetViewControl: false,
-                        fullscreenControl: false }}
+                        disableDefaultUI: true }}
                     onMapLoad={map => {
-                        
+                        console.log(this.props.lat)
+                        console.log(this.props.lng)
                         new window.google.maps.Circle({
                             strokeColor: '#FF0000',
                             strokeOpacity: 0.8,
@@ -32,9 +27,11 @@ class MapWithCircle extends Component {
                             fillColor: '#FF0000',
                             fillOpacity: 0.35,
                             map: map,
-                            center: {lat: this.state.lat, lng: this.state.lng},
+                            center: {lat: this.props.lat, lng: this.props.lng},
                             radius: 1200
                           });
+
+                        
                     }}
                 />
             

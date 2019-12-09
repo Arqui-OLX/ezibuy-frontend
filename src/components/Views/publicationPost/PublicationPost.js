@@ -9,7 +9,8 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
+
 import MapWithMarker from '../../Map/MapWithMarker/MapWithMarker'
 
 registerPlugin( FilePondPluginImagePreview);
@@ -64,23 +65,37 @@ const  stateInicial = {
      receiveImageRequest: false,
      errorRequest: false,
      redirect: 0,
-     ejecuteMap: false
+     lat: 0,
+     lng: 0,
+     city: "",
+     department: ""
    
  }
 
 
 class PublicationPost extends Component {   
 
+
+    constructor(props) {
+        super(props)
+        this.updateLocation = this.updateLocation.bind(this);
+    }
+
     state = { ...stateInicial  }
 
+    
     componentDidMount() {
         this.id = setTimeout(() => this.setState({ redirect: 2 }), 3000)
       }
     
-      componentWillUnmount() {
+    componentWillUnmount() {
         clearTimeout(this.id)
       }
 
+    updateLocation(lat, lng, city, department) {
+        console.log(lat, lng, city, department)
+        this.setState({lat: lat, lng: lng, city: city, department: department})
+    }
     
     showSubCategory = (index,category) => {
         var clone = Object.assign( {}, this.state.show ); //ES6 Clones Object
@@ -126,13 +141,11 @@ class PublicationPost extends Component {
 
      submitData = e => {
 
-
         this.setState({
             showInfo: 100,
             loading1: true,
             loading2: true,
-            errorRequest: false,
-            ejecuteMap:true
+            errorRequest: false
         })
       
 
@@ -151,7 +164,11 @@ class PublicationPost extends Component {
             subcategory : this.state.arraySubcategory[this.state.subcategory-1],
             _id: uniqueId,
             fistImage: this.state.files[0],
-            fk_profile:  JSON.parse(localStorage.getItem("userInfo")).userId
+            fk_profile:  JSON.parse(localStorage.getItem("userInfo")).userId,
+            city: this.state.city,
+            department: this.state.department,
+            lat: this.state.lat,
+            lng: this.state.lng
 
         };
         
@@ -173,6 +190,10 @@ class PublicationPost extends Component {
                         price:  ${data.price},
                         priceType: \"${data.priceType}\",
                         fk_profile:  ${data.fk_profile},
+                        city: \"${data.city}\",
+                        department:  \"${data.department}\",
+                        lat:  ${data.lat},
+                        lng:  ${data.lng},
                         features: ${JSON.stringify(data.features).replace(/\"([^(\")"]+)\":/g,"$1:")} })
                         {    
                             _id   
@@ -294,9 +315,6 @@ class PublicationPost extends Component {
 
     render() {
 
-        console.log("entra al form");
-        
-
        var listItems = <div></div>;
 
        var features = [];
@@ -325,232 +343,229 @@ class PublicationPost extends Component {
         
  
         return (
- 
-            <div className="container mb-5">
+            <div className="container mb-5" style={{height: '100%', width: '100%'}}>
+
+            <div className="row  w-75 mx-auto bg-light ">
+
+            <div className="col-lg-6  mb-3 mt-3">
+   
+            <ul className="listaProductos">
+
+            <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} >vehiculos</li>
+
+            {
+                this.state.show[0]?
+                <ul>
+                    <li  onClick={(e) => this.showForm(1,features)}>carros</li>
+                    
+                    <li onClick={(e) => this.showForm(2,features)}>motos</li>
+                </ul>                                
+                :null
+            }
+
+       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(1, "telefonos y tablets" )}  >Telefonos y tablets </li>
+
+            {
+                this.state.show[1]?
+                <ul>
+                    <li onClick={(e) => this.showForm(3,features)}>telefono</li>
+                    <li onClick={(e) => this.showForm(4,features)}>tablet</li>
+                </ul>                                
+                :null
+            }
 
 
-                <div className="row  w-75 mx-auto bg-light ">
+        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(2, "computadores")} >computadores</li>
+        
+            {
+                this.state.show[2]?
+                <ul>
+                    <li  onClick={(e) => this.showForm(5,features)}>computadores de escritorio</li>
+                    
+                    <li onClick={(e) => this.showForm(6,features)}>computadores portatiles</li>
+                </ul>                                
+                :null
+            }
 
-                <div className="col-lg-6  mb-3 mt-3">
+
+        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3,"inmuebles")} >inmuebles</li>
+        
+            {
+                this.state.show[3]?
+                <ul>
+                    <li  onClick={(e) => this.showForm(7,features)}>venta de inmuebles</li>
+                    <li onClick={(e) => this.showForm(8,features)}>arriendo de inmuebles</li>
+                </ul>                                
+                :null
+            }
+
+
+        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"empĺeo")} >empleo</li>
+        
+            {
+                this.state.show[4]?
+                <ul>
+                    <li  onClick={(e) => this.showForm(9,features)}>buscar empleo</li>
+                 </ul>                                
+                :null
+            }
+
+
+        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"servicios")} >Servicios</li>
+        
+            {
+                this.state.show[5]?
+                <ul>
+                    <li  onClick={(e) => this.showForm(10,features)}>clases</li>
+                </ul>                                
+                :null
+            }
+
+   </ul>
+
+            
+       
+</div>
+
+   <div className="col-lg-6 mx-auto mt-3 mb-3">
+
+  
+        <div className=" mb-2 ">
+            <h4>Publicar un producto</h4>
+
+
+            <div>
+
+       
+
+         <form onSubmit={this.submitData}>
+
+            <FilePond  
+                onupdatefiles={(fileItems) => {
+                this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
+                onDrop={this.handleUploadImages}
+                allowMultiple={true}
+                required ={true}
+            />
+
+            <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky">
+                <MapWithMarker updateCoordinates={(lat, lng, city, department) => this.updateLocation(lat, lng, city, department)}/>
+            </div>
+
+            {
+                this.state.showFeatures?
+                    listItems                         
+                :null
+            }
+
+                
+                
+
+                <div className="form-group ">
+                    <input 
+                        type="text" 
+                        className="form-control w-100" 
+                        id="title" 
+                        placeholder="titulo" 
+                        name="title" 
+                        value={this.state.post.title} 
+                        onChange={this.handleChange}
+                     required/>
+                </div>
+
+                <div className="form-group">
+                    <textarea 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="description" 
+                        rows="6" 
+                        name="description" 
+                        value={this.state.post.description}  
+                        onChange={this.handleChange}
+                        required/>
+                </div>     
+
+                <div className="form-group row ">
                    
-                   <ul className="listaProductos">
+                    <input 
+                        type="number" 
+                        className="form-control w-25 mr-5 ml-3" 
+                        id="price" 
+                        placeholder="precio" 
+                        name="price"    
+                        onChange={this.handleChange}
+                        value={this.state.post.price}  
+                        required
 
-                       <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(0,"vehiculos")} >vehiculos</li>
- 
-                            {
-                                this.state.show[0]?
-                                <ul>
-                                    <li  onClick={(e) => this.showForm(1,features)}>carros</li>
-                                    
-                                    <li onClick={(e) => this.showForm(2,features)}>motos</li>
-                                </ul>                                
-                                :null
-                            }
- 
-                       <li className="show-hidden-menu"  onClick={(e) => this.showSubCategory(1, "telefonos y tablets" )}  >Telefonos y tablets </li>
- 
-                            {
-                                this.state.show[1]?
-                                <ul>
-                                    <li onClick={(e) => this.showForm(3,features)}>telefono</li>
-                                    <li onClick={(e) => this.showForm(4,features)}>tablet</li>
-                                </ul>                                
-                                :null
-                            }
+                    />
 
+                    
 
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(2, "computadores")} >computadores</li>
+                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.priceType} required>
                         
-                            {
-                                this.state.show[2]?
-                                <ul>
-                                    <li  onClick={(e) => this.showForm(5,features)}>computadores de escritorio</li>
-                                    
-                                    <li onClick={(e) => this.showForm(6,features)}>computadores portatiles</li>
-                                </ul>                                
-                                :null
-                            }
-
-
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(3,"inmuebles")} >inmuebles</li>
+                        <option name= "typePrice">Negociable</option>
+                    
+                        <option name= "typePrice">Precio Fijo</option>
+                    
+                        <option name= "typePrice">A consultar</option>
                         
-                            {
-                                this.state.show[3]?
-                                <ul>
-                                    <li  onClick={(e) => this.showForm(7,features)}>venta de inmuebles</li>
-                                    <li onClick={(e) => this.showForm(8,features)}>arriendo de inmuebles</li>
-                                </ul>                                
-                                :null
-                            }
-
-
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(4,"empĺeo")} >empleo</li>
-                        
-                            {
-                                this.state.show[4]?
-                                <ul>
-                                    <li  onClick={(e) => this.showForm(9,features)}>buscar empleo</li>
-                                 </ul>                                
-                                :null
-                            }
-
-      
-                        <li className="show-hidden-menu" onClick={(e) => this.showSubCategory(5,"servicios")} >Servicios</li>
-                        
-                            {
-                                this.state.show[5]?
-                                <ul>
-                                    <li  onClick={(e) => this.showForm(10,features)}>clases</li>
-                                </ul>                                
-                                :null
-                            }
-      
-                   </ul>
-
-                            
-                       
-              </div>
-
-                   <div className="col-lg-6 mx-auto mt-3 mb-3">
-
-                  
-                        <div className=" mb-2 ">
-                            <h4>Publicar un producto</h4>
-
-
-                            <div>
-
-                       
+                    </select>
+                </div>
+     
                
-                            
-                            {/* <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky">
-                                <MapWithMarker/>
-                            </div> */}
+                <button type="submit" className="btn btn-primary btn-block  mt-5">Publicar</button>
+            </form>
 
+
+
+
+                    {                              
+                    
+                    this.state.loading1 === true ||  this.state.loading2 ===true ?
                      
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                    : this.state.receivePostRequest === true && this.state.receiveImageRequest === true?
+                             
+                        <Redirect to="postlist"/>
+                          
+                    :null
+
+                }
 
 
-                         <form onSubmit={this.submitData}>
-
-                            <FilePond  
-                                onupdatefiles={(fileItems) => {
-                                this.setState({files: fileItems.map(fileItem => fileItem.file)      });}}  
-                                onDrop={this.handleUploadImages}
-                                allowMultiple={true}
-                                required ={true}
-                            />
-
-                            {
-                                this.state.showFeatures?
-                                    listItems                         
-                                :null
-                            }
-      
-                                
-                                
-
-                                <div className="form-group ">
-                                    <input 
-                                        type="text" 
-                                        className="form-control w-100" 
-                                        id="title" 
-                                        placeholder="titulo" 
-                                        name="title" 
-                                        value={this.state.post.title} 
-                                        onChange={this.handleChange}
-                                     required/>
-                                </div>
-
-                                <div className="form-group">
-                                    <textarea 
-                                        type="text" 
-                                        className="form-control" 
-                                        placeholder="description" 
-                                        rows="6" 
-                                        name="description" 
-                                        value={this.state.post.description}  
-                                        onChange={this.handleChange}
-                                        required/>
-                                </div>     
-
-                                <div className="form-group row ">
-                                   
-                                    <input 
-                                        type="number" 
-                                        className="form-control w-25 mr-5 ml-3" 
-                                        id="price" 
-                                        placeholder="precio" 
-                                        name="price"    
-                                        onChange={this.handleChange}
-                                        value={this.state.post.price}  
-                                        required
-
-                                    />
-
-                                    
- 
-                                    <select id="field-priceType" name="priceType" className="custom-select w-50"  onChange={this.handleChange} value={this.state.post.priceType} required>
-                                        
-                                        <option name= "typePrice">Negociable</option>
-                                    
-                                        <option name= "typePrice">Precio Fijo</option>
-                                    
-                                        <option name= "typePrice">A consultar</option>
-                                        
-                                    </select>
-                                </div>
+                {                              
+                    
+                    this.state.errorRequest === true ?
                      
-                               
-                                <button type="submit" className="btn btn-primary btn-block  mt-5">Publicar</button>
-                            </form>
+                     <div class=" mt-4 alert alert-danger" role="alert">
+                         Ups!, ha ocurrido un error al publicar tu producto. Intentalo nuevamente.
+                     </div>
+
+                    :null
+
+                }
 
 
-             
+            
 
-                                    {                              
-                                    
-                                    this.state.loading1 === true ||  this.state.loading2 ===true ?
-                                     
-                                        <div class="spinner-border" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
-
-                                    : this.state.receivePostRequest === true && this.state.receiveImageRequest === true?
-                                             
-                                        <Redirect to="postlist"/>
-                                          
-                                    :null
-
-                                }
+                                        
+                
+         
+            </div>
 
 
-                                {                              
-                                    
-                                    this.state.errorRequest === true ?
-                                     
-                                     <div class=" mt-4 alert alert-danger" role="alert">
-                                         Ups!, ha ocurrido un error al publicar tu producto. Intentalo nuevamente.
-                                     </div>
+        </div> 
 
-                                    :null
+         
+         
+    </div>   
+ </div>
 
-                                }
- 
 
-                            
-
-                                                        
-                                
-                         
-                            </div>
-
- 
-                        </div> 
-
-                         
-                         
-                    </div>   
-                 </div>
+                
             </div>
          
             

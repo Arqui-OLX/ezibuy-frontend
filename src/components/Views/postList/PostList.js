@@ -82,7 +82,7 @@ class PostList extends Component {
     searchPosts(currentPage) {
 
          
-        let urlPosts  ='http://35.209.82.198:3002/product';
+       // let urlPosts  ='http://35.209.82.198:3002/product';
         const urlGraphql = 'http://35.208.164.215:4000';
         let pagination = '&pageNumber=' + currentPage + '&nPerPage='+ '10';
         
@@ -127,6 +127,26 @@ class PostList extends Component {
 
         }
 
+
+        if (this.props.favorite !== undefined) {
+            
+            queryPosts =   {
+                "operationName":null,
+                "variables":{},
+                "query":`{
+                    getProducts(text: \"${this.props.favorite}\") {
+                        _id    
+                        title    
+                        description   
+                        price   
+                        priceType  
+                    }
+                }
+            `}
+
+        }
+
+
  
         const options = {
             method: 'POST',
@@ -135,13 +155,17 @@ class PostList extends Component {
         };
         
         const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+        console.log(this.props.favorite);
         
        
         axios(options)
         .then(result=>{
 
-            let buffer = result.data.data.productByFilter;
-             
+            console.log("entra axios");
+            
+            let buffer = this.props.favorite !== undefined?result.data.data.getProducts:result.data.data.productByFilter;
+            console.log(buffer);
+
             this.setState({
                 JsonPosts: buffer,
                 JsonImages: new Array(result.data.data.productByFilter.length)
@@ -234,6 +258,8 @@ class PostList extends Component {
 
     render() {
 
+       
+        
 
         let status;
         
