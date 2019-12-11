@@ -587,14 +587,16 @@ class Post extends Component {
                                     
                                     <div className="form-group">
                                         <textarea 
-                                        type="message"
-                                        className="form-control" 
-                                        id="exampleInputPassword1"
-                                        placeholder="Mensaje" 
-                                        rows="6"  
-                                        name= "message"
-                                        onChange={this.handleChange}
-                                        value={this.state.message}/>
+
+                                            type="message"
+                                            className="form-control" 
+                                            id="exampleInputPassword1"
+                                            placeholder="Mensaje" 
+                                            rows="6"  
+                                            name= "message"
+                                            onChange={this.handleChange}
+                                            value={this.state.message}/>
+                                   
                                     </div>
 
                                 

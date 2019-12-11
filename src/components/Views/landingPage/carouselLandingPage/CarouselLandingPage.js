@@ -120,6 +120,7 @@ class CarouselLandingPage extends Component {
              </div>
               <img className="img1"  src= "https://vue.ai/static/vuetag/v1/images/home/Automated-Product-Tagging.svg"  style={{height:'400px'}} alt="fotoPerfil"/>                  
             </header>
+            
             {/* Page Features */}
               <h1>Los ultimos posts </h1>
             <div className="row text-center">
