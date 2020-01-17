@@ -18,7 +18,7 @@
 
 .buttonCard:hover{
   background-color: white;
-  color: #AC3B61;
+  color: #AC3B61 !important;
   border-style: solid;
   border-color: #AC3B61;
 }

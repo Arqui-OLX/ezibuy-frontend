@@ -3,11 +3,15 @@
 }
 li{
     font-size: 20px;
+    cursor: pointer;
 }
 
 li:hover {
     background-color: #E0DFD0;
 }
+
+
+
 .topUl {
     list-style-type: none;
 }

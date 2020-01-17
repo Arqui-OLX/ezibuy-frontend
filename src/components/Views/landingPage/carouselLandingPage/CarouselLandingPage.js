@@ -116,14 +116,14 @@ class CarouselLandingPage extends Component {
             <header className="firstContend jumbotron my-4 mb-5">
                {/* <p className="lead">Compra y vende lo que tu quieras</p> */}
               <div className="typewriter">
-                <h1 className="title">¡Bienvenido a Ezibuy!</h1>
+                <h1 className="title">¡Ezibuy!</h1>
              </div>
               <img className="img1"  src= "https://vue.ai/static/vuetag/v1/images/home/Automated-Product-Tagging.svg"  style={{height:'400px'}} alt="fotoPerfil"/>                  
             </header>
             
             {/* Page Features */}
               <h1>Los ultimos posts </h1>
-            <div className="row text-center">
+            <div className="row text-center"> 
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
                   <img className="card-img-top" src= {'http://35.209.170.220:3000/'+this.state.JsonImages[0]} alt="" />
@@ -132,7 +132,7 @@ class CarouselLandingPage extends Component {
                     <p className="card-text">{ArrayTextDescription[0]}</p>
                   </div>
                   <div className="card-footer">
-                    <a href="#" className="buttonCard btn">Ver mas</a>
+                    <a href="/postlist" className="buttonCard btn">Ver mas</a>
                   </div>
                 </div>
               </div>
@@ -144,7 +144,7 @@ class CarouselLandingPage extends Component {
                     <p className="card-text">{ArrayTextDescription[1]}</p>
                   </div>
                   <div className="card-footer">
-                    <a href="#" className="buttonCard btn">Ver mas</a>
+                    <a href="/postlist" className="buttonCard btn">Ver mas</a>
                   </div>
                 </div>
               </div>
@@ -156,7 +156,7 @@ class CarouselLandingPage extends Component {
                     <p className="card-text">{ArrayTextDescription[2]}</p>
                   </div>
                   <div className="card-footer">
-                    <a href="#" className="buttonCard btn">Ver mas</a>
+                    <a href="/postlist" className="buttonCard btn">Ver mas</a>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ class CarouselLandingPage extends Component {
                     <p className="card-text">{ArrayTextDescription[3]}</p>
                   </div>
                   <div className="card-footer">
-                    <a href="#" className="buttonCard btn">Ver ma</a>
+                    <a href="/postlist" className="buttonCard btn">Ver ma</a>
                   </div>
                 </div>
               </div>

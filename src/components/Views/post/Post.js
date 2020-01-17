@@ -186,7 +186,7 @@ class Post extends Component {
         if(!window.google) {
             var s = document.createElement('script');
             s.type = 'text/javascript'
-            s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyDrlikUB7hm1mfHK9iIix2u_-b2P6YvVFU'
+            s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyA7eMioAQ3MA9GxvxlmbesRoB6RZ2ugGhw'
             document.head.insertBefore(s,null)
             s.addEventListener('load', e=> {
               this.onScriptLoad()
@@ -319,7 +319,7 @@ class Post extends Component {
         console.log("esto entra");
         
 
-        const urlChat = "http://35.209.82.198:3003/room";
+        const urlChat = "http://35.206.95.187:3003/room";
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
         var data ={

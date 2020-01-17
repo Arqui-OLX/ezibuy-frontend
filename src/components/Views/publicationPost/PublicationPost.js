@@ -319,10 +319,13 @@ class PublicationPost extends Component {
 
        var features = [];
        if(this.state.subcategory !==-1){
-           
+
+             
             listItems = this.state.fields[this.state.subcategory].map((i, index) =>
                
                 <div key={i} className="form-group">
+ 
+
                      <input 
                         id ={index} 
                         type="text" 
@@ -356,7 +359,7 @@ class PublicationPost extends Component {
             {
                 this.state.show[0]?
                 <ul>
-                    <li  onClick={(e) => this.showForm(1,features)}>carros</li>
+                    <li  onClick={(e) => this.showForm(1,features)}><a>carros</a></li>
                     
                     <li onClick={(e) => this.showForm(2,features)}>motos</li>
                 </ul>                                
@@ -447,6 +450,7 @@ class PublicationPost extends Component {
             <div  style={{height: '300px', width: '100%', marginBottom: '15px'}} className="position-sticky">
                 <MapWithMarker updateCoordinates={(lat, lng, city, department) => this.updateLocation(lat, lng, city, department)}/>
             </div>
+            
 
             {
                 this.state.showFeatures?
