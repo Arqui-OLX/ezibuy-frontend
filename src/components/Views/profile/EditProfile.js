@@ -37,7 +37,7 @@ class  EditProfile extends Component{
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
     
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         const queryEditProfile = {
             "variables":{},
@@ -84,7 +84,7 @@ class  EditProfile extends Component{
         bodyFormData.append('userImage',this.state.files[0]); 
 
          
-        const UrlImageEditProfile = 'http://35.209.82.198:3000/user-images/';
+        const UrlImageEditProfile = 'http://35.209.170.220:3000/user-images/';
 
         console.log(UrlImageEditProfile + this.state.idImage);
         

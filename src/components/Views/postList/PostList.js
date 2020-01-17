@@ -83,7 +83,7 @@ class PostList extends Component {
 
          
        // let urlPosts  ='http://35.209.82.198:3002/product';
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
         let pagination = '&pageNumber=' + currentPage + '&nPerPage='+ '10';
         
          
@@ -160,7 +160,7 @@ class PostList extends Component {
             url: urlGraphql,
         };
         
-        const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+        const urlImages ='http://35.209.170.220:3000/ads-images/byid/';
         console.log(this.props.favorite);
         
        
@@ -295,7 +295,7 @@ class PostList extends Component {
 
             <div key={index} className="row p-4 m-2 shadow bg-white rounded">
                 <div className="d-inline col-md-3 m-0 p-0">
-                    <img src={'http://35.209.82.198:3000/'+this.state.JsonImages[index]}  width="160" height="160"/>
+                    <img src={'http://35.209.170.220:3000/'+this.state.JsonImages[index]}  width="160" height="160"/>
                 </div>
                 <div className="d-inline col-md-4">
                     <h3 className="text-md-left text-ms-center">{post.title}</h3>

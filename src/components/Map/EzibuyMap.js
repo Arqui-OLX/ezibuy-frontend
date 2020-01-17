@@ -27,7 +27,7 @@ class EzibuyMap extends Component{
       if(!window.google) {
         var s = document.createElement('script');
         s.type = 'text/javascript'
-        s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyDrlikUB7hm1mfHK9iIix2u_-b2P6YvVFU'
+        s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyA7eMioAQ3MA9GxvxlmbesRoB6RZ2ugGhw'
         document.head.insertBefore(s,null)
         s.addEventListener('load', e=> {
           this.onScriptLoad()

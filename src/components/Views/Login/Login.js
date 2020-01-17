@@ -43,7 +43,7 @@ class Login extends Component{
     }
 
     handleLogin(email, password){
-        const Client = new ApolloClient({ uri: 'http://35.208.164.215:4000/' });
+        const Client = new ApolloClient({ uri: 'http://35.209.170.220:4000/' });
 
         const mutation = gql(`
             mutation login($email: String!, $password: String!) {

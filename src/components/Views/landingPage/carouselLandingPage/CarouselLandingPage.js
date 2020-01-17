@@ -21,7 +21,7 @@ class CarouselLandingPage extends Component {
 
          
 
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         let queryPosts = {
            
@@ -48,7 +48,7 @@ class CarouselLandingPage extends Component {
             url: urlGraphql,
         };
         
-        const urlImages ='http://35.209.82.198:3000/ads-images/byid/'; 
+        const urlImages ='http://35.209.170.220:3000/ads-images/byid/'; 
         
         
         axios(options)
@@ -126,7 +126,7 @@ class CarouselLandingPage extends Component {
             <div className="row text-center">
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top" src= {'http://35.209.82.198:3000/'+this.state.JsonImages[0]} alt="" />
+                  <img className="card-img-top" src= {'http://35.209.170.220:3000/'+this.state.JsonImages[0]} alt="" />
                   <div className="card-body">
                     <h4 className="card-title">{ArrayTextPost[0]}</h4>
                     <p className="card-text">{ArrayTextDescription[0]}</p>
@@ -138,7 +138,7 @@ class CarouselLandingPage extends Component {
               </div>
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top"  src= {'http://35.209.82.198:3000/'+this.state.JsonImages[1]} alt="" />
+                  <img className="card-img-top"  src= {'http://35.209.170.220:3000/'+this.state.JsonImages[1]} alt="" />
                   <div className="card-body">
                     <h4 className="card-title">{ArrayTextPost[1]}</h4>
                     <p className="card-text">{ArrayTextDescription[1]}</p>
@@ -150,7 +150,7 @@ class CarouselLandingPage extends Component {
               </div>
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top"  src= {'http://35.209.82.198:3000/'+this.state.JsonImages[2]} alt="" />
+                  <img className="card-img-top"  src= {'http://35.209.170.220:3000/'+this.state.JsonImages[2]} alt="" />
                   <div className="card-body">
                     <h4 className="card-title">{ArrayTextPost[2]}</h4>
                     <p className="card-text">{ArrayTextDescription[2]}</p>
@@ -162,7 +162,7 @@ class CarouselLandingPage extends Component {
               </div>
               <div className="col-lg-3 col-md-6 mb-4">
                 <div className="card h-100">
-                  <img className="card-img-top"  src= {'http://35.209.82.198:3000/'+this.state.JsonImages[3]} alt="" />
+                  <img className="card-img-top"  src= {'http://35.209.170.220:3000/'+this.state.JsonImages[3]} alt="" />
                   <div className="card-body">
                     <h4 className="card-title">{ArrayTextPost[3]}</h4>
                     <p className="card-text">{ArrayTextDescription[3]}</p>

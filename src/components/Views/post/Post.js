@@ -99,8 +99,8 @@ class Post extends Component {
         console.log(this.props.fk_post);
 
         
-        const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlImages ='http://35.209.170.220:3000/ads-images/byid/';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         const isFavorite = {
             
@@ -220,8 +220,8 @@ class Post extends Component {
             
             console.log("entra2");
 
-            const urlGraphql = 'http://35.208.164.215:4000';
-            const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+            const urlGraphql = 'http://35.209.170.220:4000';
+            const urlImages ='http://35.209.170.220:3000/ads-images/byid/';
  
             console.log(this.props.fk_post);
             
@@ -356,7 +356,7 @@ class Post extends Component {
         
         console.log("ENTRA");
         
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
 
         const deleteFavorite =  {"operationName":null,
@@ -432,7 +432,7 @@ class Post extends Component {
 
         console.log(this.props.fk_post);
         
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         const mutationDeleteProduct =  {
             "operationName":null,
@@ -511,7 +511,7 @@ class Post extends Component {
 
 
             <div key={i} >
-                <img className="img-fluid" src={'http://35.209.82.198:3000/'+url.ad_image} id={i} onClick={this.handleClick} alt=""></img>  
+                <img className="img-fluid" src={'http://35.209.170.220:3000/'+url.ad_image} id={i} onClick={this.handleClick} alt=""></img>  
             </div>
 
         );

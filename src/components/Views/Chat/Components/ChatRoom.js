@@ -20,7 +20,7 @@ class ChatRoom extends Component {
 
     componentWillMount() {
 
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         const query = {"query":`{
                     profileByID(profile_id: ${this.props.receiverName}) {
@@ -44,7 +44,7 @@ class ChatRoom extends Component {
         });
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
-        const UrlImageProfile = 'http://35.209.82.198:3000/user-images';
+        const UrlImageProfile = 'http://35.209.170.220:3000/user-images';
 
         axios.get(UrlImageProfile+"/byid/"+id)
         .then(element=>{
@@ -78,7 +78,7 @@ class ChatRoom extends Component {
         return (
             <div className="chat_list chat-room-div" onClick={this.handleClick}>
                 <div className="chat_people">
-                    <div className="chat_img"><img src={'http://35.209.82.198:3000/'+this.state.imageProfile} alt=":)"/></div>
+                    <div className="chat_img"><img src={'http://35.209.170.220:3000/'+this.state.imageProfile} alt=":)"/></div>
                     <div className="chat_ib">
                         <h5> {this.state.nickname} <span className="chat_date">{dformat}</span></h5>
                         <p> {this.props.lastMsg} </p>

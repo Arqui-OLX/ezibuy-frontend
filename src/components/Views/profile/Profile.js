@@ -22,7 +22,7 @@ class Profile extends Component{
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
-          const urlGraphql = 'http://35.208.164.215:4000';
+          const urlGraphql = 'http://35.209.170.220:4000';
 
         const queryProfile = {
           
@@ -52,7 +52,7 @@ class Profile extends Component{
         })
 
 
-        const UrlImageProfile = 'http://35.209.82.198:3000/user-images';
+        const UrlImageProfile = 'http://35.209.170.220:3000/user-images';
 
 
         axios.get(UrlImageProfile+"/byid/"+id)
@@ -90,7 +90,7 @@ class Profile extends Component{
 
         const id = JSON.parse(localStorage.getItem("userInfo")).userId;
 
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         const queryProfile = {
           
@@ -143,7 +143,7 @@ class Profile extends Component{
                                     className="rounded-circle"
                                     width={171}
                                     height={180}
-                                    src={'http://35.209.82.198:3000/'+this.state.imageProfile}
+                                    src={'http://35.209.170.220:3000/'+this.state.imageProfile}
                                 />
                                   
                                 <br></br>

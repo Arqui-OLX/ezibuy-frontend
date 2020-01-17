@@ -42,7 +42,7 @@ class Register extends Component{
         console.log("entra handleregister");
         
 
-        const Client = new ApolloClient({ uri: 'http://35.208.164.215:4000/' });
+        const Client = new ApolloClient({ uri: 'http://35.209.170.220:4000/' });
 
         const mutation = gql(`
             mutation create($email: String!, $password: String!, $nickname: String!, $phone: String!) {
@@ -73,7 +73,7 @@ class Register extends Component{
                 bodyFormData.append('userImage',this.state.files[0]); 
         
                  
-                const UrlImageEditProfile = 'http://35.209.82.198:3000/user-images/';
+                const UrlImageEditProfile = 'http://35.209.170.220:3000/user-images/';
                          
         
                 axios.post(UrlImageEditProfile, bodyFormData )

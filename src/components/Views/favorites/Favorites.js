@@ -16,7 +16,7 @@ s
     
     componentWillMount(){
 
-        const urlGraphql = 'http://35.208.164.215:4000';
+        const urlGraphql = 'http://35.209.170.220:4000';
 
         
         const listFavorites= {

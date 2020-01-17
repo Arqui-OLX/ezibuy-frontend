@@ -44,7 +44,7 @@ class NavigationBar extends Component {
 
   submitData = e => {
         
-    const urlGraphql = 'http://35.208.164.215:4000';
+    const urlGraphql = 'http://35.209.170.220:4000';
     let search;
     let pagination = '&pageNumber=' + store.getState().currentPage + '&nPerPage='+ '10';
 
@@ -78,7 +78,7 @@ class NavigationBar extends Component {
     };
           
     
-    const urlImages ='http://35.209.82.198:3000/ads-images/byid/';
+    const urlImages ='http://35.209.170.220:3000/ads-images/byid/';
     
    
     axios(options)
