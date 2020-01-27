@@ -1,0 +1,42 @@
+ /* CSS DOCUMENT */
+
+ .btn-fb{
+    background: #3b5998 !important;
+    color: white !important;s
+  }
+  
+  .btn-fb:hover{
+    opacity: 0.7;
+  
+  }
+  
+  .btn-yt{
+    background: #ED302F !important;
+    color: white !important;
+  }
+  
+  .btn-yt:hover{
+    opacity: 0.7;
+  
+  }
+  
+  
+   .btn-git{
+    background: #333333 !important;
+    color: white !important;
+  }
+  
+  .btn-git:hover{
+    opacity: 0.7;
+  
+  }
+  
+  .btn-slack{
+    background: #56B68B !important;
+    color: white !important;
+  }
+  
+  .btn-slack:hover{
+    opacity: 0.7;
+  
+  }

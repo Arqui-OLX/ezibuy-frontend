@@ -12,7 +12,8 @@ import Ads from "../Views/ads/Ads"
 import PostList from "../Views/postList/PostList"
 import Register from "../Views/Register/Register"
 import Chat from  "../Views/Chat/Chat"
-
+import Privacy from  "../Views/privacy/Privacy";
+import AboutUs from  "../Views/aboutUs/AboutUs";
 
 class Main extends React.Component {
   constructor(props) {
@@ -43,10 +44,10 @@ class Main extends React.Component {
         <Route exact path="/myprofile/profile" component={Profile} /> 
         <Route exact path="/myprofile/favorites" component={Favorites} /> 
         <Route exact path="/myprofile/ads" component={Ads} /> 
-
         <Route exact path="/myprofile/messages" component={Chat}/>
-
         <Route exact path="/register" component={Register}/> 
+        <Route exact path="/privacy" component={Privacy}/> 
+        <Route exact path="/aboutus" component={AboutUs}/> 
 
       </Switch>
     )

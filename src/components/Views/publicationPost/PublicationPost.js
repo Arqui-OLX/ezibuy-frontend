@@ -279,13 +279,6 @@ class PublicationPost extends Component {
      }
 
 
-
-
-
-
-
-
- 
     handleChange = e => {
 
 
@@ -315,16 +308,21 @@ class PublicationPost extends Component {
 
     render() {
 
+       var choosed = <div></div>
        var listItems = <div></div>;
 
        var features = [];
        if(this.state.subcategory !==-1){
 
-             
+ 
+            choosed = <h1>{this.state.arraySubcategory[this.state.subcategory-1]}</h1>
+
             listItems = this.state.fields[this.state.subcategory].map((i, index) =>
+
+
                
                 <div key={i} className="form-group">
- 
+
 
                      <input 
                         id ={index} 
@@ -339,6 +337,9 @@ class PublicationPost extends Component {
                 </div>     
 
              );
+
+
+       
             
        }
         
@@ -451,10 +452,20 @@ class PublicationPost extends Component {
                 <MapWithMarker updateCoordinates={(lat, lng, city, department) => this.updateLocation(lat, lng, city, department)}/>
             </div>
             
+            {/* <div>
+                <h1>{this.state.arraySubcategory[0]}</h1>
+            </div> */}
 
             {
                 this.state.showFeatures?
-                    listItems                         
+                    choosed
+                :null
+            }
+
+
+            {
+                this.state.showFeatures?
+                    listItems
                 :null
             }
 

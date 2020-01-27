@@ -14,13 +14,11 @@ class Footer extends Component{
             <footer>
                 <div className="container mt-5 mb-1">
                     <div className ="row bg-white">
-                            <div className="col-lg-3 my-auto">
-                                 
-                                  <a href="http://google.com">Políticas de privacidad</a>                                             
-                              
+                            <div className="col-lg-3 my-auto">      
+                                  <a href="/privacy">Políticas de privacidad</a>                                           
                             </div>
                             <div className="col-lg-3 my-auto">           
-                                    <a href="http://google.com">Sobre nosotros</a>                                
+                                  <a href="/aboutus">Sobre nosotros</a>                                
                             </div>
                             <div className="row col-lg-3 my-auto mx-auto">
                                 <p className="my-auto mx-auto">Ezibuy, Copyright, 2019</p> 
