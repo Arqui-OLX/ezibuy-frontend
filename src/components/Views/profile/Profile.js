@@ -165,7 +165,7 @@ class Profile extends Component{
                                 className="btn btn-sm btn-primary w-25 mx-auto m-3"
                                 data-toggle="modal" 
                                 data-target="#exampleModal">
-                                <h4 className="m-0">Editar perfil</h4>
+                                <h4 className="m-0 text-white">Editar perfil</h4>
                         </button>
 
                     </div>

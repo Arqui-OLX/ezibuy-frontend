@@ -93,7 +93,6 @@ class PublicationPost extends Component {
       }
 
     updateLocation(lat, lng, city, department) {
-        console.log(lat, lng, city, department)
         this.setState({lat: lat, lng: lng, city: city, department: department})
     }
     
@@ -209,7 +208,6 @@ class PublicationPost extends Component {
                              }
                             }
                             `};
-        console.log(mutation);
         const options = {
             method: 'POST',
             headers: { 'Authorization': 'Bearer '+JSON.parse(localStorage.getItem("userInfo")).token },
@@ -230,7 +228,6 @@ class PublicationPost extends Component {
                     loading1: false,
                 })
             }
-            console.log(response);
           //  idPost = response.data._id
             
          })
@@ -263,7 +260,6 @@ class PublicationPost extends Component {
                      })
                 }
             
-                console.log(response);
                 
             }).catch((error) =>{
                 this.setState({

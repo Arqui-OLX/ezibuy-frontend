@@ -1,0 +1,16 @@
+.uls{
+  
+    text-align: left;
+    color: #123C69;
+    
+}
+ li:hover{
+    background-color: white;
+}
+ li{
+      cursor: default;
+     font-size: 17px;
+ }
+ p{
+    text-align: justify;
+ }

@@ -26,12 +26,10 @@ btnYT() {
          
   
         <div className= "container  mt-3">
-            <div className="row center">
+            <div className="row">
               <div className="col-md-4 blog-main">
-               <div className="bg-petshappy-links-darkness   text-white h-25 rounded   ">
-          
-         
-                  <h1 className="text-center font-merriweather font-size-40px">Nosotros</h1>
+             
+                  <h1 className="text-centerfont-size-40px mt-5 pt-5">Nosotros</h1>
                   <p className="font-quicksand font-size-15px m-3">
                       Ezibuy es un equipo de 6 programadores.
                       Nos pasamos horas y horas programando, editando
@@ -40,11 +38,6 @@ btnYT() {
                        Todo ocurre en Bogotá, en la ciudad universitaria, 
                        para la asignatura arquitectura de sofware.
                   </p>
-
-               </div>
-
-                
-
               </div>
 
                 <div className="col-md-8 d-inline">

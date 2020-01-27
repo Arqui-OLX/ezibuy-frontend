@@ -38,7 +38,8 @@ body{
     width: 350px;
     height: 300px;
     border-radius: 25px;
-}
+    margin-bottom: 200px;
+ }
 
 .inputRegister{
     width: 250px;

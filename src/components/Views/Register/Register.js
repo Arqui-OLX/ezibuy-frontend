@@ -32,15 +32,12 @@ class Register extends Component{
 
     handleSubmit(e){
         e.preventDefault();
-        console.log("Pressed the button")
-  
+   
         this.handleRegister(this.state.email, this.state.password,this.state.nickname, this.state.phone)
 
     }
 
-    handleRegister(email, password, nickname, phone){
-        console.log("entra handleregister");
-        
+    handleRegister(email, password, nickname, phone){        
 
         const Client = new ApolloClient({ uri: 'http://35.209.170.220:4000/' });
 
@@ -106,7 +103,7 @@ class Register extends Component{
         return(
             <div className="divRegister">
 
-                <h2 className="main-title mt-4 mb-4">Regístrate</h2>
+                <h2 className="main-title mt-4 ">Regístrate</h2>
      
                 
                     
@@ -142,6 +139,7 @@ class Register extends Component{
                             placeholder="contraseña" 
                             name="password" 
                             onChange={this.handleTextBoxChange}
+                            minLength="3"
                             required/>
                     </div>
 
@@ -164,13 +162,14 @@ class Register extends Component{
                             placeholder="numero telefonico" 
                             name="phone" 
                             onChange={this.handleTextBoxChange}
+                            minLength="3"
                             required/>
                     </div>
                     
                 
                     <br></br>
 
-                    <button type="submit" className="btnsubmit btn w-75 mb-5"  >Registrarse</button>
+                    <button type="submit" className="btnsubmit btn w-75"  >Registrarse</button>
 
 
                 </form>

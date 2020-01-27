@@ -90,8 +90,7 @@ class  EditProfile extends Component{
         
 
         if(this.state.files[0] != undefined){
-            console.log("ENTRA");
-            
+             
             axios.patch(UrlImageEditProfile+this.state.idImage, bodyFormData)
            
             
@@ -203,7 +202,7 @@ class  EditProfile extends Component{
                     className="btn btn-sm btn-success w-25 mx-auto m-3"
                     data-toggle="modal" 
                     data-target="#exampleModal">
-                    Aceptar 
+                    <h4 className="m-0 text-white">Aceptar</h4> 
                 </button>
 
                
